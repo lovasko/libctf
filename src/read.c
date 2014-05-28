@@ -13,7 +13,7 @@ ctf_read_buffer (struct ctf_section ctf, struct ctf_section elf_string_table)
 	if (header.preface.magic != CTF_MAGIC)
 		return NULL;
 
-	if (header.preface.version != 2)
+	if (header.preface.version != CTF_VERSION)
 		return NULL;
 
 	size_t label_section_size = header.object_offset - header.label_offset;

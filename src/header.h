@@ -5,6 +5,8 @@
 
 #define CTF_MAGIC 0xCFF1
 
+#define CTF_VERSION 2
+
 #define CTF_COMPRESSED 0x1
 
 /**
