@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+/* KIND constants that are contained in the type information */
 #define CTF_KIND_NONE 0
 #define CTF_KIND_INT 1
 #define CTF_KIND_FLOAT 2
@@ -18,12 +19,27 @@
 #define CTF_KIND_CONST 12
 #define CTF_KIND_RESTRICT 13
 
+/* current maximum of KIND constants (all others should be <=) */
 #define CTF_KIND_MAX 13
 
+/**
+ * Extract the kind from a type information.
+ *
+ * @param info the type information
+ * @return one of the CTF_KIND constants 
+ */
 uint8_t
 ctf_info_to_kind (uint16_t info);
 
+/**
+ * Extract the kind from a type information and create a string representation.
+ *
+ * @param info the type information
+ * @return e.g. "float" for CTF_KIND_FLOAT. If none of the CTF_KINDs were able
+ * to match, "unresolvable" is returned.
+ */
 const char*
 ctf_info_to_string (uint16_t info);
 
 #endif
+
