@@ -13,7 +13,7 @@ struct ctf_file
 {
 	int compressed; /**< 0/1 false/true flag for the compression */
 	int version; /**< version indicator */
-	struct ctf_label *labels; /**< linked list containing labels */
+	struct ctf_label_head label_head; /**< linked list containing labels */
 };
 
 #endif
