@@ -33,3 +33,13 @@ ctf_kind_is_pure_reference (uint8_t kind)
 		return 0;
 }
 
+int
+ctf_kind_is_special (uint8_t kind)
+{
+	if (kind == CTF_KIND_NONE
+	 || kind == CTF_KIND_FORWARD)
+		return 1;
+	else
+		return 0;
+}
+

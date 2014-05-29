@@ -44,5 +44,8 @@ ctf_info_to_string (uint16_t info);
 int
 ctf_kind_is_pure_reference (uint8_t kind);
 
+int
+ctf_kind_is_special (uint8_t kind);
+
 #endif
 
