@@ -22,6 +22,7 @@
 /* current maximum of KIND constants (all others should be <=) */
 #define CTF_KIND_MAX 13
 
+/* TODO possibly rename this function to ctf_kind_from_info */
 /**
  * Extract the kind from a type information.
  *
