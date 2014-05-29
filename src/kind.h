@@ -41,5 +41,8 @@ ctf_info_to_kind (uint16_t info);
 const char*
 ctf_info_to_string (uint16_t info);
 
+int
+ctf_kind_is_pure_reference (uint8_t kind);
+
 #endif
 

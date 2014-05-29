@@ -20,3 +20,16 @@ ctf_info_to_string (uint16_t info)
 		return "unresolvable";
 }
 
+int
+ctf_kind_is_pure_reference (uint8_t kind)
+{
+	if (kind == CTF_KIND_POINTER
+	 || kind == CTF_KIND_TYPEDEF
+	 || kind == CTF_KIND_VOLATILE 
+	 || kind == CTF_KIND_CONST
+	 || kind == CTF_KIND_RESTRICT)
+		return 1;
+	else
+		return 0;
+}
+
