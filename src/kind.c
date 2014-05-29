@@ -3,7 +3,7 @@
 uint8_t
 ctf_info_to_kind (uint16_t info)
 {
-	return (type_info & 0xf800) >> 11;
+	return (info & 0xf800) >> 11;
 }
 
 const char*
