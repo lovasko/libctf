@@ -15,6 +15,7 @@ struct ctf_file
 	int version; /**< version indicator */
 	struct ctf_label_head label_head; /**< linked list containing labels */
 };
+#define CTF_FILE_SIZE sizeof(struct ctf_file)
 
 #endif
 
