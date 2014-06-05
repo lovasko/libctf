@@ -33,14 +33,14 @@ uint8_t
 ctf_info_to_kind (uint16_t info);
 
 /**
- * Extract the kind from a type information and create a string representation.
+ * String representation of a kind. 
  *
  * @param info the type information
  * @return e.g. "float" for CTF_KIND_FLOAT. If none of the CTF_KINDs were able
  * to match, "unresolvable" is returned.
  */
 const char*
-ctf_info_to_string (uint16_t info);
+ctf_kind_to_string (uint8_t kind);
 
 int
 ctf_kind_is_pure_reference (uint8_t kind);
