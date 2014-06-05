@@ -15,10 +15,13 @@ struct _ctf_enum_entry
 };
 #define _CTF_ENUM_ENTRY_SIZE sizeof(struct _ctf_enum_entry)
 
+/**
+ * Enum entry.
+ */
 struct ctf_enum_entry
 {
-	char *name;
-	int32_t value;
+	char *name; /**< name of the entry */
+	int32_t value; /**< value of the entry */
 
 	LIST_ENTRY(ctf_enum_entry) entries;
 };
