@@ -2,6 +2,7 @@
 #define CTF_TYPE_H
 
 #include <stdint.h>
+#include <sys/queue.h>
 
 /* if the small_type.size is greater than this, we should use the large_type */
 #define CTF_SMALL_TYPE_THRESHOLD 0xfffe
@@ -56,6 +57,19 @@ struct _ctf_large_type
 	uint64_t size; /**< @see _ctf_small_type#size */
 };
 #define _CTF_LARGE_TYPE_SIZE sizeof(struct _ctf_large_type)
+
+struct ctf_type
+{
+	char *name;
+	uint8_t kind;
+	void *data;
+
+	LIST_ENTRY(ctf_type) types;
+};
+#define CTF_TYPE_SIZE sizeof(struct ctf_type)
+
+LIST_HEAD(ctf_type_head, ctf_type);
+#define CTF_TYPE_HEAD_SIZE sizeof(struct ctf_type_head)
 
 #endif
 
