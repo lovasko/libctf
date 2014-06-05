@@ -13,7 +13,7 @@ struct _ctf_enum_entry
 	uint32_t name; /**< name of the enum element */
 	int32_t value; /**< value associated with this element */
 };
-#define _CTF_ENUM_ENTRY_SIZE sizeof(struct _ctf_enum)
+#define _CTF_ENUM_ENTRY_SIZE sizeof(struct _ctf_enum_entry)
 
 struct ctf_enum_entry
 {
