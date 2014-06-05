@@ -12,7 +12,8 @@
  *
  * The member info from both, the small_ and large_type, is not a single
  * number, but rather 3 separate variables packed into single 16-bit word.
- * Bytes 0-9 represent the vlen. TODO what is the vlen?
+ * Bytes 0-9 represent the length of the variable data section following the
+ * general type information.
  * Byte 10 represents the boolean flag for the attribute root. TODO what is the
  * root?
  * Bytes 11-15 form the kind of the types. The kind constants CTF_KIND can be
