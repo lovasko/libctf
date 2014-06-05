@@ -59,13 +59,17 @@ struct _ctf_large_type
 };
 #define _CTF_LARGE_TYPE_SIZE sizeof(struct _ctf_large_type)
 
+/**
+ * General type information.
+ */
 struct ctf_type
 {
-	char *name;
-	uint8_t kind;
-	void *data;
+	char *name; /**< name of the type */
+	uint8_t kind; /**< kind of the type, one of the CTF_KIND constants */
+	void *data; /**< vardata for complex types and pointer to referenced type in
+	case of the reference types. this type should be  */
 
-	LIST_ENTRY(ctf_type) types;
+	LIST_ENTRY(ctf_type) types; /**< pointer to following types */
 };
 #define CTF_TYPE_SIZE sizeof(struct ctf_type)
 
