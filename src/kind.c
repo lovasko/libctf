@@ -43,3 +43,18 @@ ctf_kind_is_special (uint8_t kind)
 		return 0;
 }
 
+int
+ctf_kind_is_complex (uint8_t kind)
+{
+	if (kind == CTF_KIND_INT
+	 || kind == CTF_KIND_FLOAT
+	 || kind == CTF_KIND_ARRAY
+	 || kind == CTF_KIND_FUNC
+	 || kind == CTF_KIND_ENUM
+	 || kind == CTF_KIND_STRUCT
+	 || kind == CTF_KIND_UNION)
+		return 1;
+	else
+		return 0;
+}
+

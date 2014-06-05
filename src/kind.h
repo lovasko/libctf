@@ -48,5 +48,8 @@ ctf_kind_is_pure_reference (uint8_t kind);
 int
 ctf_kind_is_special (uint8_t kind);
 
+int
+ctf_kind_is_complex (uint8_t kind);
+
 #endif
 
