@@ -17,5 +17,12 @@ struct _ctf_array
 };
 #define _CTF_ARRAY_SIZE sizeof(struct _ctf_array)
 
+struct ctf_array
+{
+	uint32_t element_count;
+	struct ctf_type *type;
+};
+#define CTF_ARRAY_SIZE sizeof(struct ctf_array)
+
 #endif
 
