@@ -34,7 +34,7 @@ ctf_kind_from_info (uint16_t info);
 /**
  * String representation of a kind. 
  *
- * @param info the type information
+ * @param kind the type kind 
  * @return e.g. "float" for CTF_KIND_FLOAT. If none of the CTF_KINDs were able
  * to match, "unresolvable" is returned.
  */
