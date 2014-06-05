@@ -37,13 +37,17 @@ struct _ctf_large_member
 };
 #define _CTF_LARGE_MEMBER_SIZE sizeof(struct _ctf_small_member)
 
+/**
+ * Struct or union member.
+ */
 struct ctf_member
 {
-	char *name;
-	struct ctf_type *type;
-	uint64_t offset;
+	char *name; /**< name of the member */
+	struct ctf_type *type; /**< type of the member */
+	uint64_t offset; /**< offset inside the struct (union, by design, has all
+	offsets 0) */
 
-	LIST_ENTRY(ctf_member) members;
+	LIST_ENTRY(ctf_member) members; /**< pointer to following members */
 };
 #define CTF_MEMBER_SIZE sizeof(struct ctf_member)
 
