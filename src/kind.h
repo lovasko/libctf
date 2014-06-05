@@ -22,7 +22,6 @@
 /* current maximum of KIND constants (all others should be <=) */
 #define CTF_KIND_MAX 13
 
-/* TODO possibly rename this function to ctf_kind_from_info */
 /**
  * Extract the kind from a type information.
  *
@@ -30,7 +29,7 @@
  * @return one of the CTF_KIND constants 
  */
 uint8_t
-ctf_info_to_kind (uint16_t info);
+ctf_kind_from_info (uint16_t info);
 
 /**
  * String representation of a kind. 

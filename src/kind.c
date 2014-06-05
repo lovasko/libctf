@@ -1,7 +1,7 @@
 #include "kind.h"
 
 uint8_t
-ctf_info_to_kind (uint16_t info)
+ctf_kind_from_info (uint16_t info)
 {
 	return (info & 0xf800) >> 11;
 }
