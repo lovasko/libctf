@@ -37,5 +37,16 @@ struct _ctf_large_member
 };
 #define _CTF_LARGE_MEMBER_SIZE sizeof(struct _ctf_small_member)
 
+struct ctf_member
+{
+	char *name;
+	struct ctf_type *type;
+	uint64_t offset;
+};
+#define CTF_MEMBER_SIZE sizeof(struct ctf_member)
+
+LIST_HEAD(ctf_member_head, ctf_member);
+#define CTF_MEMBER_HEAD_SIZE sizeof(struct ctf_member_head)
+
 #endif
 
