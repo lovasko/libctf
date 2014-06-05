@@ -42,6 +42,8 @@ struct ctf_member
 	char *name;
 	struct ctf_type *type;
 	uint64_t offset;
+
+	LIST_ENTRY(ctf_member) members;
 };
 #define CTF_MEMBER_SIZE sizeof(struct ctf_member)
 
