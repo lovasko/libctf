@@ -181,7 +181,7 @@ read_types (struct ctf_type_head *head, struct ctf_section *section)
 			type->data = read_function_vardata(section->data + offset, id_table,
 			    vardata_length, return_type);
 
-			offset += vardata_length * sizeof(uint16_t);
+			offset += (vardata_length + (vardata_length & 1)) * sizeof(uint16_t);
 
 			unsigned char *to_print = (unsigned char*)(section->data + offset);
 			for (unsigned int i = 0; i < 20; i++)
