@@ -96,7 +96,7 @@ read_types (struct ctf_type_head *head, struct ctf_section *section)
 	{
 		printf("Parsing next type, offset = %d\n", offset);
 		struct _ctf_small_type *small_type = section->data + offset;	
-		uint8_t kind = ctf_info_to_kind(small_type->info);
+		uint8_t kind = ctf_kind_from_info(small_type->info);
 		uint16_t vardata_length = small_type->info & CTF_VARDATA_LENGTH_MAX;
 		printf("kind = %s, vardata_length = %d\n", ctf_kind_to_string(kind),
 		    vardata_length);
