@@ -107,7 +107,10 @@ read_types (struct ctf_type_head *head, struct ctf_section *section)
 
 		if (ctf_kind_is_pure_reference(kind) == 1)
 		{
-			type->name = resolve_string(small_type->name);
+			if (kind == CTF_KIND_TYPEDEF)
+				type->name = resolve_string(small_type->name);
+			else
+				type->name = NULL;
 
 			if (small_type->type < 0 || small_type->type > id)
 				return 1;
