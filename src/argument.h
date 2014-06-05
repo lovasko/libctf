@@ -5,11 +5,16 @@
 
 #include <sys/queue.h>
 
+/**
+ * Function argument.
+ *
+ * Currently, only the type of the argument is stored, not the name.
+ */
 struct ctf_argument
 {
-	struct ctf_type *type;
+	struct ctf_type *type; /**< type of the argument */
 
-	LIST_ENTRY(ctf_argument) arguments;
+	LIST_ENTRY(ctf_argument) arguments; /**< pointer to following arguments */
 };
 #define CTF_ARGUMENT_SIZE sizeof(struct ctf_argument)
 
