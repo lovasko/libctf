@@ -2,6 +2,7 @@
 #define CTF_FILE_H
 
 #include "label.h"
+#include "type.h"
 
 /**
  * Root CTF data strcture.
@@ -14,6 +15,7 @@ struct ctf_file
 	int compressed; /**< 0/1 false/true flag for the compression */
 	int version; /**< version indicator */
 	struct ctf_label_head label_head; /**< linked list containing labels */
+	struct ctf_type_head type_head; /**< linked list containing types */
 };
 #define CTF_FILE_SIZE sizeof(struct ctf_file)
 

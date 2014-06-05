@@ -80,3 +80,20 @@ ctf_read_buffer (struct ctf_section ctf, struct ctf_section elf_strtab)
 	return file;
 }
 
+	struct ctf_section type_section;
+	type_section.data = ctf.data + _CTF_HEADER_SIZE + header.type_offset;
+	type_section.size = header.string_offset - header.type_offset;
+
+	struct ctf_type_head type_head;	
+	LIST_INIT(&type_head);
+	read_types(&type_head, &type_section);
+
+	struct ctf_file *file = (struct ctf_file*)malloc(CTF_FILE_SIZE);
+	file->label_head = label_head;
+	file->type_head = type_head;
+	file->version = CTF_VERSION;
+	file->compressed = 0;
+
+	return file;
+}
+
