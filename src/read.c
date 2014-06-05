@@ -35,7 +35,7 @@ read_labels (struct ctf_label_head *head, struct ctf_section *section)
 
 	for (unsigned int i = 0; i < section->size/_CTF_LABEL_SIZE; i++)
 	{
-		struct ctf_label *to_add = (struct ctf_label*)malloc(CTF_LABEL_SIZE);
+		struct ctf_label *to_add = malloc(CTF_LABEL_SIZE);
 		to_add->index = raw_labels[i].index;
 		to_add->name = resolve_string(raw_labels[i].name);
 		ctf_label_add(head, to_add);
@@ -237,7 +237,7 @@ ctf_read_buffer (struct ctf_section ctf, struct ctf_section elf_strtab)
 	LIST_INIT(&type_head);
 	read_types(&type_head, &type_section);
 
-	struct ctf_file *file = (struct ctf_file*)malloc(CTF_FILE_SIZE);
+	struct ctf_file *file = malloc(CTF_FILE_SIZE);
 	file->label_head = label_head;
 	file->type_head = type_head;
 	file->version = CTF_VERSION;

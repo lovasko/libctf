@@ -26,7 +26,7 @@ void*
 read_array_vardata (void *data, struct ctf_type **id_table)
 {
 	struct _ctf_array *raw = (struct _ctf_array*)data;
-	struct ctf_array *array = (struct ctf_array*)malloc(CTF_ARRAY_SIZE);
+	struct ctf_array *array = malloc(CTF_ARRAY_SIZE);
 
 	array->element_count = raw->element_count;
 	array->type = id_table[raw->content_type];
