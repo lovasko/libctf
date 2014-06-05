@@ -11,6 +11,9 @@
 #define CTF_INT_FLOAT_OFFSET_MASK   0x00ff0000 
 #define CTF_INT_FLOAT_SIZE_MASK     0x0000ffff 
 
+/**
+ * Common variable data for int and float kinds.
+ */
 struct ctf_int_float_vardata
 {
 	uint8_t encoding;
