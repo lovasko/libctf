@@ -53,7 +53,7 @@ decompress (struct _section *to_decompress)
 			stream.next_out = out;
 
 			ret = inflate(&stream, Z_NO_FLUSH);
-			if (ret != Z_OK)
+			if (ret != Z_OK && ret != Z_STREAM_END)
 			{
 				inflateEnd(&stream);
 				free(result);
