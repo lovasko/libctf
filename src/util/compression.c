@@ -1,6 +1,8 @@
 #include "compression.h"
 
 #include <string.h>
+#include <zlib.h>
+#include <stdlib.h>
 
 #define CHUNK_SIZE 1024
 
