@@ -65,6 +65,7 @@ decompress (struct ctf_section *to_decompress)
 		}
 		while (stream.avail_out == 0);
 
+		offset += CHUNK_SIZE;
 	}
 	while (ret != Z_STREAM_END);
 
