@@ -5,7 +5,6 @@
 #include "header.h"
 #include "label.h"
 #include "read.h"
-#include "section.h"
 #include "vardata.h"
 #include "function.h"
 #include "kind.h"
