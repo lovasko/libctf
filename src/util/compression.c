@@ -61,7 +61,8 @@ decompress (struct _section *to_decompress)
 			}
 
 			have = CHUNK_SIZE - stream.avail_out;
-			realloc(result->data, result->size + have);
+
+			result->data = realloc(result->data, result->size + have);
 			memcpy(result->data + result->size, out, have);
 		}
 		while (stream.avail_out == 0);
