@@ -64,6 +64,7 @@ decompress (struct _section *to_decompress)
 
 			result->data = realloc(result->data, result->size + have);
 			memcpy(result->data + result->size, out, have);
+			result->size += have;
 		}
 		while (stream.avail_out == 0);
 
