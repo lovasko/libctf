@@ -193,7 +193,7 @@ header_preface_check (struct _ctf_preface *preface)
 }
 
 struct ctf_file*
-ctf_read_buffer (struct ctf_section ctf, struct ctf_section elf_strtab)
+ctf_read_file (char *filename)
 {
 	struct _ctf_header header;
 	memcpy(&header, ctf.data, _CTF_HEADER_SIZE);

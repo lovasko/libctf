@@ -5,14 +5,13 @@
 #include "section.h"
 
 /**
- * Parse the CTF data inside the section ctf.
+ * Parse the file and extract all CTF data.
  * 
- * @param ctf content of the .SUNW_ctf ELF section 
- * @param elf_string_table content of the .strtab ELF section 
+ * @param filename filename
  * @return filled ctf_file or NULL on error
  */
 struct ctf_file*
-ctf_read_buffer (struct ctf_section ctf, struct ctf_section elf_string_table);
+ctf_read_file (char *filename);
 
 #endif
 
