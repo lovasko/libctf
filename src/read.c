@@ -25,8 +25,6 @@ resolve_string (uint32_t name_reference)
 		return &elf_string_table[offset];
 }
 
-
-
 /* 
  * TODO Right now we assume that there was no uniquification done and that
  * _all_ types are present in this CTF unit. This has to change in near future.
