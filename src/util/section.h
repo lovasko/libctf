@@ -4,7 +4,10 @@
 #include <stdlib.h>
 
 /**
- * Simplified representation of the ELF section.
+ * Simplified representation of universal data section.
+ * Data sections can be a ELF sections, CTF subsections or any general block of
+ * binary data.
+ * Designated for internal use only.
  */
 struct _section
 {
