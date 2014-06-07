@@ -25,24 +25,6 @@ resolve_string (uint32_t name_reference)
 		return &elf_string_table[offset];
 }
 
-static int
-read_labels (struct ctf_label_head *head, struct ctf_section *section)
-{
-	if (section->size % _CTF_LABEL_SIZE != 0)
-		return 1;
-
-	struct _ctf_label *raw_labels = (struct _ctf_label*)section->data;	
-
-	for (unsigned int i = 0; i < section->size/_CTF_LABEL_SIZE; i++)
-	{
-		struct ctf_label *to_add = malloc(CTF_LABEL_SIZE);
-		to_add->index = raw_labels[i].index;
-		to_add->name = resolve_string(raw_labels[i].name);
-		ctf_label_add(head, to_add);
-	}
-
-	return 0;
-}
 
 
 /* 
