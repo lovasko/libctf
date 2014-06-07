@@ -6,12 +6,12 @@
 /**
  * Simplified representation of the ELF section.
  */
-struct ctf_section
+struct _section
 {
 	void *data; /**< section data */
 	size_t size; /**< section size in bytes */
 };
-#define CTF_SECTION_SIZE sizeof(struct ctf_section)
+#define _SECTION_SIZE sizeof(struct _section)
 
 #endif
 
