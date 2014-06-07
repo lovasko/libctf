@@ -17,8 +17,7 @@ decompress (struct _section *to_decompress)
 	unsigned int offset;
 	unsigned int have;
 
-	struct ctf_section *result;
-	result = malloc(CTF_SECTION_SIZE);
+	struct _section *result = malloc(_SECTION_SIZE);
 	result->data = NULL;
 	result->size = 0;
 
