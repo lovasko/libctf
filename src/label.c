@@ -30,7 +30,8 @@ ctf_label_remove (struct ctf_label_head *head, struct ctf_label *to_remove)
 }
 
 int
-read_labels (struct ctf_label_head *head, struct _section *section)
+read_labels (struct ctf_label_head *head, struct _section *section, struct
+    _strings *strings)
 {
 	if (section->size % _CTF_LABEL_SIZE != 0)
 		return 1;
@@ -41,9 +42,10 @@ read_labels (struct ctf_label_head *head, struct _section *section)
 	{
 		struct ctf_label *to_add = malloc(CTF_LABEL_SIZE);
 		to_add->index = raw_labels[i].index;
-		to_add->name = resolve_string(raw_labels[i].name);
+		to_add->name = strdup(strings_lookup(strings, raw_labels[i].name));
 		ctf_label_add(head, to_add);
 	}
 
 	return 0;
 }
+

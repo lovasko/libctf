@@ -58,7 +58,8 @@ int
 ctf_label_remove (struct ctf_label_head *head, struct ctf_label *to_remove);
 
 int
-read_labels (struct ctf_label_head *head, struct _section *section);
+read_labels (struct ctf_label_head *head, struct _section *section, struct
+    _strings *strings);
 
 #endif
 
