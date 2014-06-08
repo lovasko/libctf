@@ -134,8 +134,11 @@ ctf_read_file (char *filename)
 	file->version = CTF_VERSION;
 	file->compressed = header->preface.flags & CTF_COMPRESSED;
 
+	free(ctf_section->data);
 	free(ctf_section);
+	free(strtab_section->data);
 	free(strtab_section);
+	free(symtab_section->data);
 	free(symtab_section);
 	free(strings.ctf);
 	close(fd);
