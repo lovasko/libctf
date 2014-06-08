@@ -160,9 +160,7 @@ ctf_read_file (char *filename)
 	struct _section label_section;
 	label_section.data = headerless_ctf + header->label_offset;
 	label_section.size = header->object_offset - header->label_offset;
-	struct ctf_label_head label_head;	
-	LIST_INIT(&label_head);
-	read_labels(&label_head, &label_section, &strings);
+	read_labels(file, &label_section, &strings);
 
 	/* read the types */
 	struct _section type_section;
@@ -175,8 +173,6 @@ ctf_read_file (char *filename)
 	struct ctf_file *file = malloc(CTF_FILE_SIZE);
 	file->label_head = label_head;
 	file->type_head = type_head;
-	file->version = CTF_VERSION;
-	file->compressed = header->preface.flags & CTF_COMPRESSED;
 
 	free(ctf_section->data);
 	free(ctf_section);

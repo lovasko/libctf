@@ -3,6 +3,7 @@
 
 #include "util/section.h"
 #include "strings.h"
+#include "file.h"
 
 #include <stdint.h>
 #include <sys/queue.h>
@@ -60,8 +61,10 @@ ctf_label_add (struct ctf_label_head *head, struct ctf_label *to_add);
 int
 ctf_label_remove (struct ctf_label_head *head, struct ctf_label *to_remove);
 
+struct ctf_file;
+
 int
-read_labels (struct ctf_label_head *head, struct _section *section, struct
+read_labels (struct ctf_file *file, struct _section *section, struct
     _strings *strings);
 
 #endif

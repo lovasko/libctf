@@ -30,7 +30,7 @@ ctf_label_remove (struct ctf_label_head *head, struct ctf_label *to_remove)
 }
 
 int
-read_labels (struct ctf_label_head *head, struct _section *section, struct
+read_labels (struct ctf_file *file, struct _section *section, struct
     _strings *strings)
 {
 	if (section->size % _CTF_LABEL_SIZE != 0)
