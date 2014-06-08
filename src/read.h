@@ -2,7 +2,6 @@
 #define CTF_READ_H
 
 #include "file.h"
-#include "section.h"
 
 /**
  * Parse the file and extract all CTF data.
