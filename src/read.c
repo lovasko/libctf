@@ -100,6 +100,8 @@ ctf_read_file (char *filename)
 		if (decompressed == NULL)
 			return NULL;
 
+		/* TODO check if the decompressed data have the correct size */
+
 		headerless_ctf = decompressed->data;
 	}
 	else
