@@ -108,7 +108,7 @@ read_types (struct ctf_type_head *head, struct _section *section, struct
 			*reference_kind = small_type->type;
 			type->data = reference_kind;
 
-			offset += _CTF_SMALL_TYPE_SIZE
+			offset += _CTF_SMALL_TYPE_SIZE;
 		}
 
 		if (ctf_kind_is_complex(kind) == 1 && kind != CTF_KIND_FUNC)
