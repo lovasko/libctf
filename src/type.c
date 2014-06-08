@@ -92,12 +92,23 @@ read_types (struct ctf_type_head *head, struct _section *section, struct
 			offset += _CTF_SMALL_TYPE_SIZE;
 		}
 
-		if (ctf_kind_is_special(kind) == 1)
+		if (kind == CTF_KIND_NONE)
 		{
 			type->name = NULL;
 			type->data = NULL;
 
 			offset += _CTF_SMALL_TYPE_SIZE;
+		}
+
+		if (kind == CTF_KIND_FWD_DECL)
+		{
+			type->name = strdup(strings_lookup(strings, small_type->name));		
+
+			uint8_t *reference_kind = malloc(sizeof(uint8_t));
+			*reference_kind = small_type->type;
+			type->data = reference_kind;
+
+			offset += _CTF_SMALL_TYPE_SIZE
 		}
 
 		if (ctf_kind_is_complex(kind) == 1 && kind != CTF_KIND_FUNC)
