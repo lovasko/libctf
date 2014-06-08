@@ -112,6 +112,48 @@ ctf_read_file (char *filename)
 	strings.ctf->size = header->string_length;
 	strings.elf = strtab_section;
 
+	/* construct the final file structure */
+	struct ctf_file *file = malloc(CTF_FILE_SIZE);
+	file->version = CTF_VERSION;
+	file->compressed = header->preface.flags & CTF_COMPRESSED;
+
+	/* check for the parent reference */
+	char *parent_basename = strings_lookup(&strings, header->parent_basename);
+	if (parent_basename[0] !=	'\0')
+	{
+		/* TODO is this really a basename? if so, we need to extract the dirname to
+		 * be able to locate the file properly. For the future - why isnt this a
+		 * full path? */
+		file->parent_file = ctf_read_file(parent_basename);
+		if (file->parent_file == NULL)
+			return NULL;
+
+		char *parent_label_name = strings_lookup(&strings, header->parent_label);
+		struct ctf_label *parent_label;
+		int found = 0;
+
+		LIST_FOREACH (parent_label, &file->parent_file.label_head, labels)
+		{
+			if (strcmp(parent_label_name, parent_label->name) == 0)
+			{
+				found = 1;	
+				break;
+			}
+		}
+
+		if (found == 0)
+			return NULL;
+		else
+		{
+			file->type_id_offset = parent_label->index;
+		}
+	}
+	else
+	{
+		file->parent_file = NULL;
+		file->type_id_offset = 0;
+	}
+
 	/* read the labels */
 	struct _section label_section;
 	label_section.data = headerless_ctf + header->label_offset;
