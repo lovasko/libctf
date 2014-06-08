@@ -16,21 +16,6 @@
 #include <gelf.h>
 #include <stdint.h>
 
-char *ctf_string_table;
-char *elf_string_table;
-
-/* TODO check bounds for both tables */
-static char*
-resolve_string (uint32_t name_reference)
-{
-	uint32_t offset = name_reference & 0x7fffffff;
-
-	if ((name_reference >> 31) == 0)
-		return &ctf_string_table[offset];
-	else
-		return &elf_string_table[offset];
-}
-
 static int
 header_preface_check (struct _ctf_preface *preface)
 {
