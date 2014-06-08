@@ -73,7 +73,10 @@ read_types (struct ctf_type_head *head, struct _section *section, struct
 
 		struct ctf_type *type = malloc(CTF_TYPE_SIZE);			
 		type->kind = kind;
-		id_table[id++] = type;
+		type->id = id;
+		id_table[id] = type;
+
+		id++;
 
 		if (ctf_kind_is_pure_reference(kind) == 1)
 		{
