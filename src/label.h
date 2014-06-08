@@ -1,6 +1,9 @@
 #ifndef CTF_LABEL_H
 #define CTF_LABEL_H
 
+#include "util/section.h"
+#include "strings.h"
+
 #include <stdint.h>
 #include <sys/queue.h>
 
