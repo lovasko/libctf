@@ -19,11 +19,6 @@ lookup_type (struct ctf_file *file, uint16_t id)
 		return file->type_id_table[id];	
 }
 
-/* 
- * TODO Right now we assume that there was no uniquification done and that
- * _all_ types are present in this CTF unit. This has to change in near future.
- */
-
 /*
  * Algorithm
  *
