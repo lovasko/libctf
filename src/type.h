@@ -14,8 +14,7 @@
  * number, but rather 3 separate variables packed into single 16-bit word.
  * Bytes 0-9 represent the length of the variable data section following the
  * general type information.
- * Byte 10 represents the boolean flag for the attribute root. TODO what is the
- * root?
+ * Byte 10 represents the boolean flag for the attribute root.  
  * Bytes 11-15 form the kind of the types. The kind constants CTF_KIND can be
  * found inside the kind.h file.
  */
