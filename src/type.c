@@ -1,4 +1,5 @@
 #include "type.h"
+#include "file.h"
 #include "kind.h"
 #include "vardata.h"
 #include "array.h"
