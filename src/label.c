@@ -6,7 +6,6 @@
 #include <sys/queue.h>
 
 /* TODO check for the duplicates based on the name */
-/* TODO return the pointer to the newly added node */
 int
 ctf_label_add (struct ctf_label_head *head, struct ctf_label *to_add)
 {
