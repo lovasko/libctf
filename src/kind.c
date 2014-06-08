@@ -36,7 +36,7 @@ int
 ctf_kind_is_special (uint8_t kind)
 {
 	if (kind == CTF_KIND_NONE
-	 || kind == CTF_KIND_FORWARD)
+	 || kind == CTF_KIND_FWD_DECL)
 		return 1;
 	else
 		return 0;

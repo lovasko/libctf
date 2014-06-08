@@ -13,7 +13,7 @@
 #define CTF_KIND_STRUCT    6
 #define CTF_KIND_UNION     7
 #define CTF_KIND_ENUM      8
-#define CTF_KIND_FORWARD   9
+#define CTF_KIND_FWD_DECL  9
 #define CTF_KIND_TYPEDEF  10
 #define CTF_KIND_VOLATILE 11
 #define CTF_KIND_CONST    12
