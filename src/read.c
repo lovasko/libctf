@@ -134,7 +134,7 @@ ctf_read_file (char *filename)
 		struct ctf_label *parent_label;
 		int found = 0;
 
-		LIST_FOREACH (parent_label, &file->parent_file.label_head, labels)
+		LIST_FOREACH (parent_label, file->parent_file->label_head, labels)
 		{
 			if (strcmp(parent_label_name, parent_label->name) == 0)
 			{
