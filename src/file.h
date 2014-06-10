@@ -3,6 +3,7 @@
 
 #include "label.h"
 #include "type.h"
+#include "data_object.h"
 
 struct ctf_label_head;
 
@@ -19,6 +20,7 @@ struct ctf_file
 
 	struct ctf_label_head *label_head; /**< linked list containing labels */
 	struct ctf_type_head *type_head; /**< linked list containing types */
+	struct ctf_data_object_head *data_object_head;
 
 	struct ctf_file *parent_file;
 	uint16_t type_id_offset;
@@ -27,8 +29,8 @@ struct ctf_file
 };
 #define CTF_FILE_SIZE sizeof(struct ctf_file)
 
-#endif
-
 struct ctf_type*
 lookup_type (struct ctf_file *file, uint16_t id);
+
+#endif
 
