@@ -168,6 +168,14 @@ ctf_read_file (char *filename)
 	type_section.data = headerless_ctf + header->type_offset;
 	type_section.size = header->string_offset - header->type_offset;
 	read_types(file, &type_section, &strings);
+	struct _section object_section;
+	object_section.data = headerless_ctf + header->object_offset;
+	object_section.size = header->function_offset - header->object_offset;
+
+	struct _section function_section;
+	function_section.data = headerless_ctf + header->function_offset;
+	function_section.size = header->type_offset - header->function_offset;
+
 
 	free(ctf_section->data);
 	free(ctf_section);
