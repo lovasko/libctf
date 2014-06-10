@@ -83,6 +83,8 @@ struct ctf_type
 LIST_HEAD(ctf_type_head, ctf_type);
 #define CTF_TYPE_HEAD_SIZE sizeof(struct ctf_type_head)
 
+struct ctf_file;
+
 int
 read_types (struct ctf_type_head *head, struct _section *section, struct
     _strings *strings);
