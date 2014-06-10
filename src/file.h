@@ -23,6 +23,7 @@ struct ctf_file
 	struct ctf_file *parent_file;
 	uint16_t type_id_offset;
 	struct ctf_type **type_id_table;
+	uint16_t type_count;
 };
 #define CTF_FILE_SIZE sizeof(struct ctf_file)
 
