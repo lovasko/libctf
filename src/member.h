@@ -33,7 +33,8 @@ struct _ctf_large_member
 	uint32_t name; /**< @see _ctf_small_member#name */
 	uint16_t type; /**< @see _ctf_small_member#type */
 	uint16_t padding; /**< pure padding purposes */
-	uint64_t offset; /**< @see _ctf_small_member#offset */
+	uint32_t high_offset;
+	uint32_t low_offset;
 };
 #define _CTF_LARGE_MEMBER_SIZE sizeof(struct _ctf_large_member)
 
