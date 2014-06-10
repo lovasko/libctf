@@ -3,6 +3,8 @@
 #include "util/compression.h"
 #include "util/elf_section_find.h"
 #include "strings.h"
+#include "file.h"
+#include "data_object.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -24,6 +26,59 @@ header_preface_check (struct _ctf_preface *preface)
 
 	if (preface->version != CTF_VERSION)
 		return 2;
+
+	return 0;
+}
+
+int
+read_functions_and_objects (struct ctf_file *file, struct _section
+    *symtab_section, struct _section *object_section, struct _section
+    *function_section, struct _strings *strings)
+{
+	size_t symbol_size = sizeof(Elf32_Sym);	
+	unsigned int symbol_count = symtab_section->size / symbol_size;
+
+	unsigned int object_offset = 0;
+	unsigned int function_offset = 0;
+
+	file->data_object_head = malloc(CTF_DATA_OBJECT_HEAD_SIZE);
+	LIST_INIT(file->data_object_head);
+
+	for (unsigned int i = 0; i < symbol_count; i++)
+	{
+		Elf32_Sym *symbol = (Elf32_Sym*)(symtab_section->data + i * symbol_size);
+
+		char *name;
+		if (symbol->st_name < strings->elf->size)
+			name = strings->elf->data + symbol->st_name;
+		else
+			name = NULL;
+
+		printf("%s = ", name);
+
+		if (symbol->st_name == 0 || symbol->st_shndx == SHN_UNDEF || 
+		    strcmp(name, "_START_") == 0 || strcmp(name, "_END_") == 0)
+			continue;
+
+		uint16_t type_reference;
+		switch (ELF32_ST_TYPE(symbol->st_info))
+		{
+			case STT_OBJECT:
+				type_reference = *((uint16_t*)(object_section->data + object_offset));
+				object_offset += sizeof(uint16_t);
+
+				struct ctf_data_object *data_object = malloc(CTF_DATA_OBJECT_SIZE);
+				data_object->name = strdup(name);
+				data_object->type = lookup_type(file, type_reference);
+
+				LIST_INSERT_HEAD(file->data_object_head, data_object, data_objects);
+			break;
+
+			case STT_FUNC:
+				printf("Function!\n");
+			break;
+		}
+	}
 
 	return 0;
 }
@@ -55,7 +110,6 @@ ctf_read_file (char *filename)
 	Elf *elf = NULL;
 	if ((elf = elf_begin(fd, ELF_C_READ, NULL)) == NULL)
 	{
-		printf("ELF ERROR: %s\n", elf_errmsg(elf_errno()));	
 		close(fd);
 		return NULL;
 	}
@@ -167,12 +221,12 @@ ctf_read_file (char *filename)
 	struct _section type_section;
 	type_section.data = headerless_ctf + header->type_offset;
 	type_section.size = header->string_offset - header->type_offset;
+	read_types(file, &type_section, &strings);
 
 	/* TODO here should be check for some kind of flag that will be argument of
 	 * this function "read types only" so we do not bother loading the function
 	 * and object data. */
 
-	read_types(file, &type_section, &strings);
 	struct _section object_section;
 	object_section.data = headerless_ctf + header->object_offset;
 	object_section.size = header->function_offset - header->object_offset;
@@ -181,6 +235,8 @@ ctf_read_file (char *filename)
 	function_section.data = headerless_ctf + header->function_offset;
 	function_section.size = header->type_offset - header->function_offset;
 
+	read_functions_and_objects(file, symtab_section, &object_section,
+	    &function_section, &strings);
 
 	free(ctf_section->data);
 	free(ctf_section);
