@@ -8,6 +8,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
 
 void*
 read_int_float_vardata (void *data)
