@@ -27,7 +27,11 @@ struct _ctf_array
 struct ctf_array
 {
 	uint32_t element_count; /**< element count */
-	struct ctf_type *type; /**< type of the array content */
+	union
+	{
+		struct ctf_type *type; /**< type of the array content */
+		uint16_t type_reference;
+	};
 };
 #define CTF_ARRAY_SIZE sizeof(struct ctf_array)
 

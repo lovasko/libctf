@@ -68,9 +68,13 @@ struct ctf_type
 {
 	char *name; /**< name of the type */
 	uint8_t kind; /**< kind of the type, one of the CTF_KIND constants */
-	void *data; /**< vardata for complex types and pointer to referenced type in
-	case of the reference types. this type should be  */
 	uint16_t id;
+	union
+	{
+		void *data; /**< vardata for complex types and pointer to referenced type in
+		case of the reference types. this type should be  */
+		uint16_t type_reference;
+	};
 
 	LIST_ENTRY(ctf_type) types; /**< pointer to following types */
 };

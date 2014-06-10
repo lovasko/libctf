@@ -9,7 +9,11 @@
  */
 struct ctf_function
 {
-	struct ctf_type *return_type; /**< return type of the function */
+	union
+	{
+		struct ctf_type *return_type; /**< return type of the function */
+		uint16_t return_type_reference;
+	};
 	struct ctf_argument_head *argument_head; /**< linked list of arguments */
 };
 #define CTF_FUNCTION_SIZE sizeof(struct ctf_function)

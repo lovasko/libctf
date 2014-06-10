@@ -43,7 +43,11 @@ struct _ctf_large_member
 struct ctf_member
 {
 	char *name; /**< name of the member */
-	struct ctf_type *type; /**< type of the member */
+	union
+	{
+		struct ctf_type *type; /**< type of the member */
+		uint16_t type_reference;
+	};
 	uint64_t offset; /**< offset inside the struct (union, by design, has all
 	offsets 0) */
 

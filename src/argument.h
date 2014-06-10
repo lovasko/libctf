@@ -12,7 +12,11 @@
  */
 struct ctf_argument
 {
-	struct ctf_type *type; /**< type of the argument */
+	union
+	{
+		struct ctf_type *type; /**< type of the argument */
+		uint16_t type_reference;
+	};
 
 	LIST_ENTRY(ctf_argument) arguments; /**< pointer to following arguments */
 };
