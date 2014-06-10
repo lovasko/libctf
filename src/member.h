@@ -35,7 +35,7 @@ struct _ctf_large_member
 	uint16_t padding; /**< pure padding purposes */
 	uint64_t offset; /**< @see _ctf_small_member#offset */
 };
-#define _CTF_LARGE_MEMBER_SIZE sizeof(struct _ctf_small_member)
+#define _CTF_LARGE_MEMBER_SIZE sizeof(struct _ctf_large_member)
 
 /**
  * Struct or union member.
