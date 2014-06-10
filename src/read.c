@@ -5,6 +5,8 @@
 #include "strings.h"
 #include "file.h"
 #include "data_object.h"
+#include "kind.h"
+#include "vardata.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -44,6 +46,9 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 	file->data_object_head = malloc(CTF_DATA_OBJECT_HEAD_SIZE);
 	LIST_INIT(file->data_object_head);
 
+	file->function_head = malloc(CTF_FUNCTION_HEAD_SIZE);
+	LIST_INIT(file->function_head);
+
 	for (unsigned int i = 0; i < symbol_count; i++)
 	{
 		Elf32_Sym *symbol = (Elf32_Sym*)(symtab_section->data + i * symbol_size);
@@ -59,6 +64,10 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 			continue;
 
 		uint16_t type_reference;
+		uint16_t info;
+		uint8_t vardata_length;
+		struct ctf_function *function;
+		struct ctf_argument *argument;
 		switch (ELF32_ST_TYPE(symbol->st_info))
 		{
 			case STT_OBJECT:
@@ -76,7 +85,34 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 			break;
 
 			case STT_FUNC:
-				printf("Function!\n");
+				info = *((uint16_t*)(function_section->data + function_offset));
+				function_offset += sizeof(uint16_t);
+
+				if (ctf_kind_from_info(info) == CTF_KIND_NONE && vardata_length == 0)
+					break;
+					
+				vardata_length = info & CTF_VARDATA_LENGTH_MAX;
+
+				function = malloc(CTF_FUNCTION_SIZE);
+				function->name = strdup(name);
+				function->argument_head = malloc(CTF_ARGUMENT_HEAD_SIZE);
+				LIST_INIT(function->argument_head);
+				for (unsigned int i = 0; i < vardata_length; i++)
+				{
+					type_reference = *((uint16_t*)(function_section->data 
+					    + function_offset));
+					function_offset += sizeof(uint16_t);
+
+					argument = malloc(CTF_ARGUMENT_SIZE);				
+					argument->type = lookup_type(file, type_reference);
+					LIST_INSERT_HEAD(function->argument_head, argument, arguments);
+				}
+
+				type_reference = *((uint16_t*)(function_section->data + function_offset));
+				function_offset += sizeof(uint16_t);
+				function->return_type = lookup_type(file, type_reference);
+
+				LIST_INSERT_HEAD(file->function_head, function, functions);
 			break;
 		}
 	}
