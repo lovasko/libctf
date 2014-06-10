@@ -57,7 +57,7 @@ read_function_vardata (void *data, uint16_t length)
 }
 
 void*
-read_enum_vardata (void *data, uint16_t length)
+read_enum_vardata (void *data, uint16_t length, struct _strings *strings)
 {
 	struct ctf_enum_head *enum_head = malloc(CTF_ENUM_HEAD_SIZE);
 	LIST_INIT(enum_head);
@@ -66,7 +66,7 @@ read_enum_vardata (void *data, uint16_t length)
 	for (uint16_t i = 0; i < length; i++)
 	{
 		struct ctf_enum_entry *enum_entry = malloc(CTF_ENUM_ENTRY_SIZE);
-		enum_entry->name = "enum_entry_name";
+		enum_entry->name = strdup(strings_lookup(strings, raw_enum_entries[i].name));
 		enum_entry->value = raw_enum_entries[i].value; 
 
 		LIST_INSERT_HEAD(enum_head, enum_entry, entries);
@@ -76,7 +76,8 @@ read_enum_vardata (void *data, uint16_t length)
 }
 
 void*
-read_struct_union_vardata (void *data, uint16_t length, uint16_t size)
+read_struct_union_vardata (void *data, uint16_t length, uint16_t size, 
+    struct _strings *strings)
 {
 	struct _ctf_small_member *small_member;
 	struct _ctf_large_member *large_member;
@@ -102,7 +103,8 @@ read_struct_union_vardata (void *data, uint16_t length, uint16_t size)
 	for (unsigned int i = 0; i < length; i++)
 	{
 		struct ctf_member *member = malloc(CTF_MEMBER_SIZE);
-		member->name = "member name";
+		member->name = strdup(strings_lookup(strings, (member_type ? 
+		    large_member[i].name : small_member[i].name)));
 		member->type_reference = (member_type ? large_member[i].type :
 		    small_member[i].type);
 		printf("member vardata type ref %d.\n", member->type_reference);
