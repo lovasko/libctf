@@ -86,8 +86,8 @@ LIST_HEAD(ctf_type_head, ctf_type);
 struct ctf_file;
 
 int
-read_types (struct ctf_type_head *head, struct _section *section, struct
-    _strings *strings);
+read_types (struct ctf_file *file, struct _section *section, 
+    struct _strings *strings);
 
 #endif
 
