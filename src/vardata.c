@@ -51,6 +51,7 @@ read_function_vardata (void *data, uint16_t length)
 	}
 
 	struct ctf_function *function = malloc(CTF_FUNCTION_SIZE);
+	function->name = NULL;
 	function->return_type = NULL;
 	function->argument_head = argument_head;
 
