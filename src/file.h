@@ -29,3 +29,6 @@ struct ctf_file
 
 #endif
 
+struct ctf_type*
+lookup_type (struct ctf_file *file, uint16_t id);
+
