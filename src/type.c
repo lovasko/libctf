@@ -106,23 +106,13 @@ read_types (struct ctf_file *file, struct _section *section, struct
 	{
 		file->type_count++;
 
-		printf("(%d) Parsing next type, offset = %d\n", id, offset);
 		struct _ctf_small_type *small_type = section->data + offset;	
 		uint8_t kind = ctf_kind_from_info(small_type->info);
 		uint16_t vardata_length = small_type->info & CTF_VARDATA_LENGTH_MAX;
-		printf("kind = %s, vardata_length = %d\n", ctf_kind_to_string(kind),
-		    vardata_length);
 
 		struct ctf_type *type = malloc(CTF_TYPE_SIZE);			
 		type->kind = kind;
 		type->id = id;
-
-		unsigned char *to_print = (unsigned char*)(section->data + offset);
-		for (unsigned int i = 0; i < 20; i++)
-			printf("%02X ", to_print[i]);
-
-		printf("small_type->name = %d\n", small_type->name);
-		printf("small_type->info = %x\n", small_type->info);
 
 		id++;
 
@@ -158,13 +148,11 @@ read_types (struct ctf_file *file, struct _section *section, struct
 		{
 			uint64_t advance = _CTF_SMALL_TYPE_SIZE;
 			uint16_t size = small_type->size;
-			printf("size = %d\n", size);
 			if (small_type->size > CTF_SMALL_TYPE_THRESHOLD)
 			{
 				struct _ctf_large_type *large_type = section->data + offset;
 				size = large_type->size;
 				advance	+= (_CTF_LARGE_TYPE_SIZE - _CTF_SMALL_TYPE_SIZE);
-				printf("Using the large type.\n");
 			}
 			offset += advance;
 
@@ -218,19 +206,10 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			    small_type->type;
 
 			offset += (vardata_length + (vardata_length & 1)) * sizeof(uint16_t);
-
-			unsigned char *to_print = (unsigned char*)(section->data + offset);
-			for (unsigned int i = 0; i < 20; i++)
-				printf("%02X ", to_print[i]);
 		}
 
-		printf("Adding with ID %d.\n", type->id);
 		LIST_INSERT_HEAD(file->type_head, type, types);
-
-		printf("%s\n\n", type->name);
 	}
-
-	printf("type_count = %d\n", file->type_count);
 
 	create_type_table(file);
 	solve_type_references(file);
