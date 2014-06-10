@@ -23,20 +23,19 @@ read_int_float_vardata (void *data)
 }
 
 void*
-read_array_vardata (void *data, struct ctf_type **id_table)
+read_array_vardata (void *data)
 {
 	struct _ctf_array *raw = (struct _ctf_array*)data;
 	struct ctf_array *array = malloc(CTF_ARRAY_SIZE);
 
 	array->element_count = raw->element_count;
-	array->type = id_table[raw->content_type];
+	array->type_reference = raw->content_type;
 
 	return (void*)array;
 }
 
 void*
-read_function_vardata (void *data, struct ctf_type **id_table, uint16_t length,
-    struct ctf_type *return_type)
+read_function_vardata (void *data, uint16_t length)
 {
 	struct ctf_argument_head *argument_head = malloc(CTF_ARGUMENT_HEAD_SIZE);
 	LIST_INIT(argument_head);
@@ -45,13 +44,13 @@ read_function_vardata (void *data, struct ctf_type **id_table, uint16_t length,
 	for (uint16_t i = 0; i < length; i++)
 	{
 		struct ctf_argument *argument = malloc(CTF_ARGUMENT_SIZE);
-		argument->type = id_table[raw_arguments[i]];
+		argument->type_reference = raw_arguments[i];
 
 		LIST_INSERT_HEAD(argument_head, argument, arguments);
 	}
 
 	struct ctf_function *function = malloc(CTF_FUNCTION_SIZE);
-	function->return_type = return_type;
+	function->return_type = NULL;
 	function->argument_head = argument_head;
 
 	return (void*)function;
@@ -77,18 +76,18 @@ read_enum_vardata (void *data, uint16_t length)
 }
 
 void*
-read_struct_union_vardata (void *data, struct ctf_type **id_table, 
-    uint16_t length, uint16_t size)
+read_struct_union_vardata (void *data, uint16_t length, uint16_t size)
 {
 	struct _ctf_small_member *small_member;
 	struct _ctf_large_member *large_member;
 	uint8_t member_type = 0;
 
-	if (size > CTF_MEMBER_THRESHOLD)
+	if (size >= CTF_MEMBER_THRESHOLD)
 	{
 		member_type = 1;
 		small_member = NULL;
 		large_member = data;
+		printf("Using large members.\n");
 	}
 	else
 	{
@@ -104,10 +103,13 @@ read_struct_union_vardata (void *data, struct ctf_type **id_table,
 	{
 		struct ctf_member *member = malloc(CTF_MEMBER_SIZE);
 		member->name = "member name";
-		member->type = id_table[(member_type ? large_member[i].offset :
-		    small_member[i].offset)];
-		member->offset = (member_type ? large_member[i].offset :
+		member->type_reference = (member_type ? large_member[i].type :
+		    small_member[i].type);
+		printf("member vardata type ref %d.\n", member->type_reference);
+
+		member->offset = (member_type ? large_member[i].low :
 		    small_member[i].offset);
+		printf("member vardata offset %llu.\n", member->offset);
 
 		LIST_INSERT_HEAD(member_head, member, members);
 	}

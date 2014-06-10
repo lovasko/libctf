@@ -45,7 +45,7 @@ read_int_float_vardata (void *data);
  * @return pointer to filled ctf_array struct
  */
 void*
-read_array_vardata (void *data, struct ctf_type **id_table);
+read_array_vardata (void *data);
 
 /**
  * Read the function variable data.
@@ -65,8 +65,7 @@ read_array_vardata (void *data, struct ctf_type **id_table);
  * @return pointer to filled ctf_function struct
  */
 void*
-read_function_vardata (void *data, struct ctf_type **id_table, uint16_t length,
-    struct ctf_type *return_type);
+read_function_vardata (void *data, uint16_t length);
 
 /**
  * Read the enum variable data.
@@ -96,8 +95,7 @@ read_enum_vardata (void *data, uint16_t length);
  * @return pointer to filled ctf_member_head struct
  */
 void*
-read_struct_union_vardata (void *data, struct ctf_type **id_table, 
-    uint16_t length, uint16_t size);
+read_struct_union_vardata (void *data, uint16_t length, uint16_t size);
 
 #endif
 
