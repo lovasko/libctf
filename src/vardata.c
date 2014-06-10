@@ -89,7 +89,6 @@ read_struct_union_vardata (void *data, uint16_t length, uint16_t size,
 		member_type = 1;
 		small_member = NULL;
 		large_member = data;
-		printf("Using large members.\n");
 	}
 	else
 	{
@@ -104,15 +103,15 @@ read_struct_union_vardata (void *data, uint16_t length, uint16_t size,
 	for (unsigned int i = 0; i < length; i++)
 	{
 		struct ctf_member *member = malloc(CTF_MEMBER_SIZE);
+
 		member->name = strdup(strings_lookup(strings, (member_type ? 
 		    large_member[i].name : small_member[i].name)));
+
 		member->type_reference = (member_type ? large_member[i].type :
 		    small_member[i].type);
-		printf("member vardata type ref %d.\n", member->type_reference);
 
 		member->offset = (member_type ? large_member[i].low_offset :
 		    small_member[i].offset);
-		printf("member vardata offset %llu.\n", member->offset);
 
 		LIST_INSERT_HEAD(member_head, member, members);
 	}
