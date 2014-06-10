@@ -166,13 +166,7 @@ ctf_read_file (char *filename)
 	struct _section type_section;
 	type_section.data = headerless_ctf + header->type_offset;
 	type_section.size = header->string_offset - header->type_offset;
-	struct ctf_type_head type_head;	
-	LIST_INIT(&type_head);
-	read_types(&type_head, &type_section, &strings);
-
-	struct ctf_file *file = malloc(CTF_FILE_SIZE);
-	file->label_head = label_head;
-	file->type_head = type_head;
+	read_types(file, &type_section, &strings);
 
 	free(ctf_section->data);
 	free(ctf_section);
