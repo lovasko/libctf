@@ -64,6 +64,9 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 		switch (ELF32_ST_TYPE(symbol->st_info))
 		{
 			case STT_OBJECT:
+				if (symbol->st_shndx == SHN_ABS && symbol->st_value == 0)
+					break;
+
 				type_reference = *((uint16_t*)(object_section->data + object_offset));
 				object_offset += sizeof(uint16_t);
 
