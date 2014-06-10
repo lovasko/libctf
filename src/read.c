@@ -167,6 +167,11 @@ ctf_read_file (char *filename)
 	struct _section type_section;
 	type_section.data = headerless_ctf + header->type_offset;
 	type_section.size = header->string_offset - header->type_offset;
+
+	/* TODO here should be check for some kind of flag that will be argument of
+	 * this function "read types only" so we do not bother loading the function
+	 * and object data. */
+
 	read_types(file, &type_section, &strings);
 	struct _section object_section;
 	object_section.data = headerless_ctf + header->object_offset;
