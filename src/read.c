@@ -54,8 +54,6 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 		else
 			name = NULL;
 
-		printf("%s = ", name);
-
 		if (symbol->st_name == 0 || symbol->st_shndx == SHN_UNDEF || 
 		    strcmp(name, "_START_") == 0 || strcmp(name, "_END_") == 0)
 			continue;
