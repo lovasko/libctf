@@ -107,7 +107,7 @@ read_struct_union_vardata (void *data, uint16_t length, uint16_t size)
 		    small_member[i].type);
 		printf("member vardata type ref %d.\n", member->type_reference);
 
-		member->offset = (member_type ? large_member[i].low :
+		member->offset = (member_type ? large_member[i].low_offset :
 		    small_member[i].offset);
 		printf("member vardata offset %llu.\n", member->offset);
 
