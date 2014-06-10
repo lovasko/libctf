@@ -184,14 +184,15 @@ read_types (struct ctf_file *file, struct _section *section, struct
 				break;
 
 				case CTF_KIND_ENUM:
-					type->data = read_enum_vardata(section->data + offset, vardata_length);
+					type->data = read_enum_vardata(section->data + offset, vardata_length, 
+					    strings);
 					offset += vardata_length * _CTF_ENUM_ENTRY_SIZE;
 				break;
 
 				case CTF_KIND_STRUCT:
 				case CTF_KIND_UNION:
 					type->data = read_struct_union_vardata(section->data + offset,
-					    vardata_length, size);
+					    vardata_length, size, strings);
 					offset += vardata_length * (small_type->size >= CTF_MEMBER_THRESHOLD ? 
 					    _CTF_LARGE_MEMBER_SIZE : _CTF_SMALL_MEMBER_SIZE);
 				break;
