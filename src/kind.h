@@ -32,16 +32,6 @@ uint8_t
 ctf_kind_from_info (uint16_t info);
 
 /**
- * String representation of a kind. 
- *
- * @param kind the type kind 
- * @return e.g. "float" for CTF_KIND_FLOAT. If none of the CTF_KINDs were able
- * to match, "unresolvable" is returned.
- */
-const char*
-ctf_kind_to_string (uint8_t kind);
-
-/**
  * Test whether the kind is one of the reference kinds.
  *
  * Reference kinds are: pointer, typedef, const, volatile and restrict.

@@ -6,19 +6,6 @@ ctf_kind_from_info (uint16_t info)
 	return (info & 0xf800) >> 11;
 }
 
-const char*
-ctf_kind_to_string (uint8_t kind)
-{
-	const char *string_table[] = {"none", "int", "float", "pointer", "array",
-	"function", "struct", "union", "enum", "forward", "typedef", "volatile",
-	"const", "restrict"};	
-
-	if (kind <= CTF_KIND_MAX)
-		return string_table[kind];
-	else
-		return "unresolvable";
-}
-
 int
 ctf_kind_is_pure_reference (uint8_t kind)
 {
