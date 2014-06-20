@@ -33,6 +33,33 @@
  * special function for every kind.
  */
 
+char*
+ctf_type_get_name (struct ctf_type *type)
+{
+	if (type)
+		return type->name;
+	else
+		return NULL;
+}
+
+uint8_t
+ctf_type_get_kind (struct ctf_type *type)
+{
+	if (type)
+		return type->kind;
+	else
+		return 0;
+}
+
+uint16_t
+ctf_type_get_id (struct ctf_type *type)
+{
+	if (type)
+		return type->id;
+	else
+		return 0;
+}
+
 static int
 solve_type_references (struct ctf_file *file)
 {

@@ -83,6 +83,15 @@ struct ctf_type
 TAILQ_HEAD(ctf_type_head, ctf_type);
 #define CTF_TYPE_HEAD_SIZE sizeof(struct ctf_type_head)
 
+char*
+ctf_type_get_name (struct ctf_type *type);
+
+uint8_t
+ctf_type_get_kind (struct ctf_type *type);
+
+uint16_t
+ctf_type_get_id (struct ctf_type *type);
+
 struct ctf_file;
 
 int
