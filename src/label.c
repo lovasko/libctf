@@ -1,5 +1,6 @@
 #include "label.h"
 #include "util/section.h"
+#include "errors.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -10,7 +11,7 @@ int
 ctf_label_add (struct ctf_label_head *head, struct ctf_label *to_add)
 {
 	TAILQ_INSERT_TAIL(head, to_add, labels);
-	return 0;
+	return CTF_OK;
 }
 
 int
@@ -22,11 +23,11 @@ ctf_label_remove (struct ctf_label_head *head, struct ctf_label *to_remove)
 		if (strcmp(runner->name, to_remove->name) == 0)
 		{
 			TAILQ_REMOVE(head, runner, labels);
-			break;
+			return CTF_OK;
 		}
 	}
 
-	return 0;
+	return CTF_E_NOT_FOUND;
 }
 
 int
@@ -34,7 +35,7 @@ read_labels (struct ctf_file *file, struct _section *section, struct
     _strings *strings)
 {
 	if (section->size % _CTF_LABEL_SIZE != 0)
-		return 1;
+		return CTF_E_LABEL_SECTION_CORRUPT;
 
 	file->label_head = malloc(CTF_LABEL_HEAD_SIZE);
 	TAILQ_INIT(file->label_head);
@@ -49,6 +50,6 @@ read_labels (struct ctf_file *file, struct _section *section, struct
 		ctf_label_add(file->label_head, to_add);
 	}
 
-	return 0;
+	return CTF_OK;
 }
 
