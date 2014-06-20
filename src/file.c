@@ -19,6 +19,15 @@ ctf_file_is_compressed (struct ctf_file *file)
 		return 0;
 }
 
+struct ctf_file*
+ctf_file_get_parent_file (struct ctf_file *file)
+{
+	if (file)
+		return file->parent_file;
+	else
+		return NULL;
+}
+
 struct ctf_type*
 lookup_type (struct ctf_file *file, uint16_t id)
 {

@@ -37,6 +37,9 @@ ctf_file_get_version (struct ctf_file *file);
 int
 ctf_file_is_compressed (struct ctf_file *file);
 
+struct ctf_file*
+ctf_file_get_parent_file (struct ctf_file *file);
+
 struct ctf_type*
 lookup_type (struct ctf_file *file, uint16_t id);
 
