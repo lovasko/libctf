@@ -31,8 +31,20 @@ struct ctf_file
 };
 #define CTF_FILE_SIZE sizeof(struct ctf_file)
 
+int
+ctf_file_get_version (struct ctf_file *file);
+
+int
+ctf_file_is_compressed (struct ctf_file *file);
+
 struct ctf_type*
 lookup_type (struct ctf_file *file, uint16_t id);
+
+struct ctf_label;
+
+int
+ctf_file_get_next_label (struct ctf_file *file, struct ctf_label *label, 
+    struct ctf_label **out_next);
 
 #endif
 

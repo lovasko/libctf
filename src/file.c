@@ -1,4 +1,23 @@
 #include "file.h"
+#include "errors.h"
+
+int
+ctf_file_get_version (struct ctf_file *file)
+{
+	if (file)
+		return file->version;
+	else
+		return -1;
+}
+
+int
+ctf_file_is_compressed (struct ctf_file *file)
+{
+	if (file)
+		return file->compressed;	
+	else
+		return 0;
+}
 
 struct ctf_type*
 lookup_type (struct ctf_file *file, uint16_t id)
@@ -16,5 +35,30 @@ lookup_type (struct ctf_file *file, uint16_t id)
 	}
 	else
 		return NULL;
+}
+
+int
+ctf_file_get_next_label (struct ctf_file *file, struct ctf_label *label, 
+    struct ctf_label **out_next)
+{
+	if (label == NULL)
+	{
+		if (TAILQ_EMPTY(file->label_head))
+			return CTF_EMPTY;
+
+		*out_next = TAILQ_FIRST(file->label_head);
+		return CTF_OK;
+	}
+	else
+	{
+		struct ctf_label *next = TAILQ_NEXT(label, labels);
+		if (next == NULL)
+			return CTF_END;
+		else
+		{
+			*out_next = next;
+			return CTF_OK;	
+		}
+	}
 }
 
