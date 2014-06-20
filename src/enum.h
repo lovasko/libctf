@@ -2,6 +2,7 @@
 #define CTF_ENUM_H
 
 #include <stdint.h>
+#include <sys/queue.h>
 
 /**
  * Binary reflection of the enum variant data.
@@ -23,11 +24,11 @@ struct ctf_enum_entry
 	char *name; /**< name of the entry */
 	int32_t value; /**< value of the entry */
 
-	LIST_ENTRY(ctf_enum_entry) entries;
+	TAILQ_ENTRY(ctf_enum_entry) entries;
 };
 #define CTF_ENUM_ENTRY_SIZE sizeof(struct ctf_enum_entry)
 
-LIST_HEAD(ctf_enum_head, ctf_enum_entry);
+TAILQ_HEAD(ctf_enum_head, ctf_enum_entry);
 #define CTF_ENUM_HEAD_SIZE sizeof(struct ctf_enum_head)
 
 #endif

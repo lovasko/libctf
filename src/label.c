@@ -9,7 +9,7 @@
 int
 ctf_label_add (struct ctf_label_head *head, struct ctf_label *to_add)
 {
-	LIST_INSERT_HEAD(head, to_add, labels);
+	TAILQ_INSERT_TAIL(head, to_add, labels);
 	return 0;
 }
 
@@ -17,11 +17,11 @@ int
 ctf_label_remove (struct ctf_label_head *head, struct ctf_label *to_remove)
 {
 	struct ctf_label *runner;
-	LIST_FOREACH(runner, head, labels)
+	TAILQ_FOREACH (runner, head, labels)
 	{
 		if (strcmp(runner->name, to_remove->name) == 0)
 		{
-			LIST_REMOVE(runner, labels);
+			TAILQ_REMOVE(head, runner, labels);
 			break;
 		}
 	}
@@ -37,7 +37,7 @@ read_labels (struct ctf_file *file, struct _section *section, struct
 		return 1;
 
 	file->label_head = malloc(CTF_LABEL_HEAD_SIZE);
-	LIST_INIT(file->label_head);
+	TAILQ_INIT(file->label_head);
 
 	struct _ctf_label *raw_labels = (struct _ctf_label*)section->data;	
 

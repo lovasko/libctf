@@ -4,6 +4,7 @@
 #include "type.h"
 #include "argument.h"
 
+#include <stdint.h>
 #include <sys/queue.h>
 
 /**
@@ -19,11 +20,11 @@ struct ctf_function
 	};
 	struct ctf_argument_head *argument_head; /**< linked list of arguments */
 
-	LIST_ENTRY(ctf_function) functions;
+	TAILQ_ENTRY(ctf_function) functions;
 };
 #define CTF_FUNCTION_SIZE sizeof(struct ctf_function)
 
-LIST_HEAD(ctf_function_head, ctf_function);
+TAILQ_HEAD(ctf_function_head, ctf_function);
 #define CTF_FUNCTION_HEAD_SIZE sizeof(struct ctf_function_head)
 
 #endif

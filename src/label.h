@@ -28,11 +28,11 @@ struct ctf_label
 	char *name; /**< resolved name */
 	uint32_t index; /**< starting index in the type table */
 
-	LIST_ENTRY(ctf_label) labels; /**< pointer to next labels */
+	TAILQ_ENTRY(ctf_label) labels; /**< pointer to next labels */
 };
 #define CTF_LABEL_SIZE sizeof(struct ctf_label)
 
-LIST_HEAD(ctf_label_head, ctf_label);
+TAILQ_HEAD(ctf_label_head, ctf_label);
 #define CTF_LABEL_HEAD_SIZE sizeof(struct ctf_label_head)
 
 /**

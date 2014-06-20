@@ -37,7 +37,7 @@ static int
 solve_type_references (struct ctf_file *file)
 {
 	struct ctf_type *type;
-	LIST_FOREACH (type, file->type_head, types)
+	TAILQ_FOREACH (type, file->type_head, types)
 	{
 		if (ctf_kind_is_pure_reference(type->kind) == 1)
 		{
@@ -54,7 +54,7 @@ solve_type_references (struct ctf_file *file)
 		{
 			struct ctf_member_head *member_head = type->data;
 			struct ctf_member *member;
-			LIST_FOREACH (member, member_head, members)
+			TAILQ_FOREACH (member, member_head, members)
 			{
 				member->type = lookup_type(file, member->type_reference);
 			}
@@ -66,7 +66,7 @@ solve_type_references (struct ctf_file *file)
 			func->return_type = lookup_type(file, func->return_type_reference);
 
 			struct ctf_argument *argument;
-			LIST_FOREACH (argument, func->argument_head, arguments)
+			TAILQ_FOREACH (argument, func->argument_head, arguments)
 			{
 				argument->type = lookup_type(file, argument->type_reference);
 			}
@@ -82,7 +82,7 @@ create_type_table (struct ctf_file *file)
 	file->type_id_table = malloc(CTF_TYPE_SIZE * (file->type_count + 1));
 
 	struct ctf_type *type;
-	LIST_FOREACH (type, file->type_head, types)
+	TAILQ_FOREACH (type, file->type_head, types)
 	{
 		file->type_id_table[type->id] = type;	
 	}
@@ -98,7 +98,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 	uint16_t id = 0;
 
 	file->type_head = malloc(CTF_TYPE_HEAD_SIZE);
-	LIST_INIT(file->type_head);
+	TAILQ_INIT(file->type_head);
 
 	file->type_count = 0;
 	while (offset < section->size)
@@ -207,7 +207,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			offset += (vardata_length + (vardata_length & 1)) * sizeof(uint16_t);
 		}
 
-		LIST_INSERT_HEAD(file->type_head, type, types);
+		TAILQ_INSERT_TAIL(file->type_head, type, types);
 	}
 
 	create_type_table(file);

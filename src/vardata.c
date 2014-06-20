@@ -39,7 +39,7 @@ void*
 read_function_vardata (void *data, uint16_t length)
 {
 	struct ctf_argument_head *argument_head = malloc(CTF_ARGUMENT_HEAD_SIZE);
-	LIST_INIT(argument_head);
+	TAILQ_INIT(argument_head);
 
 	uint16_t *raw_arguments = (uint16_t*)data;
 	for (uint16_t i = 0; i < length; i++)
@@ -47,7 +47,7 @@ read_function_vardata (void *data, uint16_t length)
 		struct ctf_argument *argument = malloc(CTF_ARGUMENT_SIZE);
 		argument->type_reference = raw_arguments[i];
 
-		LIST_INSERT_HEAD(argument_head, argument, arguments);
+		TAILQ_INSERT_TAIL(argument_head, argument, arguments);
 	}
 
 	struct ctf_function *function = malloc(CTF_FUNCTION_SIZE);
@@ -62,7 +62,7 @@ void*
 read_enum_vardata (void *data, uint16_t length, struct _strings *strings)
 {
 	struct ctf_enum_head *enum_head = malloc(CTF_ENUM_HEAD_SIZE);
-	LIST_INIT(enum_head);
+	TAILQ_INIT(enum_head);
 
 	struct _ctf_enum_entry *raw_enum_entries = (struct _ctf_enum_entry*)data;
 	for (uint16_t i = 0; i < length; i++)
@@ -71,7 +71,7 @@ read_enum_vardata (void *data, uint16_t length, struct _strings *strings)
 		enum_entry->name = strdup(strings_lookup(strings, raw_enum_entries[i].name));
 		enum_entry->value = raw_enum_entries[i].value; 
 
-		LIST_INSERT_HEAD(enum_head, enum_entry, entries);
+		TAILQ_INSERT_TAIL(enum_head, enum_entry, entries);
 	}
 
 	return (void*)enum_head;
@@ -99,7 +99,7 @@ read_struct_union_vardata (void *data, uint16_t length, uint16_t size,
 	}
 
 	struct ctf_member_head *member_head = malloc(CTF_MEMBER_HEAD_SIZE);
-	LIST_INIT(member_head);
+	TAILQ_INIT(member_head);
 
 	for (unsigned int i = 0; i < length; i++)
 	{
@@ -114,7 +114,7 @@ read_struct_union_vardata (void *data, uint16_t length, uint16_t size,
 		member->offset = (member_type ? large_member[i].low_offset :
 		    small_member[i].offset);
 
-		LIST_INSERT_HEAD(member_head, member, members);
+		TAILQ_INSERT_TAIL(member_head, member, members);
 	}
 
 	return (void*)member_head;

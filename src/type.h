@@ -76,11 +76,11 @@ struct ctf_type
 		uint16_t type_reference;
 	};
 
-	LIST_ENTRY(ctf_type) types; /**< pointer to following types */
+	TAILQ_ENTRY(ctf_type) types; /**< pointer to following types */
 };
 #define CTF_TYPE_SIZE sizeof(struct ctf_type)
 
-LIST_HEAD(ctf_type_head, ctf_type);
+TAILQ_HEAD(ctf_type_head, ctf_type);
 #define CTF_TYPE_HEAD_SIZE sizeof(struct ctf_type_head)
 
 struct ctf_file;

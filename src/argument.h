@@ -18,11 +18,11 @@ struct ctf_argument
 		uint16_t type_reference;
 	};
 
-	LIST_ENTRY(ctf_argument) arguments; /**< pointer to following arguments */
+	TAILQ_ENTRY(ctf_argument) arguments; /**< pointer to following arguments */
 };
 #define CTF_ARGUMENT_SIZE sizeof(struct ctf_argument)
 
-LIST_HEAD(ctf_argument_head, ctf_argument);
+TAILQ_HEAD(ctf_argument_head, ctf_argument);
 #define CTF_ARGUMENT_HEAD_SIZE sizeof(struct ctf_argument_head)
 
 #endif

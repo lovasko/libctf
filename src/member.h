@@ -52,11 +52,11 @@ struct ctf_member
 	uint64_t offset; /**< offset inside the struct (union, by design, has all
 	offsets 0) */
 
-	LIST_ENTRY(ctf_member) members; /**< pointer to following members */
+	TAILQ_ENTRY(ctf_member) members; /**< pointer to following members */
 };
 #define CTF_MEMBER_SIZE sizeof(struct ctf_member)
 
-LIST_HEAD(ctf_member_head, ctf_member);
+TAILQ_HEAD(ctf_member_head, ctf_member);
 #define CTF_MEMBER_HEAD_SIZE sizeof(struct ctf_member_head)
 
 #endif

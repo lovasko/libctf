@@ -44,10 +44,10 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 	unsigned int function_offset = 0;
 
 	file->data_object_head = malloc(CTF_DATA_OBJECT_HEAD_SIZE);
-	LIST_INIT(file->data_object_head);
+	TAILQ_INIT(file->data_object_head);
 
 	file->function_head = malloc(CTF_FUNCTION_HEAD_SIZE);
-	LIST_INIT(file->function_head);
+	TAILQ_INIT(file->function_head);
 
 	for (unsigned int i = 0; i < symbol_count; i++)
 	{
@@ -81,7 +81,7 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 				data_object->name = strdup(name);
 				data_object->type = lookup_type(file, type_reference);
 
-				LIST_INSERT_HEAD(file->data_object_head, data_object, data_objects);
+				TAILQ_INSERT_TAIL(file->data_object_head, data_object, data_objects);
 			break;
 
 			case STT_FUNC:
@@ -96,7 +96,7 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 				function = malloc(CTF_FUNCTION_SIZE);
 				function->name = strdup(name);
 				function->argument_head = malloc(CTF_ARGUMENT_HEAD_SIZE);
-				LIST_INIT(function->argument_head);
+				TAILQ_INIT(function->argument_head);
 				for (unsigned int i = 0; i < vardata_length; i++)
 				{
 					type_reference = *((uint16_t*)(function_section->data 
@@ -105,14 +105,14 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 
 					argument = malloc(CTF_ARGUMENT_SIZE);				
 					argument->type = lookup_type(file, type_reference);
-					LIST_INSERT_HEAD(function->argument_head, argument, arguments);
+					TAILQ_INSERT_TAIL(function->argument_head, argument, arguments);
 				}
 
 				type_reference = *((uint16_t*)(function_section->data + function_offset));
 				function_offset += sizeof(uint16_t);
 				function->return_type = lookup_type(file, type_reference);
 
-				LIST_INSERT_HEAD(file->function_head, function, functions);
+				TAILQ_INSERT_HEAD(file->function_head, function, functions);
 			break;
 		}
 	}
@@ -226,7 +226,7 @@ ctf_read_file (char *filename)
 		struct ctf_label *parent_label;
 		int found = 0;
 
-		LIST_FOREACH (parent_label, file->parent_file->label_head, labels)
+		TAILQ_FOREACH (parent_label, file->parent_file->label_head, labels)
 		{
 			if (strcmp(parent_label_name, parent_label->name) == 0)
 			{
