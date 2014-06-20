@@ -7,7 +7,7 @@
 
 #define CTF_INT_SIGNED  1
 #define CTF_INT_CHAR    2
-#define CTF_INT_BOOL    4
+#define CTF_INT_BOOLEAN 4
 #define CTF_INT_VARARGS 8
 
 #define CTF_FLOAT_SINGLE                 1
