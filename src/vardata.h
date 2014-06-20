@@ -7,21 +7,6 @@
 
 #define CTF_VARDATA_LENGTH_MAX 0x3ff
 
-#define CTF_INT_FLOAT_ENCODING_MASK 0xff000000
-#define CTF_INT_FLOAT_OFFSET_MASK   0x00ff0000 
-#define CTF_INT_FLOAT_SIZE_MASK     0x0000ffff 
-
-/**
- * Common variable data for int and float kinds.
- */
-struct ctf_int_float_vardata
-{
-	uint8_t encoding;
-	uint8_t offset;
-	uint16_t size;
-};
-#define CTF_INT_FLOAT_VARDATA_SIZE sizeof(struct ctf_int_float_vardata)
-
 /**
  * Read the inf/float variable data.
  *

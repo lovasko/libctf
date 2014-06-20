@@ -5,6 +5,7 @@
 #include "function.h"
 #include "argument.h"
 #include "member.h"
+#include "int_float.h"
 
 #include <stdint.h>
 #include <stdlib.h>
