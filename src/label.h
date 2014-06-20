@@ -61,6 +61,12 @@ ctf_label_add (struct ctf_label_head *head, struct ctf_label *to_add);
 int
 ctf_label_remove (struct ctf_label_head *head, struct ctf_label *to_remove);
 
+char*
+ctf_label_get_name (struct ctf_label *label);
+
+uint32_t
+ctf_label_get_index (struct ctf_label *label);
+
 struct ctf_file;
 
 int
