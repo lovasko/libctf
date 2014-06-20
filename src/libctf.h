@@ -11,5 +11,6 @@
 #include "enum.h"
 #include "argument.h"
 #include "member.h"
+#include "errors.h"
 	
 #endif
