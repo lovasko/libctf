@@ -9,8 +9,8 @@
  * @param filename filename
  * @return filled ctf_file or NULL on error
  */
-struct ctf_file*
-ctf_read_file (char *filename);
+int
+ctf_read_file (char *filename, struct ctf_file **out_file);
 
 #endif
 

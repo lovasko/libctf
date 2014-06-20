@@ -1,0 +1,23 @@
+#ifndef CTF_ERRORS_H
+#define CTF_ERRORS_H
+
+#define CTF_E_MIN 0
+
+#define CTF_OK 0
+#define CTF_E_NO_FILE 1
+#define CTF_E_ELF_HEADER_CORRUPT 2
+#define CTF_E_ELF_VERSION 3
+#define CTF_E_ELF_OPEN 4
+#define CTF_E_NO_CTF_SECTION 5
+#define CTF_E_NO_STRTAB 6
+#define CTF_E_NO_SYMTAB 7
+#define CTF_E_COMPRESSION 8
+#define CTF_E_DECOMPRESSED_DATA_SIZE 9
+#define CTF_E_PARENT_LABEL_NOT_FOUND 10
+#define CTF_E_MAGIC 11
+#define CTF_E_VERSION 12
+
+#define CTF_E_MAX 32
+
+#endif
+
