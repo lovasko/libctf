@@ -5,17 +5,6 @@
 #define CTF_INT_FLOAT_OFFSET_MASK   0x00ff0000 
 #define CTF_INT_FLOAT_SIZE_MASK     0x0000ffff 
 
-/**
- * Common variable data for int and float kinds.
- */
-struct ctf_int_float_vardata
-{
-	uint8_t encoding;
-	uint8_t offset;
-	uint16_t size;
-};
-#define CTF_INT_FLOAT_VARDATA_SIZE sizeof(struct ctf_int_float_vardata)
-
 #define CTF_INT_SIGNED  1
 #define CTF_INT_CHAR    2
 #define CTF_INT_BOOL    4
@@ -33,6 +22,17 @@ struct ctf_int_float_vardata
 #define CTF_FLOAT_IMAGINARY             10
 #define CTF_FLOAT_DOUBLE_IMAGINARY      11
 #define CTF_FLOAT_LONG_DOUBLE_IMAGINARY 12
+
+/**
+ * Common variable data for int and float kinds.
+ */
+struct ctf_int_float_vardata
+{
+	uint8_t encoding;
+	uint8_t offset;
+	uint16_t size;
+};
+#define CTF_INT_FLOAT_VARDATA_SIZE sizeof(struct ctf_int_float_vardata)
 
 #endif
 
