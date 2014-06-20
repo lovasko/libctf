@@ -71,3 +71,28 @@ ctf_file_get_next_label (struct ctf_file *file, struct ctf_label *label,
 	}
 }
 
+int
+ctf_file_get_next_type (struct ctf_file *file, struct ctf_type *type, 
+    struct ctf_type **out_next)
+{
+	if (type == NULL)
+	{
+		if (TAILQ_EMPTY(file->type_head))
+			return CTF_EMPTY;
+
+		*out_next = TAILQ_FIRST(file->type_head);
+		return CTF_OK;
+	}
+	else
+	{
+		struct ctf_type *next = TAILQ_NEXT(type, types);
+		if (next == NULL)
+			return CTF_END;
+		else
+		{
+			*out_next = next;
+			return CTF_OK;	
+		}
+	}
+}
+

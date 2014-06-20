@@ -49,5 +49,9 @@ int
 ctf_file_get_next_label (struct ctf_file *file, struct ctf_label *label, 
     struct ctf_label **out_next);
 
+int
+ctf_file_get_next_type (struct ctf_file *file, struct ctf_type *type, 
+    struct ctf_type **out_next);
+
 #endif
 
