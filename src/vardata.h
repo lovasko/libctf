@@ -14,7 +14,7 @@
  * bytes is described in the ctf_int_float_vardata struct.
  *
  * @param data start of the variable data
- * @return pointer to filled ctf_int_float_vardata struct
+ * @return pointer to filled ctf_int_float struct
  */
 void*
 read_int_float_vardata (void *data);

@@ -26,13 +26,13 @@
 /**
  * Common variable data for int and float kinds.
  */
-struct ctf_int_float_vardata
+struct ctf_int_float
 {
 	uint8_t encoding;
 	uint8_t offset;
 	uint16_t size;
 };
-#define CTF_INT_FLOAT_VARDATA_SIZE sizeof(struct ctf_int_float_vardata)
+#define CTF_INT_FLOAT_SIZE sizeof(struct ctf_int_float)
 
 #endif
 

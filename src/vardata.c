@@ -15,7 +15,7 @@ void*
 read_int_float_vardata (void *data)
 {
 	uint32_t *raw = (uint32_t*)data;
-	struct ctf_int_float_vardata *vardata = malloc(CTF_INT_FLOAT_VARDATA_SIZE);
+	struct ctf_int_float *vardata = malloc(CTF_INT_FLOAT_SIZE);
 
 	vardata->encoding = (*raw & CTF_INT_FLOAT_ENCODING_MASK) >> 24; 
 	vardata->offset = (*raw & CTF_INT_FLOAT_OFFSET_MASK) >> 16;
