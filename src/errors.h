@@ -18,6 +18,8 @@
 #define CTF_E_VERSION 12
 #define CTF_E_LABEL_SECTION_CORRUPT 13
 #define CTF_E_NOT_FOUND 14
+#define CTF_END 15
+#define CTF_EMPTY 16
 
 #define CTF_E_MAX 32
 
