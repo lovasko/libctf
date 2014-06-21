@@ -35,5 +35,11 @@ struct ctf_array
 };
 #define CTF_ARRAY_SIZE sizeof(struct ctf_array)
 
+uint32_t
+ctf_array_get_element_count (struct ctf_array *array);
+
+struct ctf_type*
+ctf_array_get_type (struct ctf_array *array);
+
 #endif
 
