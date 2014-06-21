@@ -2,6 +2,7 @@
 #define CTF_MEMBER_H
 
 #include <stdint.h>
+#include <sys/queue.h>
 
 /* 
  * If size member of the small_/large_type is above this threshold, all members
@@ -58,6 +59,15 @@ struct ctf_member
 
 TAILQ_HEAD(ctf_member_head, ctf_member);
 #define CTF_MEMBER_HEAD_SIZE sizeof(struct ctf_member_head)
+
+char*
+ctf_member_get_name (struct ctf_member *member);
+
+struct ctf_type*
+ctf_member_get_type (struct ctf_member *member);
+
+uint64_t
+ctf_member_get_offset (struct ctf_member *member);
 
 #endif
 
