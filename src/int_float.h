@@ -1,6 +1,8 @@
 #ifndef CTF_INT_FLOAT_H
 #define CTF_INT_FLOAT_H
 
+#include <stdint.h>
+
 #define CTF_INT_FLOAT_ENCODING_MASK 0xff000000
 #define CTF_INT_FLOAT_OFFSET_MASK   0x00ff0000 
 #define CTF_INT_FLOAT_SIZE_MASK     0x0000ffff 
