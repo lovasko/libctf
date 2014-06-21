@@ -12,5 +12,6 @@
 #include "argument.h"
 #include "member.h"
 #include "errors.h"
+#include "int_float.h"
 	
 #endif
