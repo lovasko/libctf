@@ -6,6 +6,7 @@
 #include "member.h"
 #include "enum.h"
 #include "function.h"
+#include "errors.h"
 
 #include <string.h>
 
@@ -115,6 +116,56 @@ create_type_table (struct ctf_file *file)
 	}
 
 	return 0;
+}
+
+int
+ctf_type_get_next_enum_entry (struct ctf_type *type, struct ctf_enum_entry
+    *enum_entry, struct ctf_enum_entry **out_next)
+{
+	if (enum_entry == NULL)
+	{
+		if (TAILQ_EMPTY((struct ctf_enum_head*)type->data))
+			return CTF_EMPTY;
+
+		*out_next = TAILQ_FIRST((struct ctf_enum_head*)type->data);
+		return CTF_OK;
+	}
+	else
+	{
+		struct ctf_enum_entry *next = TAILQ_NEXT(enum_entry, entries);
+		if (next == NULL)
+			return CTF_END;
+		else
+		{
+			*out_next = next;
+			return CTF_OK;	
+		}
+	}
+}
+
+int
+ctf_type_get_next_member (struct ctf_type *type, struct ctf_member *member,
+    struct ctf_member **out_next)
+{
+	if (member == NULL)
+	{
+		if (TAILQ_EMPTY((struct ctf_member_head*)type->data))
+			return CTF_EMPTY;
+
+		*out_next = TAILQ_FIRST((struct ctf_member_head*)type->data);
+		return CTF_OK;
+	}
+	else
+	{
+		struct ctf_member *next = TAILQ_NEXT(member, members);
+		if (next == NULL)
+			return CTF_END;
+		else
+		{
+			*out_next = next;
+			return CTF_OK;	
+		}
+	}
 }
 
 int
