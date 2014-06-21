@@ -61,6 +61,15 @@ ctf_type_get_id (struct ctf_type *type)
 		return 0;
 }
 
+void*
+ctf_type_get_data (struct ctf_type *type)
+{
+	if (type)
+		return type->data;
+	else
+		return 0;
+}
+
 static int
 solve_type_references (struct ctf_file *file)
 {

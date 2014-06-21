@@ -94,6 +94,9 @@ ctf_type_get_kind (struct ctf_type *type);
 uint16_t
 ctf_type_get_id (struct ctf_type *type);
 
+void*
+ctf_type_get_data (struct ctf_type *type);
+
 int
 ctf_type_get_next_enum_entry (struct ctf_type *type, struct ctf_enum_entry
     *enum_entry, struct ctf_enum_entry **out_next);
