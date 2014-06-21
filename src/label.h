@@ -67,11 +67,5 @@ ctf_label_get_name (struct ctf_label *label);
 uint32_t
 ctf_label_get_index (struct ctf_label *label);
 
-struct ctf_file;
-
-int
-read_labels (struct ctf_file *file, struct _section *section, struct
-    _strings *strings);
-
 #endif
 

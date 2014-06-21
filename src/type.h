@@ -105,11 +105,5 @@ int
 ctf_type_get_next_member (struct ctf_type *type, struct ctf_member *member,
     struct ctf_member **out_next);
 
-struct ctf_file;
-
-int
-read_types (struct ctf_file *file, struct _section *section, 
-    struct _strings *strings);
-
 #endif
 
