@@ -96,3 +96,53 @@ ctf_file_get_next_type (struct ctf_file *file, struct ctf_type *type,
 	}
 }
 
+int
+ctf_file_get_next_function (struct ctf_file *file, 
+    struct ctf_function *function, struct ctf_function **out_next)
+{
+	if (function == NULL)
+	{
+		if (TAILQ_EMPTY(file->function_head))
+			return CTF_EMPTY;
+
+		*out_next = TAILQ_FIRST(file->function_head);
+		return CTF_OK;
+	}
+	else
+	{
+		struct ctf_function *next = TAILQ_NEXT(function, functions);
+		if (next == NULL)
+			return CTF_END;
+		else
+		{
+			*out_next = next;
+			return CTF_OK;	
+		}
+	}
+}
+
+int
+ctf_file_get_next_data_object (struct ctf_file *file, 
+    struct ctf_data_object *data_object, struct ctf_data_object **out_next)
+{
+	if (data_object == NULL)
+	{
+		if (TAILQ_EMPTY(file->data_object_head))
+			return CTF_EMPTY;
+
+		*out_next = TAILQ_FIRST(file->data_object_head);
+		return CTF_OK;
+	}
+	else
+	{
+		struct ctf_data_object *next = TAILQ_NEXT(data_object, data_objects);
+		if (next == NULL)
+			return CTF_END;
+		else
+		{
+			*out_next = next;
+			return CTF_OK;	
+		}
+	}
+}
+
