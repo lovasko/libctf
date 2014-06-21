@@ -24,6 +24,7 @@
 #define CTF_FLOAT_IMAGINARY             10
 #define CTF_FLOAT_DOUBLE_IMAGINARY      11
 #define CTF_FLOAT_LONG_DOUBLE_IMAGINARY 12
+#define CTF_FLOAT_MAX                   12
 
 /**
  * Common variable data for int and float kinds.
