@@ -21,6 +21,10 @@
 #include <gelf.h>
 #include <stdint.h>
 
+#define CTF_ELF_SECTION_SYMTAB ".symtab"
+#define CTF_ELF_SECTION_STRTAB ".strtab"
+#define CTF_ELF_SECTION_SUNW_CTF ".SUNW_ctf"
+
 static struct _section*
 elf_section_find (Elf *elf, Elf32_Ehdr *elf_header, const char *to_find)
 {
