@@ -69,6 +69,7 @@ struct _ctf_large_type
 struct ctf_type
 {
 	char *name; /**< name of the type */
+	uint8_t is_root;
 	uint8_t kind; /**< kind of the type, one of the CTF_KIND constants */
 	uint16_t id;
 	union
