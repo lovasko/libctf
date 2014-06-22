@@ -92,8 +92,16 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 		else
 			name = NULL;
 
-		if (symbol->st_name == 0 || symbol->st_shndx == SHN_UNDEF || 
-		    strcmp(name, "_START_") == 0 || strcmp(name, "_END_") == 0)
+		if (symbol->st_name == 0)
+			continue;
+
+		if (symbol->st_shndx == SHN_UNDEF)
+			continue;
+
+		if (strcmp(name, "_START_") == 0)
+			continue;
+			
+		if (strcmp(name, "_END_") == 0)
 			continue;
 
 		uint16_t type_reference;
