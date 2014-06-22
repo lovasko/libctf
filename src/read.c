@@ -109,6 +109,9 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 		uint8_t vardata_length;
 		struct ctf_function *function;
 		struct ctf_argument *argument;
+
+		uint16_t *fp = (uint16_t*)(function_section->data);
+
 		switch (ELF32_ST_TYPE(symbol->st_info))
 		{
 			case STT_OBJECT:
@@ -126,13 +129,16 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 			break;
 
 			case STT_FUNC:
-				info = *((uint16_t*)(function_section->data + function_offset));
-				function_offset += sizeof(uint16_t);
+				info = *(fp + function_offset);
+				function_offset++;
 
+				vardata_length = info & CTF_VARDATA_LENGTH_MAX;
 				if (ctf_kind_from_info(info) == CTF_KIND_NONE && vardata_length == 0)
 					break;
-					
-				vardata_length = info & CTF_VARDATA_LENGTH_MAX;
+
+				type_reference = *(fp + function_offset);
+				function_offset++;
+				function->return_type = lookup_type(file, type_reference);
 
 				function = malloc(CTF_FUNCTION_SIZE);
 				function->name = strdup(name);
@@ -140,19 +146,14 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 				TAILQ_INIT(function->argument_head);
 				for (unsigned int k = 0; k < vardata_length; k++)
 				{
-					type_reference = *((uint16_t*)(function_section->data 
-					    + function_offset));
-					function_offset += sizeof(uint16_t);
+					type_reference = *(fp + function_offset);
+					function_offset++;
 
 					argument = malloc(CTF_ARGUMENT_SIZE);				
 					argument->type = lookup_type(file, type_reference);
 					TAILQ_INSERT_TAIL(function->argument_head, argument, arguments);
 				}
-
-				type_reference = *((uint16_t*)(function_section->data + function_offset));
-				function_offset += sizeof(uint16_t);
-				function->return_type = lookup_type(file, type_reference);
-
+				
 				TAILQ_INSERT_TAIL(file->function_head, function, functions);
 			break;
 		}
@@ -530,6 +531,7 @@ ctf_read_file (char *filename, struct ctf_file **out_file)
 	if ((retval = read_functions_and_objects(file, symtab_section, &object_section,
 	    &function_section, &strings)) != CTF_OK)
 		return retval;
+
 
 	free(ctf_section->data);
 	free(ctf_section);
