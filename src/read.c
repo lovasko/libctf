@@ -1,7 +1,6 @@
 #include "read.h"
 #include "header.h"
 #include "util/compression.h"
-#include "util/elf_section_find.h"
 #include "strings.h"
 #include "file.h"
 #include "data_object.h"
