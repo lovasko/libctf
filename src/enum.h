@@ -31,6 +31,19 @@ struct ctf_enum_entry
 TAILQ_HEAD(ctf_enum_head, ctf_enum_entry);
 #define CTF_ENUM_HEAD_SIZE sizeof(struct ctf_enum_head)
 
+struct ctf_enum
+{
+	char *name;
+	struct ctf_enum_head *enum_head;
+};
+
+int
+ctf_enum_get_name (struct ctf_enum *_enum, char **out_name);
+
+int
+ctf_enum_get_next_entry (struct ctf_enum *_enum, 
+    struct ctf_enum_entry **out_enum_entry);
+
 char*
 ctf_enum_entry_get_name (struct ctf_enum_entry *enum_entry);
 
