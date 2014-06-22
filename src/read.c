@@ -138,7 +138,7 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 				function->name = strdup(name);
 				function->argument_head = malloc(CTF_ARGUMENT_HEAD_SIZE);
 				TAILQ_INIT(function->argument_head);
-				for (unsigned int i = 0; i < vardata_length; i++)
+				for (unsigned int k = 0; k < vardata_length; k++)
 				{
 					type_reference = *((uint16_t*)(function_section->data 
 					    + function_offset));
@@ -270,8 +270,8 @@ read_types (struct ctf_file *file, struct _section *section, struct
 		struct ctf_type *type = malloc(CTF_TYPE_SIZE);			
 		type->kind = kind;
 		type->id = id;
-
 		type->is_root = is_root;
+
 		id++;
 
 		if (ctf_kind_is_pure_reference(kind) == 1)
