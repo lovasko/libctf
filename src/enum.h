@@ -42,7 +42,7 @@ ctf_enum_get_name (struct ctf_enum *_enum, char **out_name);
 
 int
 ctf_enum_get_next_entry (struct ctf_enum *_enum, 
-    struct ctf_enum_entry **out_enum_entry);
+    struct ctf_enum_entry *enum_entry, struct ctf_enum_entry **out_enum_entry);
 
 char*
 ctf_enum_entry_get_name (struct ctf_enum_entry *enum_entry);
