@@ -36,6 +36,7 @@ struct ctf_enum
 	char *name;
 	struct ctf_enum_head *enum_head;
 };
+#define CTF_ENUM_SIZE sizeof(struct ctf_enum)
 
 int
 ctf_enum_get_name (struct ctf_enum *_enum, char **out_name);
