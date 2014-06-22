@@ -145,7 +145,7 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 				function_offset += sizeof(uint16_t);
 				function->return_type = lookup_type(file, type_reference);
 
-				TAILQ_INSERT_HEAD(file->function_head, function, functions);
+				TAILQ_INSERT_TAIL(file->function_head, function, functions);
 			break;
 		}
 	}
