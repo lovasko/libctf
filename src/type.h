@@ -95,6 +95,9 @@ ctf_type_get_kind (struct ctf_type *type);
 uint16_t
 ctf_type_get_id (struct ctf_type *type);
 
+uint8_t
+ctf_type_is_root (struct ctf_type *type);
+
 void*
 ctf_type_get_data (struct ctf_type *type);
 

@@ -61,6 +61,15 @@ ctf_type_get_id (struct ctf_type *type)
 		return 0;
 }
 
+uint8_t
+ctf_type_is_root (struct ctf_type *type)
+{
+	if (type)
+		return type->is_root;
+	else
+		return 0;
+}
+
 void*
 ctf_type_get_data (struct ctf_type *type)
 {
