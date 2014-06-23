@@ -1,22 +1,30 @@
 #include "array.h"
+#include "errors.h"
 
 #include <stdlib.h>
 
-uint32_t
-ctf_array_get_element_count (struct ctf_array *array)
+int
+ctf_array_get_element_count (struct ctf_array *array, 
+    uint32_t *out_element_count)
 {
-	if (array)
-		return array->element_count;
+	if (array && out_element_count)
+	{
+		*out_element_count = array->element_count;
+		return CTF_OK;
+	}
 	else
-		return 0;
+		return CTF_E_NULL;
 }
 
-struct ctf_type*
-ctf_array_get_type (struct ctf_array *array)
+int
+ctf_array_get_type (struct ctf_array *array, struct ctf_type **out_type)
 {
-	if (array)
-		return array->type;
+	if (array && out_type)
+	{
+		*out_type = array->type;
+		return CTF_OK;
+	}
 	else
-		return NULL;
+		return CTF_E_NULL;
 }
 
