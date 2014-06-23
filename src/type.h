@@ -101,13 +101,5 @@ ctf_type_is_root (struct ctf_type *type);
 void*
 ctf_type_get_data (struct ctf_type *type);
 
-int
-ctf_type_get_next_enum_entry (struct ctf_type *type, struct ctf_enum_entry
-    *enum_entry, struct ctf_enum_entry **out_next);
-
-int
-ctf_type_get_next_member (struct ctf_type *type, struct ctf_member *member,
-    struct ctf_member **out_next);
-
 #endif
 
