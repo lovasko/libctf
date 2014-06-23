@@ -33,7 +33,7 @@ ctf_enum_entry_get_name (struct ctf_enum_entry *enum_entry, char **out_name);
 
 int
 ctf_enum_entry_get_value (struct ctf_enum_entry *enum_entry, 
-    int32_t **out_value);
+    int32_t *out_value);
 
 #endif
 
