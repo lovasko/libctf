@@ -68,7 +68,6 @@ struct _ctf_large_type
  */
 struct ctf_type
 {
-	char *name; /**< name of the type */
 	uint8_t is_root;
 	uint8_t kind; /**< kind of the type, one of the CTF_KIND constants */
 	uint16_t id;
@@ -85,9 +84,6 @@ struct ctf_type
 
 TAILQ_HEAD(ctf_type_head, ctf_type);
 #define CTF_TYPE_HEAD_SIZE sizeof(struct ctf_type_head)
-
-char*
-ctf_type_get_name (struct ctf_type *type);
 
 uint8_t
 ctf_type_get_kind (struct ctf_type *type);

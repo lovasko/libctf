@@ -34,15 +34,6 @@
  * special function for every kind.
  */
 
-char*
-ctf_type_get_name (struct ctf_type *type)
-{
-	if (type)
-		return type->name;
-	else
-		return NULL;
-}
-
 uint8_t
 ctf_type_get_kind (struct ctf_type *type)
 {
