@@ -60,14 +60,14 @@ struct ctf_member
 TAILQ_HEAD(ctf_member_head, ctf_member);
 #define CTF_MEMBER_HEAD_SIZE sizeof(struct ctf_member_head)
 
-char*
-ctf_member_get_name (struct ctf_member *member);
+int
+ctf_member_get_name (struct ctf_member *member, char **out_name);
 
-struct ctf_type*
-ctf_member_get_type (struct ctf_member *member);
+int
+ctf_member_get_type (struct ctf_member *member, struct ctf_type **out_type);
 
-uint64_t
-ctf_member_get_offset (struct ctf_member *member);
+int
+ctf_member_get_offset (struct ctf_member *member, uint64_t *out_offset);
 
 #endif
 
