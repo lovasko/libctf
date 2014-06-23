@@ -27,15 +27,16 @@ struct ctf_function
 TAILQ_HEAD(ctf_function_head, ctf_function);
 #define CTF_FUNCTION_HEAD_SIZE sizeof(struct ctf_function_head)
 
-char*
-ctf_function_get_name (struct ctf_function *function);
+int
+ctf_function_get_name (struct ctf_function *function, char **out_name);
 
-struct ctf_type*
-ctf_function_get_return_type (struct ctf_function *function);
+int
+ctf_function_get_return_type (struct ctf_function *function, 
+    struct ctf_type **out_return_type);
 
 int
 ctf_function_get_next_argument (struct ctf_function *function, 
-    struct ctf_argument *argument, struct ctf_argument **out_next);
+    struct ctf_argument *argument, struct ctf_argument **out_argument);
 
 #endif
 
