@@ -77,6 +77,24 @@ header_check_offset_sanity (struct _ctf_header *header)
 		return CTF_E_OFFSETS_CORRUPT;
 }
 
+static struct ctf_type*
+lookup_type (struct ctf_file *file, uint16_t id)
+{
+	if (id < file->type_id_offset)
+	{
+		if (file->parent_file != NULL)
+			return lookup_type(file->parent_file, id);
+		else
+			return NULL;
+	}
+	else if (id < file->type_count)
+	{
+		return file->type_id_table[id - file->type_id_offset];	
+	}
+	else
+		return NULL;
+}
+
 static int
 read_functions_and_objects (struct ctf_file *file, struct _section
     *symtab_section, struct _section *object_section, struct _section
