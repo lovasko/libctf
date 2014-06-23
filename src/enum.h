@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <sys/queue.h>
 
+#include "enum_entry.h"
+
 struct ctf_enum
 {
 	char *name;
