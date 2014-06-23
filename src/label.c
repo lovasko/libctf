@@ -1,26 +1,29 @@
 #include "label.h"
-#include "util/section.h"
 #include "errors.h"
 
 #include <stdlib.h>
-#include <string.h>
-#include <sys/queue.h>
 
-char*
-ctf_label_get_name (struct ctf_label *label)
+int
+ctf_label_get_name (struct ctf_label *label, char **out_name)
 {
-	if (label != NULL)
-		return label->name;
+	if (label && out_name)
+	{
+		*out_name = label->name;
+		return CTF_OK;
+	}
 	else
-		return NULL;
+		return CTF_E_NULL;
 }
 
-uint32_t
-ctf_label_get_index (struct ctf_label *label)
+int
+ctf_label_get_index (struct ctf_label *label, uint32_t *out_index)
 {
-	if (label != NULL)
-		return label->index;
+	if (label && out_index)
+	{
+		*out_index = label->index;
+		return CTF_OK;
+	}
 	else
-		return 0;
+		return CTF_E_NULL;
 }
 

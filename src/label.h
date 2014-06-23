@@ -1,10 +1,6 @@
 #ifndef CTF_LABEL_H
 #define CTF_LABEL_H
 
-#include "util/section.h"
-#include "strings.h"
-#include "file.h"
-
 #include <stdint.h>
 #include <sys/queue.h>
 
@@ -35,11 +31,11 @@ struct ctf_label
 TAILQ_HEAD(ctf_label_head, ctf_label);
 #define CTF_LABEL_HEAD_SIZE sizeof(struct ctf_label_head)
 
-char*
-ctf_label_get_name (struct ctf_label *label);
+int
+ctf_label_get_name (struct ctf_label *label, char **out_name);
 
-uint32_t
-ctf_label_get_index (struct ctf_label *label);
+int
+ctf_label_get_index (struct ctf_label *label, uint32_t *out_index);
 
 #endif
 
