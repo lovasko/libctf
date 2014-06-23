@@ -432,9 +432,8 @@ ctf_read_file (char *filename, struct ctf_file **out_file)
 
 	/* read the CTF header */
 	struct _ctf_header *header = (struct _ctf_header*)ctf_section->data;
-	int header_status;
-	if ((header_status = header_preface_check(&header->preface)) != 0)
-		return header_status;
+	if ((retval = header_preface_check(&header->preface)) != 0)
+		return retval;
 
 	/* pointer to decompressed start of the actual CTF data without the header */
 	void *headerless_ctf;
