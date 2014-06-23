@@ -34,39 +34,51 @@
  * special function for every kind.
  */
 
-uint8_t
-ctf_type_get_kind (struct ctf_type *type)
+int
+ctf_type_get_kind (struct ctf_type *type, uint8_t *out_kind)
 {
-	if (type)
-		return type->kind;
+	if (type && out_kind)
+	{
+		*out_kind = type->kind;
+		return CTF_OK;
+	}
 	else
-		return 0;
+		return CTF_E_NULL;
 }
 
-uint16_t
-ctf_type_get_id (struct ctf_type *type)
+int
+ctf_type_get_id (struct ctf_type *type, uint16_t *out_id)
 {
-	if (type)
-		return type->id;
+	if (type && out_id)
+	{
+		*out_id = type->id;
+		return CTF_OK;
+	}
 	else
-		return 0;
+		return CTF_E_NULL;
 }
 
-uint8_t
-ctf_type_is_root (struct ctf_type *type)
+int
+ctf_type_is_root (struct ctf_type *type, int *out_is_root)
 {
-	if (type)
-		return type->is_root;
+	if (type && out_is_root)
+	{
+		*out_is_root = type->is_root;
+		return CTF_OK;
+	}
 	else
-		return 0;
+		return CTF_E_NULL;
 }
 
-void*
-ctf_type_get_data (struct ctf_type *type)
+int
+ctf_type_get_data (struct ctf_type *type, void **out_data)
 {
-	if (type)
-		return type->data;
+	if (type && out_data)
+	{
+		*out_data = type->data;
+		return CTF_OK;
+	}
 	else
-		return 0;
+		return CTF_E_NULL;
 }
 
