@@ -66,6 +66,18 @@ header_preface_check (struct _ctf_preface *preface)
 }
 
 static int
+header_check_offset_sanity (struct _ctf_header *header)
+{
+	if (header->label_offset    < header->object_offset   &&
+	    header->object_offset   < header->function_offset &&
+	    header->function_offset < header->type_offset     &&
+	    header->type_offset     < header->string_offset)
+		return CTF_OK;
+	else
+		return CTF_E_OFFSETS_CORRUPT;
+}
+
+static int
 read_functions_and_objects (struct ctf_file *file, struct _section
     *symtab_section, struct _section *object_section, struct _section
     *function_section, struct _strings *strings)
@@ -433,6 +445,10 @@ ctf_read_file (char *filename, struct ctf_file **out_file)
 	/* read the CTF header */
 	struct _ctf_header *header = (struct _ctf_header*)ctf_section->data;
 	if ((retval = header_preface_check(&header->preface)) != CTF_OK)
+		return retval;
+
+	/* check the order of offsets */
+	if ((retval = header_check_offset_sanity(header)) != CTF_OK)
 		return retval;
 
 	/* pointer to decompressed start of the actual CTF data without the header */
