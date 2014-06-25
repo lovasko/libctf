@@ -356,8 +356,6 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			}
 			offset += advance;
 
-			type->name = strdup(strings_lookup(strings, small_type->name));
-
 			switch (kind)
 			{
 				case CTF_KIND_INT:
