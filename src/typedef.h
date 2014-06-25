@@ -4,7 +4,11 @@
 struct ctf_typedef
 {
 	char *name;
-	struct ctf_type *type;
+	union
+	{
+		struct ctf_type *type;
+		uint16_t type_reference;
+	}
 };
 #define CTF_TYPEDEF_SIZE sizeof(struct ctf_typedef)
 
