@@ -305,12 +305,23 @@ read_types (struct ctf_file *file, struct _section *section, struct
 
 		id++;
 
-		if (ctf_kind_is_pure_reference(kind) == 1)
+		if (ctf_kind_is_pure_reference(kind) == 1 && kind != CTF_KIND_TYPEDEF)
 		{
 			if (kind == CTF_KIND_TYPEDEF)
 				type->name = strdup(strings_lookup(strings, small_type->name));
 			else
 				type->name = NULL;
+
+		if (kind == CTF_KIND_TYPEDEF)
+		{
+			struct ctf_typedef *_typedef = malloc(CTF_TYPEDEF_SIZE);
+			_typedef->name = strdup(strings_lookup(strings, small_type->name));
+			_typedef->type_reference = small_type->type;
+
+			type->data = _typedef;
+
+			offset += _CTF_SMALL_TYPE_SIZE;
+		}
 
 			type->type_reference = small_type->type;
 
