@@ -269,7 +269,7 @@ create_type_table (struct ctf_file *file)
 		file->type_id_table[type->id] = type;	
 	}
 
-	return 0;
+	return CTF_OK;
 }
 
 static uint8_t
