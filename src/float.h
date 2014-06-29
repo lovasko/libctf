@@ -5,6 +5,7 @@
 
 #include <stdint.h>
 
+#define CTF_FLOAT_ENCODING_MIN                    1
 #define CTF_FLOAT_ENCODING_SINGLE                 1
 #define CTF_FLOAT_ENCODING_DOUBLE                 2
 #define CTF_FLOAT_ENCODING_COMPLEX                3
