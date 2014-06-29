@@ -11,17 +11,50 @@
 #include <stdlib.h>
 #include <string.h>
 
-void*
-read_int_float_vardata (void *data)
+#define _CTF_INT_FLOAT_ENCODING_MASK 0xff000000
+#define _CTF_INT_FLOAT_OFFSET_MASK   0x00ff0000 
+#define _CTF_INT_FLOAT_SIZE_MASK     0x0000ffff 
+
+#define _CTF_INT_SIGNED  1
+#define _CTF_INT_CHAR    2
+#define _CTF_INT_BOOLEAN 4
+#define _CTF_INT_VARARGS 8
+
+struct ctf_int*
+read_int_vardata (void *data)
 {
 	uint32_t *raw = (uint32_t*)data;
-	struct ctf_int_float *vardata = malloc(CTF_INT_FLOAT_SIZE);
+	struct ctf_int *vardata = malloc(CTF_INT_SIZE);
 
-	vardata->encoding = (*raw & CTF_INT_FLOAT_ENCODING_MASK) >> 24; 
-	vardata->offset = (*raw & CTF_INT_FLOAT_OFFSET_MASK) >> 16;
-	vardata->size = *raw & CTF_INT_FLOAT_SIZE_MASK;
+	vardata->offset = (*raw & _CTF_INT_FLOAT_OFFSET_MASK) >> 16;
+	vardata->size = *raw & _CTF_INT_FLOAT_SIZE_MASK;
 
-	return (void*)vardata;
+	uint8_t encoding = (*raw & _CTF_INT_FLOAT_ENCODING_MASK) >> 24; 
+	vardata->is_signed = encoding & _CTF_INT_SIGNED;
+
+	if (encoding & _CTF_INT_CHAR)
+		vardata->content = CTF_INT_CONTENT_CHAR;
+	else if (encoding & _CTF_INT_BOOLEAN)
+		vardata->content = CTF_INT_CONTENT_BOOLEAN;
+	else if (encoding & _CTF_INT_VARARGS)
+		vardata->content = CTF_INT_CONTENT_VARARGS;
+	else
+		vardata->content = CTF_INT_CONTENT_NUMBER;
+
+	return vardata;
+}
+
+struct ctf_float*
+read_float_vardata (void *data)
+{
+	uint32_t *raw = (uint32_t*)data;
+	struct ctf_float *vardata = malloc(CTF_FLOAT_SIZE);
+
+	vardata->encoding = (*raw & _CTF_INT_FLOAT_ENCODING_MASK) >> 24; 
+	vardata->offset = (*raw & _CTF_INT_FLOAT_OFFSET_MASK) >> 16;
+	vardata->size = *raw & _CTF_INT_FLOAT_SIZE_MASK;
+
+	return vardata;
 }
 
 void*
