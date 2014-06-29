@@ -8,6 +8,10 @@
 #include "vardata.h"
 #include "errors.h"
 #include "array.h"
+#include "typedef.h"
+#include "struct_union.h"
+#include "int.h"
+#include "float.h"
 
 #include <stdio.h>
 #include <string.h>
