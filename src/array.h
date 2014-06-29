@@ -26,6 +26,7 @@ struct _ctf_array
  */
 struct ctf_array
 {
+	char *name;	
 	uint32_t element_count; /**< element count */
 	union
 	{
