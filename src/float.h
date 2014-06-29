@@ -5,19 +5,19 @@
 
 #include <stdint.h>
 
-#define CTF_FLOAT_SINGLE                 1
-#define CTF_FLOAT_DOUBLE                 2
-#define CTF_FLOAT_COMPLEX                3
-#define CTF_FLOAT_DOUBLE_COMPLEX         4
-#define CTF_FLOAT_LONG_DOUBLE_COMPLEX    5
-#define CTF_FLOAT_LONG_DOUBLE            6
-#define CTF_FLOAT_INTERVAL               7
-#define CTF_FLOAT_DOUBLE_INTERVAL        8
-#define CTF_FLOAT_LONG_DOUBLE_INTERVAL   9
-#define CTF_FLOAT_IMAGINARY             10
-#define CTF_FLOAT_DOUBLE_IMAGINARY      11
-#define CTF_FLOAT_LONG_DOUBLE_IMAGINARY 12
-#define CTF_FLOAT_MAX                   12
+#define CTF_FLOAT_ENCODING_SINGLE                 1
+#define CTF_FLOAT_ENCODING_DOUBLE                 2
+#define CTF_FLOAT_ENCODING_COMPLEX                3
+#define CTF_FLOAT_ENCODING_DOUBLE_COMPLEX         4
+#define CTF_FLOAT_ENCODING_LONG_DOUBLE_COMPLEX    5
+#define CTF_FLOAT_ENCODING_LONG_DOUBLE            6
+#define CTF_FLOAT_ENCODING_INTERVAL               7
+#define CTF_FLOAT_ENCODING_DOUBLE_INTERVAL        8
+#define CTF_FLOAT_ENCODING_LONG_DOUBLE_INTERVAL   9
+#define CTF_FLOAT_ENCODING_IMAGINARY             10
+#define CTF_FLOAT_ENCODING_DOUBLE_IMAGINARY      11
+#define CTF_FLOAT_ENCODING_LONG_DOUBLE_IMAGINARY 12
+#define CTF_FLOAT_ENCODING_MAX                   12
 
 struct ctf_float
 {
