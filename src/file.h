@@ -5,6 +5,8 @@
 #include "type.h"
 #include "data_object.h"
 #include "function.h"
+#include "util/property.h"
+#include "util/listing.h"
 
 /**
  * Root CTF data strcture.
@@ -29,32 +31,17 @@ struct ctf_file
 };
 #define CTF_FILE_SIZE sizeof(struct ctf_file)
 
-int
-ctf_file_get_version (struct ctf_file *file, int *out_version);
+_CTF_GET_PROPERTY_PROTO(ctf_file_get_version, struct ctf_file*, int)
+_CTF_GET_PROPERTY_PROTO(ctf_file_is_compressed, struct ctf_file*, int)
+_CTF_GET_PROPERTY_PROTO(ctf_file_get_parent_file, struct ctf_file*, 
+    struct ctf_file*)
 
-int
-ctf_file_is_compressed (struct ctf_file *file, int *out_is_compressed);
-
-int
-ctf_file_get_parent_file (struct ctf_file *file, 
-    struct ctf_file **out_parent_file);
-
-int
-ctf_file_get_next_label (struct ctf_file *file, struct ctf_label *label, 
-    struct ctf_label **out_label);
-
-int
-ctf_file_get_next_type (struct ctf_file *file, struct ctf_type *type, 
-    struct ctf_type **out_type);
-
-int
-ctf_file_get_next_function (struct ctf_file *file, 
-    struct ctf_function *function, struct ctf_function **out_function);
-
-int
-ctf_file_get_next_data_object (struct ctf_file *file, 
-    struct ctf_data_object *data_object, 
-    struct ctf_data_object **out_data_object);
+_CTF_LISTING_PROTO(ctf_file_get_next_label, struct ctf_file*, struct ctf_label*);
+_CTF_LISTING_PROTO(ctf_file_get_next_type, struct ctf_file*, struct ctf_type*);
+_CTF_LISTING_PROTO(ctf_file_get_next_function, struct ctf_file*, 
+    struct ctf_function*);
+_CTF_LISTING_PROTO(ctf_file_get_next_data_object, struct ctf_file*, 
+    struct ctf_data_object*);
 
 #endif
 
