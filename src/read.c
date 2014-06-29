@@ -225,9 +225,16 @@ solve_type_references (struct ctf_file *file)
 	struct ctf_type *type;
 	TAILQ_FOREACH (type, file->type_head, types)
 	{
-		if (ctf_kind_is_pure_reference(type->kind) == 1)
+		if (ctf_kind_is_pure_reference(type->kind) == 1 && 
+		    type->kind != CTF_KIND_TYPEDEF)
 		{
 			type->data = lookup_type(file, type->type_reference);
+		}
+
+		if (type->kind == CTF_KIND_TYPEDEF)
+		{
+			struct ctf_typedef *_typedef = type->data;
+			_typedef->type = lookup_type(file, _typedef->type_reference);
 		}
 
 		if (type->kind == CTF_KIND_ARRAY)
@@ -238,9 +245,9 @@ solve_type_references (struct ctf_file *file)
 
 		if (type->kind == CTF_KIND_STRUCT || type->kind == CTF_KIND_UNION)
 		{
-			struct ctf_member_head *member_head = type->data;
+			struct ctf_struct_union *struct_union = type->data;
 			struct ctf_member *member;
-			TAILQ_FOREACH (member, member_head, members)
+			TAILQ_FOREACH (member, struct_union->member_head, members)
 			{
 				member->type = lookup_type(file, member->type_reference);
 			}
@@ -259,7 +266,7 @@ solve_type_references (struct ctf_file *file)
 		}
 	}
 
-	return 0;
+	return CTF_OK;
 }
 
 static int
@@ -273,7 +280,7 @@ create_type_table (struct ctf_file *file)
 		file->type_id_table[type->id] = type;	
 	}
 
-	return CTF_OK;
+	return 0;
 }
 
 static uint8_t
@@ -311,10 +318,10 @@ read_types (struct ctf_file *file, struct _section *section, struct
 
 		if (ctf_kind_is_pure_reference(kind) == 1 && kind != CTF_KIND_TYPEDEF)
 		{
-			if (kind == CTF_KIND_TYPEDEF)
-				type->name = strdup(strings_lookup(strings, small_type->name));
-			else
-				type->name = NULL;
+			type->type_reference = small_type->type;
+
+			offset += _CTF_SMALL_TYPE_SIZE;
+		}
 
 		if (kind == CTF_KIND_TYPEDEF)
 		{
@@ -327,22 +334,17 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			offset += _CTF_SMALL_TYPE_SIZE;
 		}
 
-			type->type_reference = small_type->type;
-
-			offset += _CTF_SMALL_TYPE_SIZE;
-		}
-
 		if (kind == CTF_KIND_NONE)
 		{
-			type->name = NULL;
 			type->data = NULL;
 
 			offset += _CTF_SMALL_TYPE_SIZE;
 		}
 
+		/* TODO solve name */
 		if (kind == CTF_KIND_FWD_DECL)
 		{
-			type->name = strdup(strings_lookup(strings, small_type->name));		
+			/* type->name = strdup(strings_lookup(strings, small_type->name)); */		
 			type->type_reference = small_type->type;
 
 			offset += _CTF_SMALL_TYPE_SIZE;
@@ -360,31 +362,65 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			}
 			offset += advance;
 
+			char *name = strdup(strings_lookup(strings, small_type->name));
+
 			switch (kind)
 			{
 				case CTF_KIND_INT:
-				case CTF_KIND_FLOAT:
-					type->data = read_int_float_vardata(section->data + offset);
+				{
+					struct ctf_int *_int = read_int_vardata(section->data + offset);	
+					_int->name = name;
+					type->data = _int;
 					offset += 4;
+				}	
+				break;
+
+				case CTF_KIND_FLOAT:
+				{
+					struct ctf_float *_float = read_float_vardata( section->data + offset);
+					_float->name = name;
+					type->data = _float;
+					offset += 4;
+				}
 				break;
 
 				case CTF_KIND_ARRAY:
-					type->data = read_array_vardata(section->data + offset);
+				{
+					struct ctf_array *array = read_array_vardata(section->data + offset);
+					array->name = name;
+
+					type->data = array;
+
 					offset += _CTF_ARRAY_SIZE;
+				}
 				break;
 
 				case CTF_KIND_ENUM:
-					type->data = read_enum_vardata(section->data + offset, vardata_length, 
-					    strings);
+				{
+					struct ctf_enum *_enum = malloc(CTF_ENUM_SIZE);
+					_enum->name = name;
+					_enum->enum_head = read_enum_vardata(section->data + offset, 
+					    vardata_length, strings);
+
+					type->data = _enum;
+					
 					offset += vardata_length * _CTF_ENUM_ENTRY_SIZE;
+				}
 				break;
 
 				case CTF_KIND_STRUCT:
 				case CTF_KIND_UNION:
-					type->data = read_struct_union_vardata(section->data + offset,
-					    vardata_length, size, strings);
+				{
+					struct ctf_struct_union *struct_union = malloc(CTF_STRUCT_UNION_SIZE);
+					struct_union->name = name;
+					struct_union->member_head = read_struct_union_vardata(
+					    section->data + offset, vardata_length, size, strings);
+
+					type->data = struct_union;	
+					
 					offset += vardata_length * (small_type->size >= CTF_MEMBER_THRESHOLD ? 
 					    _CTF_LARGE_MEMBER_SIZE : _CTF_SMALL_MEMBER_SIZE);
+				}
 				break;
 			}
 		}
@@ -401,11 +437,13 @@ read_types (struct ctf_file *file, struct _section *section, struct
 		{
 			offset += _CTF_SMALL_TYPE_SIZE;
 
-			type->name = strdup(strings_lookup(strings, small_type->name));
-			type->data = read_function_vardata(section->data + offset, vardata_length);
+			struct ctf_function *function = malloc(CTF_FUNCTION_SIZE);
+			function->argument_head = read_function_vardata( section->data + offset, 
+			    vardata_length);
+			function->name = strdup(strings_lookup(strings, small_type->name));
+			function->return_type_reference = small_type->type;
 
-			((struct ctf_function*)type->data)->return_type_reference = 
-			    small_type->type;
+			type->data = function;
 
 			offset += (vardata_length + (vardata_length & 1)) * sizeof(uint16_t);
 		}
