@@ -1,11 +1,4 @@
 #include "vardata.h"
-#include "array.h"
-#include "type.h"
-#include "enum.h"
-#include "function.h"
-#include "argument.h"
-#include "member.h"
-#include "int_float.h"
 
 #include <stdint.h>
 #include <stdlib.h>
