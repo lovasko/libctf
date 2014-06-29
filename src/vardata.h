@@ -7,17 +7,11 @@
 
 #define CTF_VARDATA_LENGTH_MAX 0x3ff
 
-/**
- * Read the inf/float variable data.
- *
- * The variable data for both kinds is long exactly 4 bytes. Each one of these
- * bytes is described in the ctf_int_float_vardata struct.
- *
- * @param data start of the variable data
- * @return pointer to filled ctf_int_float struct
- */
-void*
-read_int_float_vardata (void *data);
+struct ctf_int*
+read_int_vardata (void *data);
+
+struct ctf_float*
+read_float_vardata (void *data);
 
 /**
  * Read the array variable data.
