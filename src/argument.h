@@ -2,6 +2,7 @@
 #define CTF_ARGUMENT_H
 
 #include "type.h"
+#include "util/property.h"
 
 #include <sys/queue.h>
 
@@ -25,9 +26,8 @@ struct ctf_argument
 TAILQ_HEAD(ctf_argument_head, ctf_argument);
 #define CTF_ARGUMENT_HEAD_SIZE sizeof(struct ctf_argument_head)
 
-int
-ctf_argument_get_type (struct ctf_argument *argument, 
-    struct ctf_type **out_type);
+_CTF_GET_PROPERTY_PROTO(ctf_argument_get_type, struct ctf_argument*, 
+    struct ctf_type*, type)
 
 #endif
 
