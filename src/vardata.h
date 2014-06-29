@@ -1,7 +1,15 @@
 #ifndef CTF_VARDATA_H
 #define CTF_VARDATA_H
 
+#include "array.h"
 #include "type.h"
+#include "enum.h"
+#include "enum_entry.h"
+#include "function.h"
+#include "argument.h"
+#include "member.h"
+#include "int.h"
+#include "float.h"
 
 #include <stdint.h>
 
