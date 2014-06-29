@@ -1,6 +1,8 @@
 #ifndef CTF_MEMBER_H
 #define CTF_MEMBER_H
 
+#include "util/property.h"
+
 #include <stdint.h>
 #include <sys/queue.h>
 
@@ -60,14 +62,10 @@ struct ctf_member
 TAILQ_HEAD(ctf_member_head, ctf_member);
 #define CTF_MEMBER_HEAD_SIZE sizeof(struct ctf_member_head)
 
-int
-ctf_member_get_name (struct ctf_member *member, char **out_name);
-
-int
-ctf_member_get_type (struct ctf_member *member, struct ctf_type **out_type);
-
-int
-ctf_member_get_offset (struct ctf_member *member, uint64_t *out_offset);
+_CTF_GET_PROPERTY_PROTO(ctf_member_get_name, struct ctf_member*, char*)
+_CTF_GET_PROPERTY_PROTO(ctf_member_get_type, struct ctf_member*, 
+    struct ctf_type*)
+_CTF_GET_PROPERTY_PROTO(ctf_member_get_offset, struct ctf_member*, uint64_t)
 
 #endif
 
