@@ -57,7 +57,7 @@ read_float_vardata (void *data)
 	return vardata;
 }
 
-void*
+struct ctf_array*
 read_array_vardata (void *data)
 {
 	struct _ctf_array *raw = (struct _ctf_array*)data;
@@ -66,10 +66,10 @@ read_array_vardata (void *data)
 	array->element_count = raw->element_count;
 	array->type_reference = raw->content_type;
 
-	return (void*)array;
+	return array;
 }
 
-void*
+struct ctf_function*
 read_function_vardata (void *data, uint16_t length)
 {
 	struct ctf_argument_head *argument_head = malloc(CTF_ARGUMENT_HEAD_SIZE);
@@ -89,10 +89,10 @@ read_function_vardata (void *data, uint16_t length)
 	function->return_type = NULL;
 	function->argument_head = argument_head;
 
-	return (void*)function;
+	return function;
 }
 
-void*
+struct ctf_enum_head*
 read_enum_vardata (void *data, uint16_t length, struct _strings *strings)
 {
 	struct ctf_enum_head *enum_head = malloc(CTF_ENUM_HEAD_SIZE);
@@ -108,10 +108,10 @@ read_enum_vardata (void *data, uint16_t length, struct _strings *strings)
 		TAILQ_INSERT_TAIL(enum_head, enum_entry, entries);
 	}
 
-	return (void*)enum_head;
+	return enum_head;
 }
 
-void*
+struct ctf_member_head*
 read_struct_union_vardata (void *data, uint16_t length, uint16_t size, 
     struct _strings *strings)
 {
@@ -151,6 +151,6 @@ read_struct_union_vardata (void *data, uint16_t length, uint16_t size,
 		TAILQ_INSERT_TAIL(member_head, member, members);
 	}
 
-	return (void*)member_head;
+	return member_head;
 }
 
