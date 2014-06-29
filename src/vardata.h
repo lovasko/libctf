@@ -43,7 +43,7 @@ read_array_vardata (void *data);
  * read function already
  * @return pointer to filled ctf_function struct
  */
-struct ctf_function*
+struct ctf_argument_head*
 read_function_vardata (void *data, uint16_t length);
 
 /**

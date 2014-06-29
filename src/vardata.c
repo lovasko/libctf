@@ -69,7 +69,7 @@ read_array_vardata (void *data)
 	return array;
 }
 
-struct ctf_function*
+struct ctf_argument_head*
 read_function_vardata (void *data, uint16_t length)
 {
 	struct ctf_argument_head *argument_head = malloc(CTF_ARGUMENT_HEAD_SIZE);
@@ -84,12 +84,7 @@ read_function_vardata (void *data, uint16_t length)
 		TAILQ_INSERT_TAIL(argument_head, argument, arguments);
 	}
 
-	struct ctf_function *function = malloc(CTF_FUNCTION_SIZE);
-	function->name = NULL;
-	function->return_type = NULL;
-	function->argument_head = argument_head;
-
-	return function;
+	return argument_head;
 }
 
 struct ctf_enum_head*
