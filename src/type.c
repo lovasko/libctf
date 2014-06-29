@@ -1,14 +1,4 @@
 #include "type.h"
-#include "file.h"
-#include "kind.h"
-#include "vardata.h"
-#include "array.h"
-#include "member.h"
-#include "enum.h"
-#include "function.h"
-#include "errors.h"
-
-#include <string.h>
 
 /*
  * TODO what is this doing here?
