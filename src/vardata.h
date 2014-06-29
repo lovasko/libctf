@@ -23,7 +23,7 @@ read_float_vardata (void *data);
  * @param id_table ID to ctf_type table used to solve the array content type
  * @return pointer to filled ctf_array struct
  */
-void*
+struct ctf_array*
 read_array_vardata (void *data);
 
 /**
@@ -43,7 +43,7 @@ read_array_vardata (void *data);
  * read function already
  * @return pointer to filled ctf_function struct
  */
-void*
+struct ctf_function*
 read_function_vardata (void *data, uint16_t length);
 
 /**
@@ -56,7 +56,7 @@ read_function_vardata (void *data, uint16_t length);
  * @param length number of enum entries
  * @return pointer to filled ctf_enum_head struct
  */
-void*
+struct ctf_enum_head*
 read_enum_vardata (void *data, uint16_t length, struct _strings *strings);
 
 /**
@@ -73,7 +73,7 @@ read_enum_vardata (void *data, uint16_t length, struct _strings *strings);
  * @param size size of the vardata in bytes
  * @return pointer to filled ctf_member_head struct
  */
-void*
+struct ctf_member_head*
 read_struct_union_vardata (void *data, uint16_t length, uint16_t size, 
     struct _strings *strings);
 
