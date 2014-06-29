@@ -49,7 +49,7 @@ ctf_file_get_next_label (struct ctf_file *file, struct ctf_label *label,
 			if (TAILQ_EMPTY(file->label_head))
 				return CTF_EMPTY;
 
-			*out_next = TAILQ_FIRST(file->label_head);
+			*out_label = TAILQ_FIRST(file->label_head);
 			return CTF_OK;
 		}
 		else
@@ -59,7 +59,7 @@ ctf_file_get_next_label (struct ctf_file *file, struct ctf_label *label,
 				return CTF_END;
 			else
 			{
-				*out_next = next;
+				*out_label = next;
 				return CTF_OK;	
 			}
 		}
@@ -79,7 +79,7 @@ ctf_file_get_next_type (struct ctf_file *file, struct ctf_type *type,
 			if (TAILQ_EMPTY(file->type_head))
 				return CTF_EMPTY;
 
-			*out_next = TAILQ_FIRST(file->type_head);
+			*out_type = TAILQ_FIRST(file->type_head);
 			return CTF_OK;
 		}
 		else
@@ -89,7 +89,7 @@ ctf_file_get_next_type (struct ctf_file *file, struct ctf_type *type,
 				return CTF_END;
 			else
 			{
-				*out_next = next;
+				*out_type = next;
 				return CTF_OK;	
 			}
 		}
@@ -109,7 +109,7 @@ ctf_file_get_next_function (struct ctf_file *file,
 			if (TAILQ_EMPTY(file->function_head))
 				return CTF_EMPTY;
 
-			*out_next = TAILQ_FIRST(file->function_head);
+			*out_function = TAILQ_FIRST(file->function_head);
 			return CTF_OK;
 		}
 		else
@@ -119,7 +119,7 @@ ctf_file_get_next_function (struct ctf_file *file,
 				return CTF_END;
 			else
 			{
-				*out_next = next;
+				*out_function = next;
 				return CTF_OK;	
 			}
 		}
@@ -140,7 +140,7 @@ ctf_file_get_next_data_object (struct ctf_file *file,
 			if (TAILQ_EMPTY(file->data_object_head))
 				return CTF_EMPTY;
 
-			*out_next = TAILQ_FIRST(file->data_object_head);
+			*out_data_object = TAILQ_FIRST(file->data_object_head);
 			return CTF_OK;
 		}
 		else
@@ -150,7 +150,7 @@ ctf_file_get_next_data_object (struct ctf_file *file,
 				return CTF_END;
 			else
 			{
-				*out_next = next;
+				*out_data_object = next;
 				return CTF_OK;	
 			}
 		}
