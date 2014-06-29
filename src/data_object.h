@@ -2,6 +2,7 @@
 #define CTF_DATA_OBJECT_H
 
 #include "type.h"
+#include "util/property.h"
 
 #include <stdint.h>
 #include <sys/queue.h>
@@ -18,12 +19,10 @@ struct ctf_data_object
 TAILQ_HEAD(ctf_data_object_head, ctf_data_object);
 #define CTF_DATA_OBJECT_HEAD_SIZE sizeof(struct ctf_data_object_head)
 
-int
-ctf_data_object_get_name (struct ctf_data_object *data_object, char **out_name);
-
-int
-ctf_data_object_get_type (struct ctf_data_object *data_object,
-    struct ctf_type **out_type);
+_CTF_GET_PROPERTY_PROTO(ctf_data_object_get_name, struct ctf_data_object*, 
+    char*)
+_CTF_GET_PROPERTY_PROTO(ctf_data_object_get_type, struct ctf_data_object*,
+    struct ctf_type*)
 
 #endif
 
