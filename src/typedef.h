@@ -1,6 +1,10 @@
 #ifndef CTF_TYPEDEF_H
 #define CTF_TYPEDEF_H
 
+#include "type.h"
+
+#include <stdint.h>
+
 struct ctf_typedef
 {
 	char *name;
