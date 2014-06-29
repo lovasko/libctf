@@ -2,7 +2,7 @@
 #include "errors.h"
 
 int
-ctf_function_get_name (struct ctf_function *function, char **out_name);
+ctf_function_get_name (struct ctf_function *function, char **out_name)
 {
 	if (function && out_name)
 	{
@@ -15,7 +15,7 @@ ctf_function_get_name (struct ctf_function *function, char **out_name);
 
 int
 ctf_function_get_return_type (struct ctf_function *function, 
-    struct ctf_type **out_return_type);
+    struct ctf_type **out_return_type)
 {
 	if (function && out_return_type)
 	{
