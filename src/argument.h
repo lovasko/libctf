@@ -27,7 +27,7 @@ TAILQ_HEAD(ctf_argument_head, ctf_argument);
 #define CTF_ARGUMENT_HEAD_SIZE sizeof(struct ctf_argument_head)
 
 _CTF_GET_PROPERTY_PROTO(ctf_argument_get_type, struct ctf_argument*, 
-    struct ctf_type*, type)
+    struct ctf_type*)
 
 #endif
 
