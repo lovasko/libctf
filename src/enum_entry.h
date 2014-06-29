@@ -1,6 +1,9 @@
 #ifndef CTF_ENUM_ENTRY_H
 #define CTF_ENUM_ENTRY_H
 
+#include <stdint.h>
+#include <sys/queue.h>
+
 /**
  * Binary reflection of the enum variant data.
  *
