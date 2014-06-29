@@ -1,10 +1,10 @@
 #ifndef CTF_ENUM_H
 #define CTF_ENUM_H
 
+#include "enum_entry.h"
+
 #include <stdint.h>
 #include <sys/queue.h>
-
-#include "enum_entry.h"
 
 struct ctf_enum
 {
