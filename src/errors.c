@@ -19,7 +19,10 @@ ctf_get_error_string (int error)
 		"Wrong CTF magic number.",
 		"Wrong CTF version.",
 		"Label section is corrupted.",
-		"Not found."
+		"Not found.",
+		"End of the list.",
+		"Null pointer.",
+		"Sections offsets corrupted."
 	};
 
 	if (error < CTF_E_MIN || error > CTF_E_MAX)
