@@ -2,6 +2,7 @@
 #define CTF_TYPEDEF_H
 
 #include "type.h"
+#include "util/property.h"
 
 #include <stdint.h>
 
@@ -16,11 +17,9 @@ struct ctf_typedef
 };
 #define CTF_TYPEDEF_SIZE sizeof(struct ctf_typedef)
 
-int
-ctf_typedef_get_name (struct ctf_typedef *_typedef, char **out_name);
-
-int
-ctf_typedef_get_type (struct ctf_typedef *_typedef, struct ctf_type **out_type);
+_CTF_GET_PROPERTY_PROTO(ctf_typedef_get_name, struct ctf_typedef*, char*)
+_CTF_GET_PROPERTY_PROTO(ctf_typedef_get_type, struct ctf_typedef*, 
+    struct ctf_type*)
 
 #endif
 
