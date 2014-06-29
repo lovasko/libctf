@@ -38,7 +38,7 @@ struct ctf_array
 };
 #define CTF_ARRAY_SIZE sizeof(struct ctf_array)
 
-_CTF_GET_PROPERTY_PROTO(ctf_array_get_name, struct ctf_array*, char*, name)
+_CTF_GET_PROPERTY_PROTO(ctf_array_get_name, struct ctf_array*, char*)
 _CTF_GET_PROPERTY_PROTO(ctf_array_get_element_count, struct ctf_array*, 
     uint32_t)
 _CTF_GET_PROPERTY_PROTO(ctf_array_get_type, struct ctf_array*, struct ctf_type*)
