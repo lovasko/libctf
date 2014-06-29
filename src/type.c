@@ -11,6 +11,7 @@
 #include <string.h>
 
 /*
+ * TODO what is this doing here?
  * Algorithm
  *
  * Assume that the type under the pointer is small_type. Examine the kind of
