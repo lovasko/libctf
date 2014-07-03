@@ -9,10 +9,13 @@
 #include "function.h"
 #include "kind.h"
 #include "enum.h"
+#include "enum_entry.h"
 #include "argument.h"
 #include "member.h"
 #include "errors.h"
-#include "int_float.h"
 #include "array.h"
+#include "int.h"
+#include "float.h"
+#include "struct_union.h"
 	
 #endif
