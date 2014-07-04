@@ -39,8 +39,7 @@ struct _ctf_small_type
 	uint16_t info; /**< see the info table with description above */
 	union
 	{
-		uint16_t size; /**< size of the whole type in bytes (e.g. CTF_KIND_FUNC has
-		all the variant data size included in this variable) */
+		uint16_t size; /**< size of the whole type in bytes */
 		uint16_t type; /**< reference to another type */
 	};
 };
