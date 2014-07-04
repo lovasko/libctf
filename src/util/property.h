@@ -1,4 +1,4 @@
-#include "errors.h"
+#include "../errors.h"
 
 #define _CTF_GET_PROPERTY_PROTO(FUNCTION_NAME, OBJECT_TYPE, PROPERTY_TYPE) \
 int \
