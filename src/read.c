@@ -289,6 +289,12 @@ ctf_is_root_from_info (uint16_t info)
 	return (info & 0x0400) >> 10;
 }
 
+static uint16_t
+ctf_vlen_from_info (uint16_t info)
+{
+	return (info & CTF_VARDATA_LENGTH_MAX);
+}
+
 static int
 read_types (struct ctf_file *file, struct _section *section, struct
     _strings *strings)
