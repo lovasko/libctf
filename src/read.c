@@ -312,7 +312,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 
 		struct _ctf_small_type *small_type = section->data + offset;	
 		uint8_t kind = ctf_kind_from_info(small_type->info);
-		uint16_t vardata_length = small_type->info & CTF_VARDATA_LENGTH_MAX;
+		uint16_t vardata_length = ctf_vlen_from_info(small_type->info);
 		uint8_t is_root = ctf_is_root_from_info(small_type->info);
 
 		struct ctf_type *type = malloc(CTF_TYPE_SIZE);			
