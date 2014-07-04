@@ -17,5 +17,6 @@
 #include "int.h"
 #include "float.h"
 #include "struct_union.h"
+#include "typedef.h"
 	
 #endif
