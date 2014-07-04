@@ -353,6 +353,8 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			fwd_decl->name = strdup(strings_lookup(strings, small_type->name));
 			fwd_decl->kind = small_type->type;
 
+			type->data = fwd_decl;
+
 			offset += _CTF_SMALL_TYPE_SIZE;
 		}
 
