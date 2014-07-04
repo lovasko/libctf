@@ -341,11 +341,11 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			offset += _CTF_SMALL_TYPE_SIZE;
 		}
 
-		/* TODO solve name */
 		if (kind == CTF_KIND_FWD_DECL)
 		{
-			/* type->name = strdup(strings_lookup(strings, small_type->name)); */		
-			type->type_reference = small_type->type;
+			struct ctf_fwd_decl* fwd_decl = malloc(CTF_FWD_DECL_SIZE);
+			fwd_decl->name = strdup(strings_lookup(strings, small_type->name));
+			fwd_decl->kind = small_type->type;
 
 			offset += _CTF_SMALL_TYPE_SIZE;
 		}
