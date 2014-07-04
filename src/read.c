@@ -12,6 +12,7 @@
 #include "struct_union.h"
 #include "int.h"
 #include "float.h"
+#include "fwd_decl.h"
 
 #include <stdio.h>
 #include <string.h>
