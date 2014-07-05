@@ -5,6 +5,8 @@ _CTF_GET_PROPERTY_IMPL(ctf_file_is_compressed, struct ctf_file*, int,
     compressed)
 _CTF_GET_PROPERTY_IMPL(ctf_file_get_parent_file, struct ctf_file*, 
     struct ctf_file*, parent_file)
+_CTF_GET_PROPERTY_IMPL(ctf_file_get_basename, struct ctf_file*, char*,
+    path_basename)
 
 _CTF_LISTING_IMPL(ctf_file_get_next_label, struct ctf_file*, struct ctf_label*,
     label_head, labels);

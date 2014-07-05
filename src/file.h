@@ -18,6 +18,7 @@ struct ctf_file
 {
 	int compressed; /**< 0/1 false/true flag for the compression */
 	int version; /**< version indicator */
+	char* path_basename;
 
 	struct ctf_label_head *label_head; /**< linked list containing labels */
 	struct ctf_type_head *type_head; /**< linked list containing types */
@@ -35,6 +36,7 @@ _CTF_GET_PROPERTY_PROTO(ctf_file_get_version, struct ctf_file*, int)
 _CTF_GET_PROPERTY_PROTO(ctf_file_is_compressed, struct ctf_file*, int)
 _CTF_GET_PROPERTY_PROTO(ctf_file_get_parent_file, struct ctf_file*, 
     struct ctf_file*)
+_CTF_GET_PROPERTY_PROTO(ctf_file_get_basename, struct ctf_file*, char*)
 
 _CTF_LISTING_PROTO(ctf_file_get_next_label, struct ctf_file*, struct ctf_label*);
 _CTF_LISTING_PROTO(ctf_file_get_next_type, struct ctf_file*, struct ctf_type*);

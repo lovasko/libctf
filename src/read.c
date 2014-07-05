@@ -25,6 +25,7 @@
 #include <libelf.h>
 #include <gelf.h>
 #include <stdint.h>
+#include <libgen.h>
 
 #define CTF_ELF_SECTION_SYMTAB ".symtab"
 #define CTF_ELF_SECTION_STRTAB ".strtab"
@@ -562,6 +563,10 @@ ctf_read_file (char *filename, struct ctf_file **out_file)
 	struct ctf_file *file = malloc(CTF_FILE_SIZE);
 	file->version = CTF_VERSION;
 	file->compressed = header->preface.flags & CTF_COMPRESSED;
+
+	char* filename_copy = strdup(filename);
+	file->path_basename = strdup(basename(filename_copy));
+	free(filename_copy);
 
 	/* check for the parent reference */
 	char *parent_basename = strings_lookup(&strings, header->parent_basename);
