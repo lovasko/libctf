@@ -22,7 +22,8 @@ ctf_get_error_string (int error)
 		"Not found.",
 		"End of the list.",
 		"Null pointer.",
-		"Sections offsets corrupted."
+		"Sections offsets corrupted.",
+		"Kind invalid."
 	};
 
 	if (error < CTF_E_MIN || error > CTF_E_MAX)
