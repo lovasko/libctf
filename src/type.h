@@ -7,6 +7,7 @@
 #include "member.h"
 #include "util/property.h"
 #include "kind.h"
+#include "util/bool.h"
 
 #include <stdint.h>
 #include <sys/queue.h>
@@ -71,7 +72,7 @@ typedef uint16_t ctf_id;
  */
 struct ctf_type
 {
-	uint8_t is_root;
+	ctf_bool is_root;
 	ctf_kind kind; /**< kind of the type, one of the CTF_KIND constants */
 	ctf_id id;
 	union
