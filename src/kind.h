@@ -4,6 +4,9 @@
 #include <stdint.h>
 
 /* KIND constants that are contained in the type information */
+
+#define CTF_KIND_MIN       0
+
 #define CTF_KIND_NONE      0
 #define CTF_KIND_INT       1
 #define CTF_KIND_FLOAT     2
