@@ -393,7 +393,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			offset += _CTF_SMALL_TYPE_SIZE;
 		}
 
-		if (kind_has_vardata(kind) == 1 && kind != CTF_KIND_FUNC)
+		if (kind_has_vardata(kind) && kind != CTF_KIND_FUNC)
 		{
 			uint64_t advance = _CTF_SMALL_TYPE_SIZE;
 			uint16_t size = small_type->size;
