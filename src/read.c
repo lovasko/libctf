@@ -83,6 +83,51 @@ header_check_offset_sanity (struct _ctf_header *header)
 		return CTF_E_OFFSETS_CORRUPT;
 }
 
+static int
+kind_is_pure_reference (uint8_t kind)
+{
+	if (kind == CTF_KIND_POINTER
+	 || kind == CTF_KIND_VOLATILE 
+	 || kind == CTF_KIND_CONST
+	 || kind == CTF_KIND_RESTRICT)
+		return 1;
+	else
+		return 0;
+}
+
+static int
+kind_has_vardata (uint8_t kind)
+{
+	if (kind == CTF_KIND_INT
+	 || kind == CTF_KIND_FLOAT
+	 || kind == CTF_KIND_ARRAY
+	 || kind == CTF_KIND_FUNC
+	 || kind == CTF_KIND_ENUM
+	 || kind == CTF_KIND_STRUCT
+	 || kind == CTF_KIND_UNION)
+		return 1;
+	else
+		return 0;
+}
+
+static uint8_t
+kind_from_info (uint16_t info)
+{
+	return (info & 0xf800) >> 11;
+}
+
+static uint8_t
+is_root_from_info (uint16_t info)
+{
+	return (info & 0x0400) >> 10;
+}
+
+static uint16_t
+vlen_from_info (uint16_t info)
+{
+	return (info & CTF_VARDATA_LENGTH_MAX);
+}
+
 static struct ctf_type*
 lookup_type (struct ctf_file *file, uint16_t id)
 {
@@ -169,7 +214,7 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 				function_offset++;
 
 				vardata_length = info & CTF_VARDATA_LENGTH_MAX;
-				if (ctf_kind_from_info(info) == CTF_KIND_NONE && vardata_length == 0)
+				if (kind_from_info(info) == CTF_KIND_NONE && vardata_length == 0)
 					break;
 
 				type_reference = *(fp + function_offset);
@@ -227,8 +272,7 @@ solve_type_references (struct ctf_file *file)
 	struct ctf_type *type;
 	TAILQ_FOREACH (type, file->type_head, types)
 	{
-		if (ctf_kind_is_pure_reference(type->kind) == 1 && 
-		    type->kind != CTF_KIND_TYPEDEF)
+		if (kind_is_pure_reference(type->kind))
 		{
 			type->data = lookup_type(file, type->type_reference);
 		}
@@ -285,51 +329,6 @@ create_type_table (struct ctf_file *file)
 	return 0;
 }
 
-static uint8_t
-is_root_from_info (uint16_t info)
-{
-	return (info & 0x0400) >> 10;
-}
-
-static uint16_t
-vlen_from_info (uint16_t info)
-{
-	return (info & CTF_VARDATA_LENGTH_MAX);
-}
-
-static uint8_t
-kind_from_info (uint16_t info)
-{
-	return (info & 0xf800) >> 11;
-}
-
-static int
-kind_is_pure_reference (uint8_t kind)
-{
-	if (kind == CTF_KIND_POINTER
-	 || kind == CTF_KIND_VOLATILE 
-	 || kind == CTF_KIND_CONST
-	 || kind == CTF_KIND_RESTRICT)
-		return 1;
-	else
-		return 0;
-}
-
-static int
-kind_has_vardata (uint8_t kind)
-{
-	if (kind == CTF_KIND_INT
-	 || kind == CTF_KIND_FLOAT
-	 || kind == CTF_KIND_ARRAY
-	 || kind == CTF_KIND_FUNC
-	 || kind == CTF_KIND_ENUM
-	 || kind == CTF_KIND_STRUCT
-	 || kind == CTF_KIND_UNION)
-		return 1;
-	else
-		return 0;
-}
-
 static int
 read_types (struct ctf_file *file, struct _section *section, struct
     _strings *strings)
@@ -357,7 +356,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 
 		id++;
 
-		if (ctf_kind_is_pure_reference(kind))
+		if (kind_is_pure_reference(kind))
 		{
 			type->type_reference = small_type->type;
 
