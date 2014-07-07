@@ -357,7 +357,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 
 		id++;
 
-		if (ctf_kind_is_pure_reference(kind) == 1 && kind != CTF_KIND_TYPEDEF)
+		if (ctf_kind_is_pure_reference(kind) == 1)
 		{
 			type->type_reference = small_type->type;
 
