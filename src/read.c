@@ -297,7 +297,7 @@ vlen_from_info (uint16_t info)
 	return (info & CTF_VARDATA_LENGTH_MAX);
 }
 
-uint8_t
+static uint8_t
 kind_from_info (uint16_t info)
 {
 	return (info & 0xf800) >> 11;
