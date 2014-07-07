@@ -25,8 +25,8 @@
  * special function for every kind.
  */
 
-_CTF_GET_PROPERTY_IMPL(ctf_type_get_kind, struct ctf_type*, uint8_t, kind)
-_CTF_GET_PROPERTY_IMPL(ctf_type_get_id, struct ctf_type*, uint16_t, id)
-_CTF_GET_PROPERTY_IMPL(ctf_type_is_root, struct ctf_type*, int, is_root)
+_CTF_GET_PROPERTY_IMPL(ctf_type_get_kind, struct ctf_type*, ctf_kind, kind)
+_CTF_GET_PROPERTY_IMPL(ctf_type_get_id, struct ctf_type*, ctf_id, id)
+_CTF_GET_PROPERTY_IMPL(ctf_type_is_root, struct ctf_type*, ctf_bool, is_root)
 _CTF_GET_PROPERTY_IMPL(ctf_type_get_data, struct ctf_type*, void*, data)
 
