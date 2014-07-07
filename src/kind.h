@@ -25,6 +25,8 @@
 /* current maximum of KIND constants (all others should be <=) */
 #define CTF_KIND_MAX      13
 
+typedef uint8_t ctf_kind;
+
 /**
  * Extract the kind from a type information.
  *
