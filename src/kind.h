@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 
-/* KIND constants that are contained in the type information */
-
 #define CTF_KIND_MIN       0
 
 #define CTF_KIND_NONE      0
@@ -22,7 +20,6 @@
 #define CTF_KIND_CONST    12
 #define CTF_KIND_RESTRICT 13
 
-/* current maximum of KIND constants (all others should be <=) */
 #define CTF_KIND_MAX      13
 
 typedef uint8_t ctf_kind;
