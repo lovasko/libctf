@@ -27,53 +27,5 @@
 
 typedef uint8_t ctf_kind;
 
-/**
- * Extract the kind from a type information.
- *
- * @param info the type information
- * @return one of the CTF_KIND constants 
- */
-uint8_t
-ctf_kind_from_info (uint16_t info);
-
-/**
- * Test whether the kind is one of the reference kinds.
- *
- * Reference kinds are: pointer, typedef, const, volatile and restrict.
- * Their common property is, that they do not represent a standalone type, but
- * just a marker property for some other type. 
- *
- * @param kind the type kind 
- * @return 1 if the kind is a reference, 0 otherwise.
- */
-int
-ctf_kind_is_pure_reference (uint8_t kind);
-
-/**
- * Test whether the kind is one of the special kinds.
- * 
- * Special kinds are: none and forward.
- * There is no extra parsing of these kinds: none is used only for padding
- * purposes and forward denotes a forward declaration of some other type.
- * 
- * @param kind the type kind
- * @return 1 if the kind is special, 0 otherwise.
- */
-int
-ctf_kind_is_special (uint8_t kind);
-
-/**
- * Test whether the kind is one of the complex kinds.
- *
- * Complex kinds are: int, float, array, function, enum, struct and union.
- * All of the special kinds require parsing of the variable data and none of
- * them reference any other type (only inside the variable data).
- *
- * @param kind the type kind
- * @return 1 if the kind is complex, 0 otherwise.
- */
-int
-ctf_kind_is_complex (uint8_t kind);
-
 #endif
 
