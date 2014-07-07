@@ -73,7 +73,7 @@ struct ctf_type
 {
 	uint8_t is_root;
 	ctf_kind kind; /**< kind of the type, one of the CTF_KIND constants */
-	uint16_t id;
+	ctf_id id;
 	union
 	{
 		void *data; /**< vardata for complex types and pointer to referenced type in
