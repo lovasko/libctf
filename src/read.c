@@ -317,6 +317,21 @@ kind_is_pure_reference (uint8_t kind)
 }
 
 static int
+kind_has_vardata (uint8_t kind)
+{
+	if (kind == CTF_KIND_INT
+	 || kind == CTF_KIND_FLOAT
+	 || kind == CTF_KIND_ARRAY
+	 || kind == CTF_KIND_FUNC
+	 || kind == CTF_KIND_ENUM
+	 || kind == CTF_KIND_STRUCT
+	 || kind == CTF_KIND_UNION)
+		return 1;
+	else
+		return 0;
+}
+
+static int
 read_types (struct ctf_file *file, struct _section *section, struct
     _strings *strings)
 {
