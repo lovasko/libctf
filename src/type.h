@@ -90,7 +90,6 @@ TAILQ_HEAD(ctf_type_head, ctf_type);
 _CTF_GET_PROPERTY_PROTO(ctf_type_get_kind, ctf_type, ctf_kind)
 _CTF_GET_PROPERTY_PROTO(ctf_type_get_id, ctf_type, ctf_id)
 _CTF_GET_PROPERTY_PROTO(ctf_type_is_root, ctf_type, ctf_bool)
-_CTF_GET_PROPERTY_PROTO(ctf_type_get_data, struct ctf_type*, void*)
 
 #endif
 
