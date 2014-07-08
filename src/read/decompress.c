@@ -7,7 +7,7 @@
 #define _CTF_DECOMPRESS_CHUNK_SIZE 16384 
 
 struct _section*
-_ctf_decompress (struct _section *to_decompress)
+_ctf_decompress (struct _section* to_decompress)
 {
 	int ret;
 	z_stream stream;
@@ -17,7 +17,7 @@ _ctf_decompress (struct _section *to_decompress)
 	unsigned int offset;
 	unsigned int have;
 
-	struct _section *result = malloc(_SECTION_SIZE);
+	struct _section* result = malloc(_SECTION_SIZE);
 	result->data = NULL;
 	result->size = 0;
 
