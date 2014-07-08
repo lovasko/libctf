@@ -66,6 +66,19 @@ struct _ctf_header
 int
 _ctf_preface_check (struct _ctf_preface* preface);
 
+/**
+ * Check if section offsets are sorted correctly.
+ * 
+ * The correct order:
+ *  - labels 
+ *  - objects
+ *  - functions
+ *  - types 
+ *  - string table
+ *
+ * @param header header
+ * @return CTF_OK on success, CTF_E_OFFSETS_CORRUPT otherwise
+ */
 int
 _ctf_header_offset_sanity_check (struct _ctf_header* header);
 
