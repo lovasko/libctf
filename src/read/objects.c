@@ -82,11 +82,12 @@ _ctf_read_functions_and_objects (
 
 				type_reference = *(fp + function_offset);
 				function_offset++;
-				function->return_type = _ctf_lookup_type(file, type_reference);
 
 				function = malloc(CTF_FUNCTION_SIZE);
 				function->name = strdup(name);
 				function->argument_head = malloc(CTF_ARGUMENT_HEAD_SIZE);
+				function->return_type = _ctf_lookup_type(file, type_reference);
+
 				TAILQ_INIT(function->argument_head);
 				for (unsigned int k = 0; k < vardata_length; k++)
 				{
