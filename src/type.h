@@ -2,8 +2,8 @@
 #define CTF_TYPE_H
 
 #include "kind.h"
-#include "util/property.h"
 #include "util/bool.h"
+#include "util/property.h"
 
 #include <stdint.h>
 #include <sys/queue.h>
