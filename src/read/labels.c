@@ -29,3 +29,4 @@ _ctf_read_labels (struct ctf_file* file, struct _section* section,
 
 	return CTF_OK;
 }
+
