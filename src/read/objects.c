@@ -27,9 +27,9 @@ _ctf_read_functions_and_objects (
 
 	for (unsigned int i = 0; i < symbol_count; i++)
 	{
-		Elf32_Sym *symbol = (Elf32_Sym*)(symtab_section->data + i * symbol_size);
+		Elf32_Sym* symbol = (Elf32_Sym*)(symtab_section->data + i * symbol_size);
 
-		char *name;
+		char* name;
 		if (symbol->st_name < strings->elf->size)
 			name = strings->elf->data + symbol->st_name;
 		else
@@ -50,10 +50,10 @@ _ctf_read_functions_and_objects (
 		uint16_t type_reference;
 		uint16_t info;
 		uint8_t vardata_length;
-		struct ctf_function *function;
-		struct ctf_argument *argument;
+		struct ctf_function* function;
+		struct ctf_argument* argument;
 
-		uint16_t *fp = (uint16_t*)(function_section->data);
+		uint16_t* fp = (uint16_t*)(function_section->data);
 
 		switch (ELF32_ST_TYPE(symbol->st_info))
 		{
@@ -64,7 +64,7 @@ _ctf_read_functions_and_objects (
 				type_reference = *((uint16_t*)(object_section->data + object_offset));
 				object_offset += sizeof(uint16_t);
 
-				struct ctf_data_object *data_object = malloc(CTF_DATA_OBJECT_SIZE);
+				struct ctf_data_object* data_object = malloc(CTF_DATA_OBJECT_SIZE);
 				data_object->name = strdup(name);
 				data_object->type = _ctf_lookup_type(file, type_reference);
 
