@@ -57,6 +57,12 @@ struct _ctf_header
 };
 #define _CTF_HEADER_SIZE sizeof(struct _ctf_header)
 
+/**
+ * Check the header preface for expected values (magic number, version, ...).
+ *
+ * @param preface header preface
+ * @return CTF_OK on success, one of CTF_E_* otherwise
+ */
 int
 _ctf_preface_check (struct _ctf_preface* preface);
 
