@@ -91,5 +91,23 @@ _CTF_GET_PROPERTY_PROTO(ctf_type_get_kind, ctf_type, ctf_kind)
 _CTF_GET_PROPERTY_PROTO(ctf_type_get_id, ctf_type, ctf_id)
 _CTF_GET_PROPERTY_PROTO(ctf_type_is_root, ctf_type, ctf_bool)
 
+/*
+ * Please note that this is not a _copy/duplicate_ function, but rather a
+ * function used in handling consts, restricts, volatiles and pointers.
+ *
+ * TODO: there has to be introduced the ctf_pointer type that has the following
+ * attributes: type, restrict flag, const flag and volatile flag.
+ * the attributes const and volatile have to be moved to every type that can be
+ * such as integer types, float types, structs, unions... 
+ * Due to time (deadline) reasons, I wont implement this now and do it after
+ * the GSoC in my own time.
+ */
+ /* HACK
+  * This is exactly the same as the FROM_TYPE macro output, but it causes some
+	* compilation problems due to the fact that the from_type.h includes type.h
+	*/
+int 
+ctf_type_init(ctf_type type, ctf_type* out);
+
 #endif
 
