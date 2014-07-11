@@ -22,7 +22,7 @@
 
 struct ctf_float
 {
-	char *name;
+	char* name;
 	uint8_t encoding;
 	uint8_t offset;
 	uint16_t size;
