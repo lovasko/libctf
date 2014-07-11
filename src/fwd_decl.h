@@ -15,8 +15,8 @@ struct ctf_fwd_decl
 
 typedef struct ctf_fwd_decl* ctf_fwd_decl;
 
-_CTF_GET_PROPERTY_PROTO(ctf_fwd_decl_get_name, struct ctf_fwd_decl*, char*)
-_CTF_GET_PROPERTY_PROTO(ctf_fwd_decl_get_kind, struct ctf_fwd_decl*, uint8_t)
+_CTF_GET_PROPERTY_PROTO(ctf_fwd_decl_get_name, ctf_fwd_decl, char*)
+_CTF_GET_PROPERTY_PROTO(ctf_fwd_decl_get_kind, ctf_fwd_decl, ctf_kind)
 
 #endif
 
