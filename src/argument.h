@@ -15,7 +15,7 @@ struct ctf_argument
 {
 	union
 	{
-		struct ctf_type *type; /**< type of the argument */
+		ctf_type type; /**< type of the argument */
 		uint16_t type_reference;
 	};
 
