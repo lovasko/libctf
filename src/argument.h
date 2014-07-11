@@ -23,6 +23,8 @@ struct ctf_argument
 };
 #define CTF_ARGUMENT_SIZE sizeof(struct ctf_argument)
 
+typedef struct ctf_argument* ctf_argument;
+
 TAILQ_HEAD(ctf_argument_head, ctf_argument);
 #define CTF_ARGUMENT_HEAD_SIZE sizeof(struct ctf_argument_head)
 
