@@ -8,7 +8,7 @@
 
 struct ctf_typedef
 {
-	char *name;
+	char* name;
 	union
 	{
 		struct ctf_type *type;
