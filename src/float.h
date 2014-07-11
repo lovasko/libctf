@@ -31,6 +31,8 @@ struct ctf_float
 
 _CTF_GET_PROPERTY_PROTO(ctf_float_get_name, struct ctf_float*, char*)
 _CTF_GET_PROPERTY_PROTO(ctf_float_get_size, struct ctf_float*, uint16_t)
+typedef struct ctf_float* ctf_float;
+
 _CTF_GET_PROPERTY_PROTO(ctf_float_get_offset, struct ctf_float*, uint8_t)
 _CTF_GET_PROPERTY_PROTO(ctf_float_get_encoding, struct ctf_float*, uint8_t) 
 
