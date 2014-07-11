@@ -16,6 +16,7 @@ struct ctf_enum
 #define CTF_ENUM_SIZE sizeof(struct ctf_enum)
 
 _CTF_GET_PROPERTY_PROTO(ctf_enum_get_name, struct ctf_enum*, char*)
+
 _CTF_LISTING_PROTO(ctf_enum_get_next_enum_entry, struct ctf_enum*, 
     struct ctf_enum_entry*)
 
