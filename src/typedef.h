@@ -11,7 +11,7 @@ struct ctf_typedef
 	char* name;
 	union
 	{
-		struct ctf_type *type;
+		ctf_type type;
 		uint16_t type_reference;
 	};
 };
