@@ -1,3 +1,6 @@
+#ifndef CTF_PROPERTY_H
+#define CTF_PROPERTY_H
+
 #include "../errors.h"
 
 #define _CTF_GET_PROPERTY_PROTO(FUNCTION_NAME, OBJECT_TYPE, PROPERTY_TYPE) \
@@ -17,4 +20,5 @@ FUNCTION_NAME (OBJECT_TYPE object, PROPERTY_TYPE* out_property) \
 	else                                     \
 		return CTF_E_NULL;                     \
 }
+#endif
 
