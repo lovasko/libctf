@@ -20,10 +20,12 @@
 #define CTF_FLOAT_ENCODING_LONG_DOUBLE_IMAGINARY 12
 #define CTF_FLOAT_ENCODING_MAX                   12
 
+typedef uint8_t ctf_float_encoding
+
 struct ctf_float
 {
 	char* name;
-	uint8_t encoding;
+	ctf_float_encoding encoding;
 	uint8_t offset;
 	uint16_t size;
 };
