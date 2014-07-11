@@ -10,8 +10,8 @@
 
 struct ctf_enum
 {
-	char *name;
-	struct ctf_enum_head *enum_head;
+	char* name;
+	struct ctf_enum_head* enum_head;
 };
 #define CTF_ENUM_SIZE sizeof(struct ctf_enum)
 
