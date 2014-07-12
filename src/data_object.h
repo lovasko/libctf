@@ -16,6 +16,8 @@ struct ctf_data_object
 };
 #define CTF_DATA_OBJECT_SIZE sizeof(struct ctf_data_object)
 
+typedef struct ctf_data_object* ctf_data_object;
+
 TAILQ_HEAD(ctf_data_object_head, ctf_data_object);
 #define CTF_DATA_OBJECT_HEAD_SIZE sizeof(struct ctf_data_object_head)
 
