@@ -23,7 +23,7 @@ struct _ctf_enum_entry
  */
 struct ctf_enum_entry
 {
-	char *name; /**< name of the entry */
+	char* name; /**< name of the entry */
 	int32_t value; /**< value of the entry */
 
 	TAILQ_ENTRY(ctf_enum_entry) entries;
