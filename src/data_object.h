@@ -9,7 +9,7 @@
 
 struct ctf_data_object
 {
-	char *name;
+	char* name;
 	struct ctf_type *type;
 
 	TAILQ_ENTRY(ctf_data_object) data_objects;
