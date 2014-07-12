@@ -36,9 +36,9 @@ typedef int32_t ctf_enum_entry_value;
 TAILQ_HEAD(ctf_enum_head, ctf_enum_entry);
 #define CTF_ENUM_HEAD_SIZE sizeof(struct ctf_enum_head)
 
-_CTF_GET_PROPERTY_PROTO(ctf_enum_entry_get_name, struct ctf_enum_entry*, char*)
-_CTF_GET_PROPERTY_PROTO(ctf_enum_entry_get_value, struct ctf_enum_entry*,
-    int32_t)
+_CTF_GET_PROPERTY_PROTO(ctf_enum_entry_get_name, ctf_enum_entry, char*)
+_CTF_GET_PROPERTY_PROTO(ctf_enum_entry_get_value, ctf_enum_entry, 
+    ctf_enum_entry_value)
 
 #endif
 
