@@ -31,6 +31,7 @@ struct ctf_enum_entry
 #define CTF_ENUM_ENTRY_SIZE sizeof(struct ctf_enum_entry)
 
 typedef struct ctf_enum_entry* ctf_enum_entry;
+typedef int32_t ctf_enum_entry_value;
 
 TAILQ_HEAD(ctf_enum_head, ctf_enum_entry);
 #define CTF_ENUM_HEAD_SIZE sizeof(struct ctf_enum_head)
