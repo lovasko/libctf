@@ -26,6 +26,8 @@ struct ctf_function
 };
 #define CTF_FUNCTION_SIZE sizeof(struct ctf_function)
 
+typedef struct ctf_function* ctf_function;
+
 TAILQ_HEAD(ctf_function_head, ctf_function);
 #define CTF_FUNCTION_HEAD_SIZE sizeof(struct ctf_function_head)
 
