@@ -8,7 +8,7 @@
 struct ctf_struct_union
 {
 	char *name;
-	struct ctf_member_head *member_head;	
+	struct ctf_member_head *member_head;
 };
 #define CTF_STRUCT_UNION_SIZE sizeof(struct ctf_struct_union)
 
