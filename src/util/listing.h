@@ -1,3 +1,6 @@
+#ifndef CTF_LISTING_H
+#define CTF_LISTING_H
+
 #include "../errors.h"
 
 #include <stdlib.h>
@@ -37,4 +40,5 @@ out_next) \
 	else                                                     \
 		return CTF_E_NULL;                                     \
 }
+#endif
 
