@@ -14,13 +14,13 @@
  */
 struct ctf_function
 {
-	char *name;
+	char* name;
 	union
 	{
 		struct ctf_type *return_type; /**< return type of the function */
 		uint16_t return_type_reference;
 	};
-	struct ctf_argument_head *argument_head; /**< linked list of arguments */
+	struct ctf_argument_head* argument_head; /**< linked list of arguments */
 
 	TAILQ_ENTRY(ctf_function) functions;
 };
