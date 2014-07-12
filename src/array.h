@@ -1,6 +1,7 @@
 #ifndef CTF_ARRAY_H
 #define CTF_ARRAY_H
 
+#include "type.h"
 #include "util/property.h"
 
 #include <stdint.h>
