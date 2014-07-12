@@ -33,7 +33,7 @@ struct ctf_array
 	uint32_t element_count; /**< element count */
 	union
 	{
-		struct ctf_type *type; /**< type of the array content */
+		ctf_type type; /**< type of the array content */
 		uint16_t type_reference;
 	};
 };
