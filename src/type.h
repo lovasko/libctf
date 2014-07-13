@@ -77,7 +77,7 @@ struct ctf_type
 	ctf_id id;
 	union
 	{
-		void *data; /**< vardata for complex types and pointer to referenced type in
+		void* data; /**< vardata for complex types and pointer to referenced type in
 		case of the reference types. this type should be  */
 		uint16_t type_reference;
 	};
