@@ -1,12 +1,8 @@
 #ifndef CTF_TYPE_H
 #define CTF_TYPE_H
 
-#include "util/section.h"
-#include "strings.h"
-#include "enum.h"
-#include "member.h"
-#include "util/property.h"
 #include "kind.h"
+#include "util/property.h"
 #include "util/bool.h"
 
 #include <stdint.h>
