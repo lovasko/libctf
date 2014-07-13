@@ -274,19 +274,19 @@ solve_type_references (struct ctf_file *file)
 	{
 		if (kind_is_pure_reference(type->kind))
 		{
-			type->data = lookup_type(file, type->type_reference);
+			type->data = lookup_type(file, type->data_id);
 		}
 
 		if (type->kind == CTF_KIND_TYPEDEF)
 		{
 			struct ctf_typedef *_typedef = type->data;
-			_typedef->type = lookup_type(file, _typedef->type_reference);
+			_typedef->type = lookup_type(file, _typedef->id);
 		}
 
 		if (type->kind == CTF_KIND_ARRAY)
 		{
 			struct ctf_array *array = type->data;
-			array->content_type = lookup_type(file, array->content_type_reference);
+			array->content_type = lookup_type(file, array->content_id);
 		}
 
 		if (type->kind == CTF_KIND_STRUCT || type->kind == CTF_KIND_UNION)
@@ -295,19 +295,19 @@ solve_type_references (struct ctf_file *file)
 			struct ctf_member *member;
 			TAILQ_FOREACH (member, struct_union->member_head, members)
 			{
-				member->type = lookup_type(file, member->type_reference);
+				member->type = lookup_type(file, member->id);
 			}
 		}
 
 		if (type->kind == CTF_KIND_FUNC)
 		{
 			struct ctf_function *func = type->data;
-			func->return_type = lookup_type(file, func->return_type_reference);
+			func->return_type = lookup_type(file, func->return_id);
 
 			struct ctf_argument *argument;
 			TAILQ_FOREACH (argument, func->argument_head, arguments)
 			{
-				argument->type = lookup_type(file, argument->type_reference);
+				argument->type = lookup_type(file, argument->id);
 			}
 		}
 	}
@@ -358,7 +358,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 
 		if (kind_is_pure_reference(kind))
 		{
-			type->type_reference = small_type->type;
+			type->data_id = small_type->type;
 
 			offset += _CTF_SMALL_TYPE_SIZE;
 		}
@@ -367,7 +367,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 		{
 			struct ctf_typedef *_typedef = malloc(CTF_TYPEDEF_SIZE);
 			_typedef->name = strdup(strings_lookup(strings, small_type->name));
-			_typedef->type_reference = small_type->type;
+			_typedef->id = small_type->type;
 
 			type->data = _typedef;
 
@@ -483,7 +483,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			function->argument_head = read_function_vardata( section->data + offset, 
 			    vardata_length);
 			function->name = strdup(strings_lookup(strings, small_type->name));
-			function->return_type_reference = small_type->type;
+			function->return_id = small_type->type;
 
 			type->data = function;
 

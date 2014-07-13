@@ -38,7 +38,7 @@ struct ctf_array
 	union
 	{
 		ctf_type content_type; /**< type of the array content */
-		uint16_t content_type_reference;
+		ctf_id content_id;
 	};
 };
 #define CTF_ARRAY_SIZE sizeof(struct ctf_array)

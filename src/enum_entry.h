@@ -18,20 +18,23 @@ struct _ctf_enum_entry
 };
 #define _CTF_ENUM_ENTRY_SIZE sizeof(struct _ctf_enum_entry)
 
+typedef int32_t ctf_enum_entry_value;
+#define CTF_ENUM_ENTRY_VALUE_MIN (-0x7fffffff - 1)
+#define CTF_ENUM_ENTRY_VALUE_MAX        0x7fffffff
+
 /**
  * Enum entry.
  */
 struct ctf_enum_entry
 {
 	char* name; /**< name of the entry */
-	int32_t value; /**< value of the entry */
+	ctf_enum_entry_value value; /**< value of the entry */
 
 	TAILQ_ENTRY(ctf_enum_entry) entries;
 };
 #define CTF_ENUM_ENTRY_SIZE sizeof(struct ctf_enum_entry)
 
 typedef struct ctf_enum_entry* ctf_enum_entry;
-typedef int32_t ctf_enum_entry_value;
 
 TAILQ_HEAD(ctf_enum_head, ctf_enum_entry);
 #define CTF_ENUM_HEAD_SIZE sizeof(struct ctf_enum_head)

@@ -57,7 +57,7 @@ read_array_vardata (void *data)
 	struct ctf_array *array = malloc(CTF_ARRAY_SIZE);
 
 	array->length = raw->element_count;
-	array->content_type_reference = raw->content_type;
+	array->content_id = raw->content_type;
 
 	return array;
 }
@@ -72,7 +72,7 @@ read_function_vardata (void *data, uint16_t length)
 	for (uint16_t i = 0; i < length; i++)
 	{
 		struct ctf_argument *argument = malloc(CTF_ARGUMENT_SIZE);
-		argument->type_reference = raw_arguments[i];
+		argument->id = raw_arguments[i];
 
 		TAILQ_INSERT_TAIL(argument_head, argument, arguments);
 	}
@@ -130,7 +130,7 @@ read_struct_union_vardata (void *data, uint16_t length, uint16_t size,
 		member->name = strdup(strings_lookup(strings, (member_type ? 
 		    large_member[i].name : small_member[i].name)));
 
-		member->type_reference = (member_type ? large_member[i].type :
+		member->id = (member_type ? large_member[i].type :
 		    small_member[i].type);
 
 		member->offset = (member_type ? large_member[i].low_offset :

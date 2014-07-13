@@ -55,7 +55,7 @@ struct ctf_member
 	union
 	{
 		ctf_type type; /**< type of the member */
-		uint16_t type_reference;
+		ctf_id id;
 	};
 	ctf_member_offset offset; /**< offset inside the struct 
 	    (union, by the language design, has all offsets 0) */

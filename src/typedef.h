@@ -12,7 +12,7 @@ struct ctf_typedef
 	union
 	{
 		ctf_type type;
-		uint16_t type_reference;
+		ctf_id id;
 	};
 };
 #define CTF_TYPEDEF_SIZE sizeof(struct ctf_typedef)

@@ -75,7 +75,7 @@ struct ctf_type
 	{
 		void* data; /**< vardata for complex types and pointer to referenced type in
 		case of the reference types. this type should be  */
-		uint16_t type_reference;
+		ctf_id data_id;
 	};
 
 	TAILQ_ENTRY(ctf_type) types; /**< pointer to following types */

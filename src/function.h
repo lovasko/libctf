@@ -18,7 +18,7 @@ struct ctf_function
 	union
 	{
 		ctf_type return_type; /**< return type of the function */
-		uint16_t return_type_reference;
+		ctf_id return_id;
 	};
 	struct ctf_argument_head* argument_head; /**< linked list of arguments */
 
