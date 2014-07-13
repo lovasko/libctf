@@ -20,6 +20,10 @@ struct _ctf_array
 };
 #define _CTF_ARRAY_SIZE sizeof(struct _ctf_array)
 
+typedef uint32_t ctf_array_length;
+#define CTF_ARRAY_LENGTH_MIN 0
+#define CTF_ARRAY_LENGTH_MAX 429
+
 /**
  * Array vardata.
  *
@@ -30,19 +34,20 @@ struct _ctf_array
 struct ctf_array
 {
 	char* name;	
-	uint32_t element_count; /**< element count */
+	ctf_array_length length;
 	union
 	{
-		ctf_type type; /**< type of the array content */
-		uint16_t type_reference;
+		ctf_type content_type; /**< type of the array content */
+		uint16_t content_type_reference;
 	};
 };
 #define CTF_ARRAY_SIZE sizeof(struct ctf_array)
 
-_CTF_GET_PROPERTY_PROTO(ctf_array_get_name, struct ctf_array*, char*)
-_CTF_GET_PROPERTY_PROTO(ctf_array_get_element_count, struct ctf_array*, 
-    uint32_t)
-_CTF_GET_PROPERTY_PROTO(ctf_array_get_type, struct ctf_array*, struct ctf_type*)
+typedef struct ctf_array* ctf_array;
+
+_CTF_GET_PROPERTY_PROTO(ctf_array_get_name, ctf_array, char*)
+_CTF_GET_PROPERTY_PROTO(ctf_array_get_length, ctf_array, ctf_array_length)
+_CTF_GET_PROPERTY_PROTO(ctf_array_get_content_type, ctf_array, ctf_type)
 
 #endif
 
