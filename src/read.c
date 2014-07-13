@@ -286,7 +286,7 @@ solve_type_references (struct ctf_file *file)
 		if (type->kind == CTF_KIND_ARRAY)
 		{
 			struct ctf_array *array = type->data;
-			array->type = lookup_type(file, array->type_reference);
+			array->content_type = lookup_type(file, array->content_type_reference);
 		}
 
 		if (type->kind == CTF_KIND_STRUCT || type->kind == CTF_KIND_UNION)
