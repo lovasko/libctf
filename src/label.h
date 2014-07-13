@@ -1,6 +1,8 @@
 #ifndef CTF_LABEL_H
 #define CTF_LABEL_H
 
+#include "util/property.h"
+
 #include <stdint.h>
 #include <sys/queue.h>
 
@@ -16,26 +18,29 @@ struct _ctf_label
 };
 #define _CTF_LABEL_SIZE sizeof(struct _ctf_label)
 
+typedef uint32_t ctf_label_index;
+#define CTF_LABEL_INDEX_MIN 0
+#define CTF_LABEL_INDEX_MAX 429
+
 /**
  * Parsed and resolved CTF label.
  */
 struct ctf_label
 {
-	char *name; /**< resolved name */
-	uint32_t index; /**< starting index in the type table */
+	char* name; /**< resolved name */
+	ctf_label_index index; /**< starting index in the type table */
 
 	TAILQ_ENTRY(ctf_label) labels; /**< pointer to next labels */
 };
 #define CTF_LABEL_SIZE sizeof(struct ctf_label)
 
+typedef struct ctf_label* ctf_label;
+
 TAILQ_HEAD(ctf_label_head, ctf_label);
 #define CTF_LABEL_HEAD_SIZE sizeof(struct ctf_label_head)
 
-int
-ctf_label_get_name (struct ctf_label *label, char **out_name);
-
-int
-ctf_label_get_index (struct ctf_label *label, uint32_t *out_index);
+_CTF_GET_PROPERTY_PROTO(ctf_label_get_name, ctf_label, char*)
+_CTF_GET_PROPERTY_PROTO(ctf_label_get_index, ctf_label, ctf_label_index)
 
 #endif
 
