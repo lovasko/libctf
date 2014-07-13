@@ -10,6 +10,7 @@
 #include "member.h"
 #include "int.h"
 #include "float.h"
+#include "strings.h"
 
 #include <stdint.h>
 
