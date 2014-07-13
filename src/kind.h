@@ -3,8 +3,8 @@
 
 #include <stdint.h>
 
+typedef uint8_t ctf_kind;
 #define CTF_KIND_MIN       0
-
 #define CTF_KIND_NONE      0
 #define CTF_KIND_INT       1
 #define CTF_KIND_FLOAT     2
@@ -19,10 +19,7 @@
 #define CTF_KIND_VOLATILE 11
 #define CTF_KIND_CONST    12
 #define CTF_KIND_RESTRICT 13
-
 #define CTF_KIND_MAX      13
-
-typedef uint8_t ctf_kind;
 
 #endif
 
