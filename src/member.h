@@ -1,6 +1,7 @@
 #ifndef CTF_MEMBER_H
 #define CTF_MEMBER_H
 
+#include "type.h"
 #include "util/property.h"
 
 #include <stdint.h>
@@ -41,31 +42,36 @@ struct _ctf_large_member
 };
 #define _CTF_LARGE_MEMBER_SIZE sizeof(struct _ctf_large_member)
 
+typedef uint64_t ctf_member_offset;
+#define CTF_MEMBER_OFFSET_MIN                     0
+#define CTF_MEMBER_OFFSET_MAX 0xffffffffffffffffULL
+
 /**
  * Struct or union member.
  */
 struct ctf_member
 {
-	char *name; /**< name of the member */
+	char* name; /**< name of the member */
 	union
 	{
-		struct ctf_type *type; /**< type of the member */
+		ctf_type type; /**< type of the member */
 		uint16_t type_reference;
 	};
-	uint64_t offset; /**< offset inside the struct (union, by design, has all
-	offsets 0) */
+	ctf_member_offset offset; /**< offset inside the struct 
+	    (union, by the language design, has all offsets 0) */
 
 	TAILQ_ENTRY(ctf_member) members; /**< pointer to following members */
 };
 #define CTF_MEMBER_SIZE sizeof(struct ctf_member)
 
+typedef struct ctf_member* ctf_member;
+
 TAILQ_HEAD(ctf_member_head, ctf_member);
 #define CTF_MEMBER_HEAD_SIZE sizeof(struct ctf_member_head)
 
-_CTF_GET_PROPERTY_PROTO(ctf_member_get_name, struct ctf_member*, char*)
-_CTF_GET_PROPERTY_PROTO(ctf_member_get_type, struct ctf_member*, 
-    struct ctf_type*)
-_CTF_GET_PROPERTY_PROTO(ctf_member_get_offset, struct ctf_member*, uint64_t)
+_CTF_GET_PROPERTY_PROTO(ctf_member_get_name, ctf_member, char*)
+_CTF_GET_PROPERTY_PROTO(ctf_member_get_type, ctf_member, ctf_type)
+_CTF_GET_PROPERTY_PROTO(ctf_member_get_offset, ctf_member, ctf_member_offset)
 
 #endif
 
