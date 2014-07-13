@@ -56,8 +56,8 @@ read_array_vardata (void *data)
 	struct _ctf_array *raw = (struct _ctf_array*)data;
 	struct ctf_array *array = malloc(CTF_ARRAY_SIZE);
 
-	array->element_count = raw->element_count;
-	array->type_reference = raw->content_type;
+	array->length = raw->element_count;
+	array->content_type_reference = raw->content_type;
 
 	return array;
 }
