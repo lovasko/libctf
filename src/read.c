@@ -334,7 +334,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
     _strings *strings)
 {
 	uint64_t offset = 0;	
-	uint16_t id = 1;
+	ctf_id id = 1;
 
 	file->type_head = malloc(CTF_TYPE_HEAD_SIZE);
 	TAILQ_INIT(file->type_head);
