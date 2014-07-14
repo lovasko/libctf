@@ -594,7 +594,7 @@ ctf_read_file (char *filename, struct ctf_file **out_file)
 	/* construct the final file structure */
 	struct ctf_file *file = malloc(CTF_FILE_SIZE);
 	file->version = CTF_VERSION;
-	file->compressed = header->preface.flags & CTF_COMPRESSED;
+	file->is_compressed = header->preface.flags & CTF_COMPRESSED;
 
 	char* filename_copy = strdup(filename);
 	file->path_basename = strdup(basename(filename_copy));
