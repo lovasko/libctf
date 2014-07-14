@@ -607,7 +607,7 @@ ctf_file_read (char* filename, ctf_file* out_file)
 		/* TODO is this really a basename? if so, we need to extract the dirname to
 		 * be able to locate the file properly. For the future - why isnt this a
 		 * full path? */
-		if ((ctf_read_file(parent_basename, &file->parent_file)) != CTF_OK)
+		if ((ctf_file_read(parent_basename, &file->parent_file)) != CTF_OK)
 			return retval;
 
 		char *parent_label_name = strings_lookup(&strings, header->parent_label);
