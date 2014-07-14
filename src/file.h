@@ -40,18 +40,15 @@ struct ctf_file
 
 typedef struct ctf_file* ctf_file;
 
-_CTF_GET_PROPERTY_PROTO(ctf_file_get_version, struct ctf_file*, int)
-_CTF_GET_PROPERTY_PROTO(ctf_file_is_compressed, struct ctf_file*, int)
-_CTF_GET_PROPERTY_PROTO(ctf_file_get_parent_file, struct ctf_file*, 
-    struct ctf_file*)
-_CTF_GET_PROPERTY_PROTO(ctf_file_get_basename, struct ctf_file*, char*)
+_CTF_GET_PROPERTY_PROTO(ctf_file_get_version, ctf_file, ctf_version)
+_CTF_GET_PROPERTY_PROTO(ctf_file_is_compressed, ctf_file, ctf_bool)
+_CTF_GET_PROPERTY_PROTO(ctf_file_get_parent_file, ctf_file, ctf_file)
+_CTF_GET_PROPERTY_PROTO(ctf_file_get_basename, ctf_file, char*)
 
-_CTF_LISTING_PROTO(ctf_file_get_next_label, struct ctf_file*, struct ctf_label*)
-_CTF_LISTING_PROTO(ctf_file_get_next_type, struct ctf_file*, struct ctf_type*)
-_CTF_LISTING_PROTO(ctf_file_get_next_function, struct ctf_file*, 
-    struct ctf_function*)
-_CTF_LISTING_PROTO(ctf_file_get_next_data_object, struct ctf_file*, 
-    struct ctf_data_object*)
+_CTF_LISTING_PROTO(ctf_file_get_next_label, ctf_file, ctf_label)
+_CTF_LISTING_PROTO(ctf_file_get_next_type, ctf_file, ctf_type)
+_CTF_LISTING_PROTO(ctf_file_get_next_function, ctf_file, ctf_function)
+_CTF_LISTING_PROTO(ctf_file_get_next_data_object, ctf_file, ctf_data_object)
 
 #endif
 
