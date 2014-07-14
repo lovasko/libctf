@@ -2,7 +2,7 @@
 
 _CTF_GET_PROPERTY_IMPL(ctf_file_get_version, struct ctf_file*, int, version)
 _CTF_GET_PROPERTY_IMPL(ctf_file_is_compressed, struct ctf_file*, int,
-    compressed)
+    is_compressed)
 _CTF_GET_PROPERTY_IMPL(ctf_file_get_parent_file, struct ctf_file*, 
     struct ctf_file*, parent_file)
 _CTF_GET_PROPERTY_IMPL(ctf_file_get_basename, struct ctf_file*, char*,

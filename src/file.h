@@ -16,7 +16,7 @@
  */
 struct ctf_file
 {
-	int compressed; /**< 0/1 false/true flag for the compression */
+	int is_compressed; /**< 0/1 false/true flag for the compression */
 	int version; /**< version indicator */
 	char* path_basename;
 
