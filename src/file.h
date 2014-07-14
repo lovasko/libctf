@@ -8,6 +8,11 @@
 #include "util/property.h"
 #include "util/listing.h"
 
+#include <stdint.h>
+
+typedef uint8_t ctf_version;
+#define CTF_VERSION_2 2
+
 /**
  * Root CTF data structure.
  *
