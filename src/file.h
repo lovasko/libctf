@@ -9,7 +9,7 @@
 #include "util/listing.h"
 
 /**
- * Root CTF data strcture.
+ * Root CTF data structure.
  *
  * Does not represent the exact binary reflection of the saved data. Instead,
  * it is suited for consuming the data by applications.
