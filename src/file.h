@@ -32,6 +32,8 @@ struct ctf_file
 };
 #define CTF_FILE_SIZE sizeof(struct ctf_file)
 
+typedef struct ctf_file* ctf_file;
+
 _CTF_GET_PROPERTY_PROTO(ctf_file_get_version, struct ctf_file*, int)
 _CTF_GET_PROPERTY_PROTO(ctf_file_is_compressed, struct ctf_file*, int)
 _CTF_GET_PROPERTY_PROTO(ctf_file_get_parent_file, struct ctf_file*, 
