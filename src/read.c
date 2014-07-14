@@ -500,7 +500,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 }
 
 int
-ctf_read_file (char *filename, struct ctf_file **out_file)
+ctf_file_read (char *filename, struct ctf_file **out_file)
 {
 	int retval; 
 

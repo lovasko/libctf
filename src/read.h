@@ -10,7 +10,7 @@
  * @return filled ctf_file or NULL on error
  */
 int
-ctf_read_file (char *filename, struct ctf_file **out_file);
+ctf_file_read (char *filename, struct ctf_file **out_file);
 
 #endif
 
