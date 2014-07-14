@@ -12,7 +12,7 @@ FUNCTION_NAME (ctf_type type, SPECIFIC_TYPE* out);
 int \
 FUNCTION_NAME (ctf_type type, SPECIFIC_TYPE* out) \
 { \
-	if (type && out) \
+	if (type && type->data && out) \
 	{ \
 		*out = type->data; \
 		return CTF_OK; \
