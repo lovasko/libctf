@@ -22,8 +22,8 @@ typedef uint8_t ctf_version;
  */
 struct ctf_file
 {
-	int is_compressed; /**< 0/1 false/true flag for the compression */
-	int version; /**< version indicator */
+	ctf_bool is_compressed; /**< 0/1 false/true flag for the compression */
+	ctf_version version; /**< version indicator */
 	char* path_basename;
 
 	struct ctf_label_head* label_head; /**< linked list containing labels */
