@@ -3,6 +3,7 @@
 
 #include "type.h"
 #include "util/property.h"
+#include "util/from_type.h"
 
 #include <stdint.h>
 
@@ -48,6 +49,8 @@ typedef struct ctf_array* ctf_array;
 _CTF_GET_PROPERTY_PROTO(ctf_array_get_name, ctf_array, char*)
 _CTF_GET_PROPERTY_PROTO(ctf_array_get_length, ctf_array, ctf_array_length)
 _CTF_GET_PROPERTY_PROTO(ctf_array_get_content_type, ctf_array, ctf_type)
+
+_CTF_FROM_TYPE_PROTO(ctf_array_init, ctf_array)
 
 #endif
 
