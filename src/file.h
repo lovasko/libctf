@@ -7,6 +7,7 @@
 #include "function.h"
 #include "util/property.h"
 #include "util/listing.h"
+#include "util/bool.h"
 
 #include <stdint.h>
 
