@@ -6,3 +6,5 @@ _CTF_GET_PROPERTY_IMPL(ctf_int_get_offset, ctf_int, ctf_int_offset, offset)
 _CTF_GET_PROPERTY_IMPL(ctf_int_get_content, ctf_int, ctf_int_content, content)
 _CTF_GET_PROPERTY_IMPL(ctf_int_is_signed, ctf_int, ctf_bool, is_signed)
 
+_CTF_FROM_TYPE_IMPL(ctf_int_init, ctf_int)
+
