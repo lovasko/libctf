@@ -2,8 +2,9 @@
 #define CTF_ENUM_H
 
 #include "enum_entry.h"
-#include "util/property.h"
+#include "util/from_type.h"
 #include "util/listing.h"
+#include "util/property.h"
 
 #include <stdint.h>
 #include <sys/queue.h>
@@ -21,6 +22,7 @@ _CTF_GET_PROPERTY_PROTO(ctf_enum_get_name, ctf_enum, char*)
 
 _CTF_LISTING_PROTO(ctf_enum_get_next_enum_entry, ctf_enum, ctf_enum_entry)
 
+_CTF_FROM_TYPE_PROTO(ctf_enum_init, ctf_enum)
 
 #endif
 
