@@ -3,6 +3,7 @@
 
 #include "type.h"
 #include "argument.h"
+#include "util/from_type.h"
 #include "util/property.h"
 #include "util/listing.h"
 
@@ -35,6 +36,8 @@ _CTF_GET_PROPERTY_PROTO(ctf_function_get_name, ctf_function, char*)
 _CTF_GET_PROPERTY_PROTO(ctf_function_get_return_type, ctf_function, ctf_type)
 	
 _CTF_LISTING_PROTO(ctf_function_get_next_argument, ctf_function, ctf_argument)
+
+_CTF_FROM_TYPE_PROTO(ctf_function_init, ctf_function)
 
 #endif
 
