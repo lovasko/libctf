@@ -1,6 +1,7 @@
 #ifndef CTF_FLOAT_H
 #define CTF_FLOAT_H
 
+#include "util/from_type.h"
 #include "util/property.h"
 
 #include <stdint.h>
@@ -45,7 +46,7 @@ _CTF_GET_PROPERTY_PROTO(ctf_float_get_size, ctf_float, ctf_float_size)
 _CTF_GET_PROPERTY_PROTO(ctf_float_get_offset, ctf_float, ctf_float_offset)
 _CTF_GET_PROPERTY_PROTO(ctf_float_get_encoding, ctf_float, ctf_float_encoding) 
 
-#endif
 _CTF_FROM_TYPE_PROTO(ctf_float_init, ctf_float)
 
+#endif
 
