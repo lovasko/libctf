@@ -7,12 +7,12 @@
 
 struct _strings
 {
-	struct _section *ctf;
-	struct _section *elf;
+	struct _section* ctf;
+	struct _section* elf;
 };
 
 char*
-strings_lookup (struct _strings *strings, uint32_t reference);
+strings_lookup (struct _strings* strings, uint32_t reference);
 
 #endif
 
