@@ -2,6 +2,7 @@
 #define CTF_TYPEDEF_H
 
 #include "type.h"
+#include "util/from_type.h"
 #include "util/property.h"
 
 #include <stdint.h>
@@ -21,6 +22,8 @@ typedef struct ctf_typedef* ctf_typedef;
 
 _CTF_GET_PROPERTY_PROTO(ctf_typedef_get_name, ctf_typedef, char*)
 _CTF_GET_PROPERTY_PROTO(ctf_typedef_get_type, ctf_typedef, ctf_type)
+
+_CTF_FROM_TYPE_PROTO(ctf_typedef_init, ctf_typedef)
 
 #endif
 
