@@ -14,6 +14,17 @@
 
 #include <stdint.h>
 
+/**
+ * Read int variable data.
+ *
+ * Int variable data is stored as 4 bytes:
+ *  - 1. byte = content (see CTF_INT_CONTENT_*)
+ *  - 2. byte = offset in bits
+ *  - 3. and 4. byte = size in bits
+ *
+ * @param data pointer to start of the variable data
+ * @return parsed ctf_int
+ */
 struct ctf_int*
 read_int_vardata (void *data);
 
