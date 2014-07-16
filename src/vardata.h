@@ -57,12 +57,10 @@ read_array_vardata (void* data);
 /**
  * Read the function variable data.
  *
- * The function variable data is just a list of uint16_t which are references
- * to the id_table. Length of the list is the length parameter. The return type
- * parameter is here only because we want to complete the ctf_function struct.
- * 
- * The actual length of the variable data is always an even number, even if the
- * argument count is odd. This is adjusted in the read function.
+ * The function variable data is a list of uint16_t which are type IDs. 
+ * Length of the list is the length parameter. The actual length of 
+ * the variable data is always an even number, even if the
+ * argument count is odd. This is already adjusted in the calling function.
  * 
  * @param data start of the variable data
  * @param length number of the arguments (can be odd)
