@@ -93,6 +93,7 @@ read_enum_vardata (void* data, uint16_t length, struct _strings* strings);
  * @param data start of the variable data
  * @param length number of the member entries (oblivious to the member size)
  * @param size size of the vardata in bytes
+ * @param strings string resolvation tables
  * @return pointer to filled ctf_member_head struct
  */
 struct ctf_member_head*
