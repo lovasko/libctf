@@ -97,8 +97,8 @@ read_enum_vardata (void* data, uint16_t length, struct _strings* strings);
  * @return pointer to filled ctf_member_head struct
  */
 struct ctf_member_head*
-read_struct_union_vardata (void *data, uint16_t length, uint16_t size, 
-    struct _strings *strings);
+read_struct_union_vardata (void* data, uint16_t length, uint16_t size, 
+    struct _strings* strings);
 
 #endif
 
