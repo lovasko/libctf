@@ -52,7 +52,7 @@ read_float_vardata (void* data);
  * @return pointer to filled ctf_array struct
  */
 struct ctf_array*
-read_array_vardata (void *data);
+read_array_vardata (void* data);
 
 /**
  * Read the function variable data.
