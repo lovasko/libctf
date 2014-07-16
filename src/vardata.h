@@ -65,10 +65,7 @@ read_array_vardata (void* data);
  * argument count is odd. This is adjusted in the read function.
  * 
  * @param data start of the variable data
- * @param id_table ID to ctf_type table used to solve the argument types
  * @param length number of the arguments (can be odd)
- * @param return_type return type of the function - this is resolved in the
- * read function already
  * @return pointer to filled ctf_function struct
  */
 struct ctf_argument_head*
