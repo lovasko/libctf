@@ -7,6 +7,9 @@
 
 #include <stdint.h>
 
+/**
+ * Forward declaration.
+ */
 struct ctf_fwd_decl
 {
 	char* name;
