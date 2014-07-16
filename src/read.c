@@ -125,7 +125,7 @@ is_root_from_info (uint16_t info)
 static uint16_t
 vlen_from_info (uint16_t info)
 {
-	return (info & CTF_VARDATA_LENGTH_MAX);
+	return (info & 0x3ff);
 }
 
 static struct ctf_type*

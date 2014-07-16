@@ -14,8 +14,6 @@
 
 #include <stdint.h>
 
-#define CTF_VARDATA_LENGTH_MAX 0x3ff
-
 struct ctf_int*
 read_int_vardata (void *data);
 
