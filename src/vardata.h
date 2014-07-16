@@ -29,7 +29,7 @@ struct ctf_int*
 read_int_vardata (void* data);
 
 struct ctf_float*
-read_float_vardata (void *data);
+read_float_vardata (void* data);
 
 /**
  * Read the array variable data.
