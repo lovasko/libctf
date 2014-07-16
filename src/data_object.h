@@ -7,10 +7,15 @@
 #include <stdint.h>
 #include <sys/queue.h>
 
+/**
+ * Data object.
+ *
+ * Representation of a global variable stored in the symbol table.
+ */
 struct ctf_data_object
 {
-	char* name;
-	ctf_type type;
+	char* name; /*< name of the data object */
+	ctf_type type; /*< type of the data object */
 
 	TAILQ_ENTRY(ctf_data_object) data_objects;
 };
