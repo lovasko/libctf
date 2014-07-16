@@ -21,6 +21,9 @@ typedef uint16_t ctf_int_size;
 #define CTF_INT_SIZE_MIN     0
 #define CTF_INT_SIZE_MAX 65535
 
+/**
+ * Int.
+ */
 struct ctf_int
 {
 	char* name;
