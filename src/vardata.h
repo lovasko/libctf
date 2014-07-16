@@ -91,7 +91,6 @@ read_enum_vardata (void* data, uint16_t length, struct _strings* strings);
  * entires.
  *
  * @param data start of the variable data
- * @param id_table ID to ctf_type table used to solve the member types
  * @param length number of the member entries (oblivious to the member size)
  * @param size size of the vardata in bytes
  * @return pointer to filled ctf_member_head struct
