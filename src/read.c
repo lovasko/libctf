@@ -213,7 +213,7 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 				info = *(fp + function_offset);
 				function_offset++;
 
-				vardata_length = info & CTF_VARDATA_LENGTH_MAX;
+				vardata_length = vlen_from_info(info);
 				if (kind_from_info(info) == CTF_KIND_NONE && vardata_length == 0)
 					break;
 
