@@ -63,7 +63,7 @@ read_array_vardata (void* data);
  * argument count is odd. This is already adjusted in the calling function.
  * 
  * @param data start of the variable data
- * @param length number of the arguments (can be odd)
+ * @param length number of the arguments 
  * @return pointer to filled ctf_function struct
  */
 struct ctf_argument_head*
