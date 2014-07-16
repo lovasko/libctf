@@ -26,11 +26,10 @@ typedef uint32_t ctf_array_length;
 #define CTF_ARRAY_LENGTH_MAX 0xffffffff
 
 /**
- * Array vardata.
+ * Array.
  *
- * We do not convert the index_type from the binary reflection. Name of the
- * array is saved in the parent ctf_type, as this struct is stored in the data
- * field of the ctf_type.
+ * We do not store the index_type from the binary reflection. The indexation is
+ * expected to be always of an integral type.
  */
 struct ctf_array
 {
