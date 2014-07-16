@@ -22,8 +22,8 @@ struct _ctf_array
 #define _CTF_ARRAY_SIZE sizeof(struct _ctf_array)
 
 typedef uint32_t ctf_array_length;
-#define CTF_ARRAY_LENGTH_MIN 0
-#define CTF_ARRAY_LENGTH_MAX 429
+#define CTF_ARRAY_LENGTH_MIN          0
+#define CTF_ARRAY_LENGTH_MAX 0xffffffff
 
 /**
  * Array vardata.
