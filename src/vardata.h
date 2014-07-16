@@ -67,7 +67,7 @@ read_array_vardata (void* data);
  * @return pointer to filled ctf_function struct
  */
 struct ctf_argument_head*
-read_function_vardata (void *data, uint16_t length);
+read_function_vardata (void* data, uint16_t length);
 
 /**
  * Read the enum variable data.
