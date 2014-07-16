@@ -28,6 +28,17 @@
 struct ctf_int*
 read_int_vardata (void* data);
 
+/**
+ * Read float variable data.
+ *
+ * Float variable data is stored as 4 bytes:
+ *  - 1. byte = encoding (see CTF_FLOAT_ENCODING_*)
+ *  - 2. byte = offset in bits
+ *  - 3. and 4. byte = size in bits
+ *
+ * @param data pointer to start of the variable data
+ * @return parsed ctf_float
+ */
 struct ctf_float*
 read_float_vardata (void* data);
 
