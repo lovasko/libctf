@@ -4,7 +4,7 @@
 #include "util/section.h"
 
 struct _section*
-decompress (struct _section *to_decompress);
+decompress (struct _section* to_decompress);
 
 #endif
 
