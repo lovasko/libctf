@@ -30,6 +30,9 @@ typedef uint16_t ctf_float_size;
 #define CTF_FLOAT_SIZE_MIN     0
 #define CTF_FLOAT_SIZE_MAX 65535
 
+/**
+ * Float.
+ */
 struct ctf_float
 {
 	char* name;
