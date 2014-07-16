@@ -16,7 +16,7 @@ struct ctf_argument
 	union
 	{
 		ctf_type type; /**< type of the argument */
-		ctf_id id;
+		ctf_id id; /**< id of the type of the argument */
 	};
 
 	TAILQ_ENTRY(ctf_argument) arguments; /**< pointer to following arguments */
