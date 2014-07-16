@@ -80,7 +80,7 @@ read_function_vardata (void* data, uint16_t length);
  * @return pointer to filled ctf_enum_head struct
  */
 struct ctf_enum_head*
-read_enum_vardata (void *data, uint16_t length, struct _strings *strings);
+read_enum_vardata (void* data, uint16_t length, struct _strings* strings);
 
 /**
  * Read the struct/union variable data.
