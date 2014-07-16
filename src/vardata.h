@@ -49,7 +49,6 @@ read_float_vardata (void* data);
  * It is exactly _CTF_ARRAY_SIZE bytes long.
  * 
  * @param data start of the variable data
- * @param id_table ID to ctf_type table used to solve the array content type
  * @return pointer to filled ctf_array struct
  */
 struct ctf_array*
