@@ -500,7 +500,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 }
 
 int
-ctf_file_read (char* filename, ctf_file* out_file)
+ctf_file_read (const char* filename, ctf_file* out_file)
 {
 	int retval; 
 
@@ -601,7 +601,8 @@ ctf_file_read (char* filename, ctf_file* out_file)
 	free(filename_copy);
 
 	/* check for the parent reference */
-	char *parent_basename = strings_lookup(&strings, header->parent_basename);
+	const char *parent_basename = strings_lookup(&strings, 
+	    header->parent_basename);
 	if (parent_basename[0] !=	'\0')
 	{
 		/* TODO is this really a basename? if so, we need to extract the dirname to
@@ -610,7 +611,8 @@ ctf_file_read (char* filename, ctf_file* out_file)
 		if ((ctf_file_read(parent_basename, &file->parent_file)) != CTF_OK)
 			return retval;
 
-		char *parent_label_name = strings_lookup(&strings, header->parent_label);
+		const char *parent_label_name = strings_lookup(&strings, 
+		    header->parent_label);
 		struct ctf_label *parent_label;
 		int found = 0;
 
