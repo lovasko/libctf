@@ -1,6 +1,6 @@
 #include "strings.h"
 
-char*
+const char*
 strings_lookup (struct _strings* strings, uint32_t reference)
 {
 	unsigned int table_id = reference >> 31;	
@@ -11,7 +11,7 @@ strings_lookup (struct _strings* strings, uint32_t reference)
 		if (strings->ctf->size < offset)
 			return NULL;
 		else
-			return &((char*)strings->ctf->data)[offset];
+			return &((const char*)strings->ctf->data)[offset];
 	}
 
 	if (table_id == 1)
@@ -19,7 +19,7 @@ strings_lookup (struct _strings* strings, uint32_t reference)
 		if (strings->elf->size < offset)
 			return NULL;
 		else
-			return &((char*)strings->elf->data)[offset];
+			return &((const char*)strings->elf->data)[offset];
 	}
 
 	return NULL;

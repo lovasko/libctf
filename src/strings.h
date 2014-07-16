@@ -22,7 +22,7 @@ struct _strings
  * @param reference string reference
  * @return pointer to NULL-terminated const string 
  */
-char*
+const char*
 strings_lookup (struct _strings* strings, uint32_t reference);
 
 #endif
