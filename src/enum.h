@@ -9,9 +9,13 @@
 #include <stdint.h>
 #include <sys/queue.h>
 
+/**
+ * Enum.
+ */
 struct ctf_enum
 {
-	char* name;
+	char* name /*< name of the enum */;
+
 	struct ctf_enum_head* enum_head;
 };
 #define CTF_ENUM_SIZE sizeof(struct ctf_enum)
