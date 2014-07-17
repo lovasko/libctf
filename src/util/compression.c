@@ -56,6 +56,7 @@ decompress (struct _section *to_decompress)
 			if (ret != Z_OK && ret != Z_STREAM_END)
 			{
 				inflateEnd(&stream);
+				free(result->data);
 				free(result);
 				return NULL;
 			}
