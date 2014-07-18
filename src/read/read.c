@@ -465,6 +465,11 @@ read_types (struct ctf_file *file, struct _section *section, struct
 
 			offset += (vardata_length + (vardata_length & 1)) * sizeof(uint16_t);
 		}
+			/* 
+			 * TRICK SECTION
+			 * Operation (n + (n & 1)) is a clever, but not very obvious, way to
+			 * convert an even/odd number to an even one.
+			 */
 
 		TAILQ_INSERT_TAIL(file->type_head, type, types);
 	}
