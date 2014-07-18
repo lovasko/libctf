@@ -386,7 +386,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			{
 				case CTF_KIND_INT:
 				{
-					struct ctf_int *_int = read_int_vardata(section->data + offset);	
+					struct ctf_int *_int = _ctf_read_int_vardata(section->data + offset);	
 					_int->name = name;
 					type->data = _int;
 					offset += 4;
@@ -395,7 +395,8 @@ read_types (struct ctf_file *file, struct _section *section, struct
 
 				case CTF_KIND_FLOAT:
 				{
-					struct ctf_float *_float = read_float_vardata( section->data + offset);
+					struct ctf_float *_float = _ctf_read_float_vardata(section->data + 
+					    offset);
 					_float->name = name;
 					type->data = _float;
 					offset += 4;
@@ -404,7 +405,8 @@ read_types (struct ctf_file *file, struct _section *section, struct
 
 				case CTF_KIND_ARRAY:
 				{
-					struct ctf_array *array = read_array_vardata(section->data + offset);
+					struct ctf_array *array = _ctf_read_array_vardata(section->data + 
+					    offset);
 					array->name = name;
 
 					type->data = array;
@@ -417,7 +419,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 				{
 					struct ctf_enum *_enum = malloc(CTF_ENUM_SIZE);
 					_enum->name = name;
-					_enum->enum_head = read_enum_vardata(section->data + offset, 
+					_enum->enum_head = _ctf_read_enum_vardata(section->data + offset, 
 					    vardata_length, strings);
 
 					type->data = _enum;
@@ -431,7 +433,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 				{
 					struct ctf_struct_union *struct_union = malloc(CTF_STRUCT_UNION_SIZE);
 					struct_union->name = name;
-					struct_union->member_head = read_struct_union_vardata(
+					struct_union->member_head = _ctf_read_struct_union_vardata(
 					    section->data + offset, vardata_length, size, strings);
 
 					type->data = struct_union;	
@@ -456,20 +458,20 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			offset += _CTF_SMALL_TYPE_SIZE;
 
 			struct ctf_function *function = malloc(CTF_FUNCTION_SIZE);
-			function->argument_head = read_function_vardata( section->data + offset, 
-			    vardata_length);
+			function->argument_head = _ctf_read_function_vardata( section->data + 
+			    offset, vardata_length);
 			function->name = strdup(strings_lookup(strings, small_type->name));
 			function->return_id = small_type->type;
 
 			type->data = function;
 
-			offset += (vardata_length + (vardata_length & 1)) * sizeof(uint16_t);
-		}
 			/* 
 			 * TRICK SECTION
 			 * Operation (n + (n & 1)) is a clever, but not very obvious, way to
 			 * convert an even/odd number to an even one.
 			 */
+			offset += (vardata_length + (vardata_length & 1)) * sizeof(uint16_t);
+		}
 
 		TAILQ_INSERT_TAIL(file->type_head, type, types);
 	}

@@ -26,7 +26,7 @@
  * @return parsed ctf_int
  */
 struct ctf_int*
-read_int_vardata (void* data);
+_ctf_read_int_vardata (void* data);
 
 /**
  * Read float variable data.
@@ -40,7 +40,7 @@ read_int_vardata (void* data);
  * @return parsed ctf_float
  */
 struct ctf_float*
-read_float_vardata (void* data);
+_ctf_read_float_vardata (void* data);
 
 /**
  * Read the array variable data.
@@ -52,7 +52,7 @@ read_float_vardata (void* data);
  * @return pointer to filled ctf_array struct
  */
 struct ctf_array*
-read_array_vardata (void* data);
+_ctf_read_array_vardata (void* data);
 
 /**
  * Read the function variable data.
@@ -67,7 +67,7 @@ read_array_vardata (void* data);
  * @return pointer to filled ctf_function struct
  */
 struct ctf_argument_head*
-read_function_vardata (void* data, uint16_t length);
+_ctf_read_function_vardata (void* data, uint16_t length);
 
 /**
  * Read the enum variable data.
@@ -80,7 +80,7 @@ read_function_vardata (void* data, uint16_t length);
  * @return pointer to filled ctf_enum_head struct
  */
 struct ctf_enum_head*
-read_enum_vardata (void* data, uint16_t length, struct _strings* strings);
+_ctf_read_enum_vardata (void* data, uint16_t length, struct _strings* strings);
 
 /**
  * Read the struct/union variable data.
@@ -97,7 +97,7 @@ read_enum_vardata (void* data, uint16_t length, struct _strings* strings);
  * @return pointer to filled ctf_member_head struct
  */
 struct ctf_member_head*
-read_struct_union_vardata (void* data, uint16_t length, uint16_t size, 
+_ctf_read_struct_union_vardata (void* data, uint16_t length, uint16_t size, 
     struct _strings* strings);
 
 #endif

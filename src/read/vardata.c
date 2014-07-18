@@ -14,7 +14,7 @@
 #define _CTF_INT_VARARGS 8
 
 struct ctf_int*
-read_int_vardata (void* data)
+_ctf_read_int_vardata (void* data)
 {
 	uint32_t* raw = (uint32_t*)data;
 	struct ctf_int* vardata = malloc(CTF_INT_SIZE);
@@ -38,7 +38,7 @@ read_int_vardata (void* data)
 }
 
 struct ctf_float*
-read_float_vardata (void* data)
+_ctf_read_float_vardata (void* data)
 {
 	uint32_t* raw = (uint32_t*)data;
 	struct ctf_float* vardata = malloc(CTF_FLOAT_SIZE);
@@ -51,7 +51,7 @@ read_float_vardata (void* data)
 }
 
 struct ctf_array*
-read_array_vardata (void* data)
+_ctf_read_array_vardata (void* data)
 {
 	struct _ctf_array* raw = (struct _ctf_array*)data;
 	struct ctf_array* array = malloc(CTF_ARRAY_SIZE);
@@ -63,7 +63,7 @@ read_array_vardata (void* data)
 }
 
 struct ctf_argument_head*
-read_function_vardata (void* data, uint16_t length)
+_ctf_read_function_vardata (void* data, uint16_t length)
 {
 	struct ctf_argument_head* argument_head = malloc(CTF_ARGUMENT_HEAD_SIZE);
 	TAILQ_INIT(argument_head);
@@ -81,7 +81,7 @@ read_function_vardata (void* data, uint16_t length)
 }
 
 struct ctf_enum_head*
-read_enum_vardata (void* data, uint16_t length, struct _strings* strings)
+_ctf_read_enum_vardata (void* data, uint16_t length, struct _strings* strings)
 {
 	struct ctf_enum_head* enum_head = malloc(CTF_ENUM_HEAD_SIZE);
 	TAILQ_INIT(enum_head);
@@ -100,7 +100,7 @@ read_enum_vardata (void* data, uint16_t length, struct _strings* strings)
 }
 
 struct ctf_member_head*
-read_struct_union_vardata (void* data, uint16_t length, uint16_t size, 
+_ctf_read_struct_union_vardata (void* data, uint16_t length, uint16_t size, 
     struct _strings* strings)
 {
 	struct _ctf_small_member* small_member;
