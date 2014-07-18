@@ -1,7 +1,7 @@
 #ifndef CTF_READ_H
 #define CTF_READ_H
 
-#include "file.h"
+#include "../file.h"
 
 /**
  * Parse the file and extract all CTF data.
