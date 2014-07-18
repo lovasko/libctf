@@ -3,6 +3,7 @@
 #include "header.h"
 #include "strings.h"
 #include "decompress.h"
+#include "lookup.h"
 #include "../file.h"
 #include "../data_object.h"
 #include "../kind.h"
@@ -104,24 +105,6 @@ vlen_from_info (uint16_t info)
 	return (info & 0x3ff);
 }
 
-static struct ctf_type*
-lookup_type (struct ctf_file *file, uint16_t id)
-{
-	if (id < file->type_id_offset)
-	{
-		if (file->parent_file != NULL)
-			return lookup_type(file->parent_file, id);
-		else
-			return NULL;
-	}
-	else if (id < file->type_count)
-	{
-		return file->type_id_table[id - file->type_id_offset];	
-	}
-	else
-		return NULL;
-}
-
 static int
 read_functions_and_objects (struct ctf_file *file, struct _section
     *symtab_section, struct _section *object_section, struct _section
@@ -180,7 +163,7 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 
 				struct ctf_data_object *data_object = malloc(CTF_DATA_OBJECT_SIZE);
 				data_object->name = strdup(name);
-				data_object->type = lookup_type(file, type_reference);
+				data_object->type = _ctf_lookup_type(file, type_reference);
 
 				TAILQ_INSERT_TAIL(file->data_object_head, data_object, data_objects);
 			break;
@@ -195,7 +178,7 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 
 				type_reference = *(fp + function_offset);
 				function_offset++;
-				function->return_type = lookup_type(file, type_reference);
+				function->return_type = _ctf_lookup_type(file, type_reference);
 
 				function = malloc(CTF_FUNCTION_SIZE);
 				function->name = strdup(name);
@@ -207,7 +190,7 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 					function_offset++;
 
 					argument = malloc(CTF_ARGUMENT_SIZE);				
-					argument->type = lookup_type(file, type_reference);
+					argument->type = _ctf_lookup_type(file, type_reference);
 					TAILQ_INSERT_TAIL(function->argument_head, argument, arguments);
 				}
 				
@@ -250,19 +233,19 @@ solve_type_references (struct ctf_file *file)
 	{
 		if (kind_is_pure_reference(type->kind))
 		{
-			type->data = lookup_type(file, type->data_id);
+			type->data = _ctf_lookup_type(file, type->data_id);
 		}
 
 		if (type->kind == CTF_KIND_TYPEDEF)
 		{
 			struct ctf_typedef *_typedef = type->data;
-			_typedef->type = lookup_type(file, _typedef->id);
+			_typedef->type = _ctf_lookup_type(file, _typedef->id);
 		}
 
 		if (type->kind == CTF_KIND_ARRAY)
 		{
 			struct ctf_array *array = type->data;
-			array->content_type = lookup_type(file, array->content_id);
+			array->content_type = _ctf_lookup_type(file, array->content_id);
 		}
 
 		if (type->kind == CTF_KIND_STRUCT || type->kind == CTF_KIND_UNION)
@@ -271,19 +254,19 @@ solve_type_references (struct ctf_file *file)
 			struct ctf_member *member;
 			TAILQ_FOREACH (member, struct_union->member_head, members)
 			{
-				member->type = lookup_type(file, member->id);
+				member->type = _ctf_lookup_type(file, member->id);
 			}
 		}
 
 		if (type->kind == CTF_KIND_FUNC)
 		{
 			struct ctf_function *func = type->data;
-			func->return_type = lookup_type(file, func->return_id);
+			func->return_type = _ctf_lookup_type(file, func->return_id);
 
 			struct ctf_argument *argument;
 			TAILQ_FOREACH (argument, func->argument_head, arguments)
 			{
-				argument->type = lookup_type(file, argument->id);
+				argument->type = _ctf_lookup_type(file, argument->id);
 			}
 		}
 	}
