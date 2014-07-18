@@ -2,7 +2,7 @@
 #include "vardata.h"
 #include "header.h"
 #include "strings.h"
-#include "../util/compression.h"
+#include "decompress.h"
 #include "../file.h"
 #include "../data_object.h"
 #include "../kind.h"
