@@ -7,7 +7,8 @@
  * Parse the file and extract all CTF data.
  * 
  * @param filename filename
- * @return filled ctf_file or NULL on error
+ * @param out_file parsed CTF data
+ * @return CTF_OK on success, one of CTF_E_* otherwise
  */
 int
 ctf_file_read (const char* filename, ctf_file* out_file);
