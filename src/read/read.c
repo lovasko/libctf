@@ -4,6 +4,7 @@
 #include "strings.h"
 #include "decompress.h"
 #include "lookup.h"
+#include "labels.h"
 #include "../file.h"
 #include "../data_object.h"
 #include "../kind.h"
@@ -200,29 +201,6 @@ read_functions_and_objects (struct ctf_file *file, struct _section
 	}
 
 	return 0;
-}
-
-static int
-read_labels (struct ctf_file *file, struct _section *section, struct
-    _strings *strings)
-{
-	if (section->size % _CTF_LABEL_SIZE != 0)
-		return CTF_E_LABEL_SECTION_CORRUPT;
-
-	file->label_head = malloc(CTF_LABEL_HEAD_SIZE);
-	TAILQ_INIT(file->label_head);
-
-	struct _ctf_label *raw_labels = (struct _ctf_label*)section->data;	
-
-	for (unsigned int i = 0; i < section->size/_CTF_LABEL_SIZE; i++)
-	{
-		struct ctf_label *to_add = malloc(CTF_LABEL_SIZE);
-		to_add->index = raw_labels[i].index;
-		to_add->name = strdup(_ctf_strings_lookup(strings, raw_labels[i].name));
-		TAILQ_INSERT_TAIL(file->label_head, to_add, labels);
-	}
-
-	return CTF_OK;
 }
 
 static int
@@ -616,7 +594,7 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 	struct _section label_section;
 	label_section.data = headerless_ctf + header->label_offset;
 	label_section.size = header->object_offset - header->label_offset;
-	if ((retval = read_labels(file, &label_section, &strings)) != CTF_OK)
+	if ((retval = _ctf_read_labels(file, &label_section, &strings)) != CTF_OK)
 		return retval;
 
 	/* read the types */
