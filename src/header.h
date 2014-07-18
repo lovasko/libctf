@@ -3,11 +3,18 @@
 
 #include <stdint.h>
 
-#define CTF_MAGIC 0xCFF1
+/**
+ * Value of the first two bytes has to match this constant.
+ */
+#define _CTF_MAGIC 0xCFF1
 
-#define CTF_VERSION 2
+#define _CTF_FLAG_COMPRESSED 0x1
 
-#define CTF_COMPRESSED 0x1
+typedef uint8_t ctf_version;
+/**
+ *  Currently, we support only version 2.
+ */
+#define _CTF_VERSION_2 2
 
 /**
  * Binary reflection of the preface of the CTF header.

@@ -1,6 +1,7 @@
 #ifndef CTF_FILE_H
 #define CTF_FILE_H
 
+#include "header.h"
 #include "label.h"
 #include "type.h"
 #include "data_object.h"
@@ -10,9 +11,6 @@
 #include "util/bool.h"
 
 #include <stdint.h>
-
-typedef uint8_t ctf_version;
-#define CTF_VERSION_2 2
 
 /**
  * Root CTF data structure.

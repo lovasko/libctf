@@ -62,10 +62,10 @@ elf_section_find (Elf *elf, Elf32_Ehdr *elf_header, const char *to_find)
 static int
 header_preface_check (struct _ctf_preface *preface)
 {
-	if (preface->magic != CTF_MAGIC)
+	if (preface->magic != _CTF_MAGIC)
 		return CTF_E_MAGIC;
 
-	if (preface->version != CTF_VERSION)
+	if (preface->version != _CTF_VERSION_2)
 		return CTF_E_VERSION;
 
 	return CTF_OK;
@@ -574,7 +574,7 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 	void *headerless_ctf;
 
 	/* decompress the CTF data (if compressed) */
-	if (header->preface.flags & CTF_COMPRESSED)
+	if (header->preface.flags & _CTF_FLAG_COMPRESSED)
 	{
 		struct _section compressed;
 		compressed.data = ctf_section->data + _CTF_HEADER_SIZE;
@@ -603,8 +603,8 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 
 	/* construct the final file structure */
 	struct ctf_file *file = malloc(CTF_FILE_SIZE);
-	file->version = CTF_VERSION;
-	file->is_compressed = header->preface.flags & CTF_COMPRESSED;
+	file->version = _CTF_VERSION_2;
+	file->is_compressed = header->preface.flags & _CTF_FLAG_COMPRESSED;
 
 	char* filename_copy = strdup(filename);
 	file->path_basename = strdup(basename(filename_copy));
