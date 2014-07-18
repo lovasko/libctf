@@ -60,30 +60,6 @@ elf_section_find (Elf *elf, Elf32_Ehdr *elf_header, const char *to_find)
 }
 
 static int
-header_preface_check (struct _ctf_preface *preface)
-{
-	if (preface->magic != _CTF_MAGIC)
-		return CTF_E_MAGIC;
-
-	if (preface->version != _CTF_VERSION_2)
-		return CTF_E_VERSION;
-
-	return CTF_OK;
-}
-
-static int
-header_check_offset_sanity (struct _ctf_header *header)
-{
-	if (header->label_offset    < header->object_offset   &&
-	    header->object_offset   < header->function_offset &&
-	    header->function_offset < header->type_offset     &&
-	    header->type_offset     < header->string_offset)
-		return CTF_OK;
-	else
-		return CTF_E_OFFSETS_CORRUPT;
-}
-
-static int
 kind_is_pure_reference (uint8_t kind)
 {
 	if (kind == CTF_KIND_POINTER
@@ -563,11 +539,11 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 
 	/* read the CTF header */
 	struct _ctf_header *header = (struct _ctf_header*)ctf_section->data;
-	if ((retval = header_preface_check(&header->preface)) != CTF_OK)
+	if ((retval = _header_preface_check(&header->preface)) != CTF_OK)
 		return retval;
 
 	/* check the order of offsets */
-	if ((retval = header_check_offset_sanity(header)) != CTF_OK)
+	if ((retval = _header_check_offset_sanity(header)) != CTF_OK)
 		return retval;
 
 	/* pointer to decompressed start of the actual CTF data without the header */
