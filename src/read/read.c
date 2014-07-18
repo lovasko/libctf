@@ -563,7 +563,7 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 		compressed.data = ctf_section->data + _CTF_HEADER_SIZE;
 		compressed.size = ctf_section->size - _CTF_HEADER_SIZE;
 
-		struct _section *decompressed = decompress(&compressed);	
+		struct _section *decompressed = _ctf_decompress(&compressed);	
 		if (decompressed == NULL)
 			return CTF_E_COMPRESSION;
 

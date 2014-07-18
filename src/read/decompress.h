@@ -10,7 +10,7 @@
  * @return decompressed data
  */
 struct _section*
-decompress (struct _section* to_decompress);
+_ctf_decompress (struct _section* to_decompress);
 
 #endif
 
