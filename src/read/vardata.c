@@ -90,7 +90,8 @@ _ctf_read_enum_vardata (void* data, uint16_t length, struct _strings* strings)
 	for (uint16_t i = 0; i < length; i++)
 	{
 		struct ctf_enum_entry* enum_entry = malloc(CTF_ENUM_ENTRY_SIZE);
-		enum_entry->name = strdup(strings_lookup(strings, raw_enum_entries[i].name));
+		enum_entry->name = strdup(_ctf_strings_lookup(strings, 
+		    raw_enum_entries[i].name));
 		enum_entry->value = raw_enum_entries[i].value; 
 
 		TAILQ_INSERT_TAIL(enum_head, enum_entry, entries);
@@ -127,7 +128,7 @@ _ctf_read_struct_union_vardata (void* data, uint16_t length, uint16_t size,
 	{
 		struct ctf_member* member = malloc(CTF_MEMBER_SIZE);
 
-		member->name = strdup(strings_lookup(strings, (member_type ? 
+		member->name = strdup(_ctf_strings_lookup(strings, (member_type ? 
 		    large_member[i].name : small_member[i].name)));
 
 		member->id = (member_type ? large_member[i].type :

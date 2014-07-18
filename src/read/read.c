@@ -235,7 +235,7 @@ read_labels (struct ctf_file *file, struct _section *section, struct
 	{
 		struct ctf_label *to_add = malloc(CTF_LABEL_SIZE);
 		to_add->index = raw_labels[i].index;
-		to_add->name = strdup(strings_lookup(strings, raw_labels[i].name));
+		to_add->name = strdup(_ctf_strings_lookup(strings, raw_labels[i].name));
 		TAILQ_INSERT_TAIL(file->label_head, to_add, labels);
 	}
 
@@ -342,7 +342,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 		if (kind == CTF_KIND_TYPEDEF)
 		{
 			struct ctf_typedef *_typedef = malloc(CTF_TYPEDEF_SIZE);
-			_typedef->name = strdup(strings_lookup(strings, small_type->name));
+			_typedef->name = strdup(_ctf_strings_lookup(strings, small_type->name));
 			_typedef->id = small_type->type;
 
 			type->data = _typedef;
@@ -360,7 +360,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 		if (kind == CTF_KIND_FWD_DECL)
 		{
 			struct ctf_fwd_decl* fwd_decl = malloc(CTF_FWD_DECL_SIZE);
-			fwd_decl->name = strdup(strings_lookup(strings, small_type->name));
+			fwd_decl->name = strdup(_ctf_strings_lookup(strings, small_type->name));
 			fwd_decl->kind = small_type->type;
 
 			type->data = fwd_decl;
@@ -380,7 +380,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			}
 			offset += advance;
 
-			char *name = strdup(strings_lookup(strings, small_type->name));
+			char *name = strdup(_ctf_strings_lookup(strings, small_type->name));
 
 			switch (kind)
 			{
@@ -460,7 +460,7 @@ read_types (struct ctf_file *file, struct _section *section, struct
 			struct ctf_function *function = malloc(CTF_FUNCTION_SIZE);
 			function->argument_head = _ctf_read_function_vardata( section->data + 
 			    offset, vardata_length);
-			function->name = strdup(strings_lookup(strings, small_type->name));
+			function->name = strdup(_ctf_strings_lookup(strings, small_type->name));
 			function->return_id = small_type->type;
 
 			type->data = function;
@@ -594,7 +594,7 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 	free(filename_copy);
 
 	/* check for the parent reference */
-	const char *parent_basename = strings_lookup(&strings, 
+	const char *parent_basename = _ctf_strings_lookup(&strings, 
 	    header->parent_basename);
 	if (parent_basename[0] !=	'\0')
 	{
@@ -604,7 +604,7 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 		if ((ctf_file_read(parent_basename, &file->parent_file)) != CTF_OK)
 			return retval;
 
-		const char *parent_label_name = strings_lookup(&strings, 
+		const char *parent_label_name = _ctf_strings_lookup(&strings, 
 		    header->parent_label);
 		struct ctf_label *parent_label;
 		int found = 0;

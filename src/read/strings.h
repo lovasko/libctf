@@ -23,7 +23,7 @@ struct _strings
  * @return pointer to NULL-terminated const string 
  */
 const char*
-strings_lookup (struct _strings* strings, uint32_t reference);
+_ctf_strings_lookup (struct _strings* strings, uint32_t reference);
 
 #endif
 

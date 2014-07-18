@@ -1,7 +1,7 @@
 #include "strings.h"
 
 const char*
-strings_lookup (struct _strings* strings, uint32_t reference)
+_ctf_strings_lookup (struct _strings* strings, uint32_t reference)
 {
 	unsigned int table_id = reference >> 31;	
 	uint32_t offset = reference & 0x7fffffff;
