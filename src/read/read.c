@@ -1,6 +1,6 @@
 #include "read.h"
 #include "vardata.h"
-#include "../header.h"
+#include "header.h"
 #include "../util/compression.h"
 #include "../strings.h"
 #include "../file.h"
