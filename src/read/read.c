@@ -539,11 +539,11 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 
 	/* read the CTF header */
 	struct _ctf_header *header = (struct _ctf_header*)ctf_section->data;
-	if ((retval = _header_preface_check(&header->preface)) != CTF_OK)
+	if ((retval = _ctf_preface_check(&header->preface)) != CTF_OK)
 		return retval;
 
 	/* check the order of offsets */
-	if ((retval = _header_check_offset_sanity(header)) != CTF_OK)
+	if ((retval = _ctf_header_offset_sanity_check(header)) != CTF_OK)
 		return retval;
 
 	/* pointer to decompressed start of the actual CTF data without the header */

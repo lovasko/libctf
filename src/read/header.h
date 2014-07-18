@@ -58,10 +58,10 @@ struct _ctf_header
 #define _CTF_HEADER_SIZE sizeof(struct _ctf_header)
 
 int
-_header_preface_check (struct _ctf_preface *preface);
+_ctf_preface_check (struct _ctf_preface* preface);
 
 int
-_header_check_offset_sanity (struct _ctf_header *header);
+_ctf_header_offset_sanity_check (struct _ctf_header* header);
 
 #endif
 
