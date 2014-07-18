@@ -4,15 +4,15 @@
 #include <zlib.h>
 #include <stdlib.h>
 
-#define CHUNK_SIZE 16384 
+#define _CTF_DECOMPRESS_CHUNK_SIZE 16384 
 
 struct _section*
 decompress (struct _section *to_decompress)
 {
 	int ret;
 	z_stream stream;
-	unsigned char in[CHUNK_SIZE];
-	unsigned char out[CHUNK_SIZE];
+	unsigned char in[_CTF_DECOMPRESS_CHUNK_SIZE];
+	unsigned char out[_CTF_DECOMPRESS_CHUNK_SIZE];
 	unsigned int available;
 	unsigned int offset;
 	unsigned int have;
@@ -38,10 +38,10 @@ decompress (struct _section *to_decompress)
 	offset = 0;
 	do 
 	{
-		if (offset + CHUNK_SIZE > to_decompress->size)
+		if (offset + _CTF_DECOMPRESS_CHUNK_SIZE > to_decompress->size)
 			available = to_decompress->size - offset;
 		else 
-			available = CHUNK_SIZE;
+			available = _CTF_DECOMPRESS_CHUNK_SIZE;
 
 		memcpy(in, to_decompress->data + offset, available);
 		stream.avail_in = available;
@@ -49,7 +49,7 @@ decompress (struct _section *to_decompress)
 
 		do
 		{
-			stream.avail_out = CHUNK_SIZE;
+			stream.avail_out = _CTF_DECOMPRESS_CHUNK_SIZE;
 			stream.next_out = out;
 
 			ret = inflate(&stream, Z_NO_FLUSH);
@@ -61,7 +61,7 @@ decompress (struct _section *to_decompress)
 				return NULL;
 			}
 
-			have = CHUNK_SIZE - stream.avail_out;
+			have = _CTF_DECOMPRESS_CHUNK_SIZE - stream.avail_out;
 
 			result->data = realloc(result->data, result->size + have);
 			memcpy(result->data + result->size, out, have);
@@ -69,7 +69,7 @@ decompress (struct _section *to_decompress)
 		}
 		while (stream.avail_out == 0);
 
-		offset += CHUNK_SIZE;
+		offset += _CTF_DECOMPRESS_CHUNK_SIZE;
 	}
 	while (ret != Z_STREAM_END);
 
