@@ -1,4 +1,4 @@
-#include "compression.h"
+#include "decompress.h"
 
 #include <string.h>
 #include <zlib.h>
