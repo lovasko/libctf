@@ -20,10 +20,11 @@ _ctf_read_labels (struct ctf_file* file, struct _section* section,
 
 	for (unsigned int i = 0; i < section->size/_CTF_LABEL_SIZE; i++)
 	{
-		struct ctf_label* to_add = malloc(CTF_LABEL_SIZE);
-		to_add->index = raw_labels[i].index;
-		to_add->name = strdup(_ctf_strings_lookup(strings, raw_labels[i].name));
-		TAILQ_INSERT_TAIL(file->label_head, to_add, labels);
+		struct ctf_label* label = malloc(CTF_LABEL_SIZE);
+		label->index = raw_labels[i].index;
+		label->name = strdup(_ctf_strings_lookup(strings, raw_labels[i].name));
+
+		TAILQ_INSERT_TAIL(file->label_head, label, labels);
 	}
 
 	return CTF_OK;
