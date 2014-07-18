@@ -1,7 +1,7 @@
 #ifndef CTF_FILE_H
 #define CTF_FILE_H
 
-#include "header.h"
+#include "read/header.h"
 #include "label.h"
 #include "type.h"
 #include "data_object.h"

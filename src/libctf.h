@@ -2,7 +2,7 @@
 #define CTF_LIBCTF_H
 
 #include "file.h"
-#include "header.h"
+#include "read/header.h"
 #include "label.h"
 #include "read/read.h"
 #include "read/vardata.h"
