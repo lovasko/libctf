@@ -1,5 +1,5 @@
-#ifndef CTF_VARDATA_H
-#define CTF_VARDATA_H
+#ifndef CTF_READ_VARDATA_H
+#define CTF_READ_VARDATA_H
 
 #include "strings.h"
 #include "../array.h"

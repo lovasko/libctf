@@ -1,5 +1,5 @@
-#ifndef CTF_READ_H
-#define CTF_READ_H
+#ifndef CTF_READ_READ_H
+#define CTF_READ_READ_H
 
 #include "../file.h"
 

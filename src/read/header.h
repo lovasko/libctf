@@ -1,5 +1,5 @@
-#ifndef CTF_HEADER_H
-#define CTF_HEADER_H
+#ifndef CTF_READ_HEADER_H
+#define CTF_READ_HEADER_H
 
 #include <stdint.h>
 

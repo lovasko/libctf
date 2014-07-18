@@ -1,5 +1,5 @@
-#ifndef CTF_LOOKUP_H
-#define CTF_LOOKUP_H
+#ifndef CTF_READ_LOOKUP_H
+#define CTF_READ_LOOKUP_H
 
 #include "../file.h"
 #include "../type.h"

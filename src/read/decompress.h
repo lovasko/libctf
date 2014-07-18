@@ -1,5 +1,5 @@
-#ifndef CTF_COMPRESSION_H
-#define CTF_COMPRESSION_H
+#ifndef CTF_READ_DECOMPRESS_H
+#define CTF_READ_DECOMPRESS_H
 
 #include "../util/section.h"
 
