@@ -121,12 +121,12 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 	{
 		file->type_count++;
 
-		struct _ctf_small_type *small_type = section->data + offset;	
+		struct _ctf_small_type* small_type = section->data + offset;	
 		uint8_t kind = _ctf_info_get_kind(small_type->info);
 		uint16_t vardata_length = _ctf_info_get_vardata_length(small_type->info);
 		uint8_t is_root = _ctf_info_is_root(small_type->info);
 
-		struct ctf_type *type = malloc(CTF_TYPE_SIZE);			
+		struct ctf_type* type = malloc(CTF_TYPE_SIZE);			
 		type->kind = kind;
 		type->id = id;
 		type->is_root = is_root;
@@ -142,7 +142,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 
 		if (kind == CTF_KIND_TYPEDEF)
 		{
-			struct ctf_typedef *_typedef = malloc(CTF_TYPEDEF_SIZE);
+			struct ctf_typedef* _typedef = malloc(CTF_TYPEDEF_SIZE);
 			_typedef->name = strdup(_ctf_strings_lookup(strings, small_type->name));
 			_typedef->id = small_type->type;
 
@@ -175,7 +175,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 			uint16_t size = small_type->size;
 			if (small_type->size > CTF_SMALL_TYPE_THRESHOLD)
 			{
-				struct _ctf_large_type *large_type = section->data + offset;
+				struct _ctf_large_type* large_type = section->data + offset;
 				size = large_type->size;
 				advance	+= (_CTF_LARGE_TYPE_SIZE - _CTF_SMALL_TYPE_SIZE);
 			}
@@ -187,7 +187,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 			{
 				case CTF_KIND_INT:
 				{
-					struct ctf_int *_int = _ctf_read_int_vardata(section->data + offset);	
+					struct ctf_int* _int = _ctf_read_int_vardata(section->data + offset);	
 					_int->name = name;
 					type->data = _int;
 					offset += 4;
@@ -196,7 +196,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 
 				case CTF_KIND_FLOAT:
 				{
-					struct ctf_float *_float = _ctf_read_float_vardata(section->data + 
+					struct ctf_float* _float = _ctf_read_float_vardata(section->data + 
 					    offset);
 					_float->name = name;
 					type->data = _float;
@@ -206,7 +206,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 
 				case CTF_KIND_ARRAY:
 				{
-					struct ctf_array *array = _ctf_read_array_vardata(section->data + 
+					struct ctf_array* array = _ctf_read_array_vardata(section->data + 
 					    offset);
 					array->name = name;
 
@@ -218,7 +218,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 
 				case CTF_KIND_ENUM:
 				{
-					struct ctf_enum *_enum = malloc(CTF_ENUM_SIZE);
+					struct ctf_enum* _enum = malloc(CTF_ENUM_SIZE);
 					_enum->name = name;
 					_enum->enum_head = _ctf_read_enum_vardata(section->data + offset, 
 					    vardata_length, strings);
@@ -232,7 +232,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 				case CTF_KIND_STRUCT:
 				case CTF_KIND_UNION:
 				{
-					struct ctf_struct_union *struct_union = malloc(CTF_STRUCT_UNION_SIZE);
+					struct ctf_struct_union* struct_union = malloc(CTF_STRUCT_UNION_SIZE);
 					struct_union->name = name;
 					struct_union->member_head = _ctf_read_struct_union_vardata(
 					    section->data + offset, vardata_length, size, strings);
