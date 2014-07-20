@@ -23,6 +23,7 @@
 #define CTF_E_NULL 17
 #define CTF_E_OFFSETS_CORRUPT 18
 #define CTF_E_KIND_INVALID 19
+#define CTF_E_TYPE_ID_NOT_FOUND 20
 
 #define CTF_E_MAX 32
 

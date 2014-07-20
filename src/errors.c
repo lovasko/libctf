@@ -23,7 +23,8 @@ ctf_get_error_string (int error)
 		"End of the list.",
 		"Null pointer.",
 		"Sections offsets corrupted.",
-		"Kind invalid."
+		"Kind invalid.",
+		"Type ID not found."
 	};
 
 	if (error < CTF_E_MIN || error > CTF_E_MAX)
