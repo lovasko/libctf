@@ -26,7 +26,7 @@
 
 #define CTF_E_MAX 32
 
-const char *
+const char*
 ctf_get_error_string (int error);
 
 #endif
