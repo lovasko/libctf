@@ -55,21 +55,21 @@ solve_type_references (struct ctf_file* file)
 
 		if (type->kind == CTF_KIND_TYPEDEF)
 		{
-			struct ctf_typedef *_typedef = type->data;
+			struct ctf_typedef* _typedef = type->data;
 			_typedef->type = _ctf_lookup_type(file, _typedef->id);
 		}
 
 		if (type->kind == CTF_KIND_ARRAY)
 		{
-			struct ctf_array *array = type->data;
+			struct ctf_array* array = type->data;
 			array->content_type = _ctf_lookup_type(file, array->content_id);
 		}
 
 		if (type->kind == CTF_KIND_STRUCT 
 		 || type->kind == CTF_KIND_UNION)
 		{
-			struct ctf_struct_union *struct_union = type->data;
-			struct ctf_member *member;
+			struct ctf_struct_union* struct_union = type->data;
+			struct ctf_member* member;
 			TAILQ_FOREACH (member, struct_union->member_head, members)
 			{
 				member->type = _ctf_lookup_type(file, member->id);
@@ -78,10 +78,10 @@ solve_type_references (struct ctf_file* file)
 
 		if (type->kind == CTF_KIND_FUNC)
 		{
-			struct ctf_function *func = type->data;
+			struct ctf_function* func = type->data;
 			func->return_type = _ctf_lookup_type(file, func->return_id);
 
-			struct ctf_argument *argument;
+			struct ctf_argument* argument;
 			TAILQ_FOREACH (argument, func->argument_head, arguments)
 			{
 				argument->type = _ctf_lookup_type(file, argument->id);
@@ -258,7 +258,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 		{
 			offset += _CTF_SMALL_TYPE_SIZE;
 
-			struct ctf_function *function = malloc(CTF_FUNCTION_SIZE);
+			struct ctf_function* function = malloc(CTF_FUNCTION_SIZE);
 			function->argument_head = _ctf_read_function_vardata( section->data + 
 			    offset, vardata_length);
 			function->name = strdup(_ctf_strings_lookup(strings, small_type->name));
