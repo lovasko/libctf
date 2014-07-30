@@ -63,6 +63,8 @@ struct _ctf_large_type
 #define _CTF_LARGE_TYPE_SIZE sizeof(struct _ctf_large_type)
 
 typedef uint16_t ctf_id;
+#define CTF_ID_MIN     1
+#define CTF_ID_MAX 65536
 
 /**
  * General type information.
