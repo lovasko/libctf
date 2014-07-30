@@ -57,7 +57,8 @@ struct _ctf_large_type
 	uint32_t name; /**< @see _ctf_small_type#name */
 	uint16_t info /**< @see _ctf_small_type#info */;
 	uint16_t padding; /**< padding byte to ignore the union from small_type */
-	uint64_t size; /**< @see _ctf_small_type#size */
+	uint32_t high_size;
+	uint32_t low_size;
 };
 #define _CTF_LARGE_TYPE_SIZE sizeof(struct _ctf_large_type)
 
