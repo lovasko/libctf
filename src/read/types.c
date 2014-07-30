@@ -197,11 +197,11 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 		if (kind_has_vardata(kind) && kind != CTF_KIND_FUNC)
 		{
 			uint64_t advance = _CTF_SMALL_TYPE_SIZE;
-			uint16_t size = small_type->size;
+			uint64_t size = small_type->size;
 			if (small_type->size > CTF_SMALL_TYPE_THRESHOLD)
 			{
 				struct _ctf_large_type* large_type = section->data + offset;
-				size = large_type->size;
+				size = (((uint64_t)large_type->high_size) << 32) + large_type->low_size;
 				advance	+= (_CTF_LARGE_TYPE_SIZE - _CTF_SMALL_TYPE_SIZE);
 			}
 			offset += advance;

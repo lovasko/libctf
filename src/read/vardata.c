@@ -101,7 +101,7 @@ _ctf_read_enum_vardata (void* data, uint16_t length, struct _strings* strings)
 }
 
 struct ctf_member_head*
-_ctf_read_struct_union_vardata (void* data, uint16_t length, uint16_t size, 
+_ctf_read_struct_union_vardata (void* data, uint16_t length, uint64_t size, 
     struct _strings* strings)
 {
 	struct _ctf_small_member* small_member;
@@ -134,8 +134,9 @@ _ctf_read_struct_union_vardata (void* data, uint16_t length, uint16_t size,
 		member->id = (member_type ? large_member[i].type :
 		    small_member[i].type);
 
-		member->offset = (member_type ? large_member[i].low_offset :
-		    small_member[i].offset);
+		member->offset = (member_type ? 
+		    (((uint64_t)large_member[i].high_offset << 32) + 
+		    (uint64_t)large_member[i].low_offset) : small_member[i].offset);
 
 		TAILQ_INSERT_TAIL(member_head, member, members);
 	}
