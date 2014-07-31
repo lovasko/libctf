@@ -261,6 +261,13 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 					struct_union->member_head = _ctf_read_struct_union_vardata(
 					    section->data + offset, vardata_length, size, strings);
 
+					ctf_member member;
+					struct_union->member_count = 0;
+					TAILQ_FOREACH(member, struct_union->member_head, members)
+					{
+						struct_union->member_count++;
+					}
+
 					type->data = struct_union;	
 					
 					offset += vardata_length * (small_type->size >= CTF_MEMBER_THRESHOLD ? 
