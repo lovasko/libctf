@@ -233,7 +233,6 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 				{
 					struct ctf_array* array = _ctf_read_array_vardata(section->data + 
 					    offset);
-					array->name = name;
 
 					type->data = array;
 

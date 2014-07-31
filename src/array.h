@@ -33,7 +33,6 @@ typedef uint32_t ctf_array_length;
  */
 struct ctf_array
 {
-	char* name;	
 	ctf_array_length length;
 	union
 	{
@@ -45,7 +44,6 @@ struct ctf_array
 
 typedef struct ctf_array* ctf_array;
 
-_CTF_GET_PROPERTY_PROTO(ctf_array_get_name, ctf_array, char*)
 _CTF_GET_PROPERTY_PROTO(ctf_array_get_length, ctf_array, ctf_array_length)
 _CTF_GET_PROPERTY_PROTO(ctf_array_get_content_type, ctf_array, ctf_type)
 
