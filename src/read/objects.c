@@ -2,8 +2,14 @@
 #include "lookup.h"
 #include "../info.h"
 
-#include <libelf.h>
-#include <string.h>
+#ifdef _KERNEL
+	#include <sys/elf.h>
+	#include <sys/malloc.h>
+#elif
+	#include <libelf.h>
+	#include <stdlib.h>
+	#include <string.h>
+#endif
 
 int
 _ctf_read_functions_and_objects (
