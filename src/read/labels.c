@@ -21,13 +21,10 @@ _ctf_read_labels (struct ctf_file* file, struct _section* section,
 {
 	if (section->size % _CTF_LABEL_SIZE != 0)
 		return CTF_E_LABEL_SECTION_CORRUPT;
-
 	file->label_head = CTF_MALLOC(CTF_LABEL_HEAD_SIZE);
 
 	TAILQ_INIT(file->label_head);
-
 	struct _ctf_label* raw_labels = (struct _ctf_label*)section->data;	
-
 	for (unsigned int i = 0; i < section->size/_CTF_LABEL_SIZE; i++)
 	{
 		struct ctf_label* label = CTF_MALLOC(CTF_LABEL_SIZE);
