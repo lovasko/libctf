@@ -72,7 +72,12 @@ struct ctf_array*
 _ctf_read_array_vardata (void* data)
 {
 	struct _ctf_array* raw = (struct _ctf_array*)data;
+
+#ifdef _KERNEL
+	struct ctf_array* array = malloc(CTF_ARRAY_SIZE, M_CTF, M_WAITOK);
+#elif
 	struct ctf_array* array = malloc(CTF_ARRAY_SIZE);
+#endif
 
 	array->length = raw->element_count;
 	array->content_id = raw->content_type;
