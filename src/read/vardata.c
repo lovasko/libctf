@@ -52,7 +52,12 @@ struct ctf_float*
 _ctf_read_float_vardata (void* data)
 {
 	uint32_t* raw = (uint32_t*)data;
+
+#ifdef _KERNEL
+	struct ctf_float* vardata = malloc(CTF_FLOAT_SIZE, M_CTF, M_WAITOK);
+#elif
 	struct ctf_float* vardata = malloc(CTF_FLOAT_SIZE);
+#endif
 
 	vardata->encoding = (*raw & _CTF_INT_FLOAT_ENCODING_MASK) >> 24; 
 	vardata->offset = (*raw & _CTF_INT_FLOAT_OFFSET_MASK) >> 16;
