@@ -1,6 +1,7 @@
 #include "types.h"
 #include "lookup.h"
 #include "vardata.h"
+#include "space.h"
 #include "../file.h"
 #include "../data_object.h"
 #include "../kind.h"
@@ -13,9 +14,15 @@
 #include "../fwd_decl.h"
 #include "../info.h"
 
-#include <string.h>
-#include <stdlib.h>
 #include <stdint.h>
+
+#ifdef _KERNEL
+	#include <sys/malloc.h>
+	#include <sys/libkern.h>
+#elif
+	#include <string.h>
+	#include <stdlib.h>
+#endif
 
 static int
 kind_is_pure_reference (uint8_t kind)
