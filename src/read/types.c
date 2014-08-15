@@ -24,6 +24,8 @@
 	#include <stdlib.h>
 #endif
 
+CTF_MALLOC_DECLARE(M_CTF);
+
 static int
 kind_is_pure_reference (uint8_t kind)
 {
