@@ -1,5 +1,6 @@
 #include "objects.h"
 #include "lookup.h"
+#include "space.h"
 #include "../info.h"
 
 #ifdef _KERNEL
