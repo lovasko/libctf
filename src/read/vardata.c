@@ -18,6 +18,8 @@
 #define _CTF_INT_BOOLEAN 4
 #define _CTF_INT_VARARGS 8
 
+MALLOC_DECLARE(M_CTF);
+
 struct ctf_int*
 _ctf_read_int_vardata (void* data)
 {
