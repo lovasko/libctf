@@ -13,7 +13,7 @@
 	#include <string.h>
 #endif
 
-MALLOC_DECLARE(M_CTF);
+CTF_MALLOC_DECLARE(M_CTF);
 
 int
 _ctf_read_labels (struct ctf_file* file, struct _section* section, 
