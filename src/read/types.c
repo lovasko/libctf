@@ -104,7 +104,7 @@ solve_type_references (struct ctf_file* file)
 static int
 create_type_table (struct ctf_file* file)
 {
-	file->type_id_table = malloc(CTF_TYPE_SIZE * (file->type_count + 1));
+	file->type_id_table = CTF_MALLOC((CTF_TYPE_SIZE * (file->type_count + 1)));
 
 	struct ctf_type* type;
 	TAILQ_FOREACH (type, file->type_head, types)
@@ -147,7 +147,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 	uint64_t offset = 0;	
 	ctf_id id = 1;
 
-	file->type_head = malloc(CTF_TYPE_HEAD_SIZE);
+	file->type_head = CTF_MALLOC(CTF_TYPE_HEAD_SIZE);
 	TAILQ_INIT(file->type_head);
 
 	file->type_count = 0;
@@ -160,7 +160,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 		uint16_t vardata_length = _ctf_info_get_vardata_length(small_type->info);
 		uint8_t is_root = _ctf_info_is_root(small_type->info);
 
-		struct ctf_type* type = malloc(CTF_TYPE_SIZE);			
+		struct ctf_type* type = CTF_MALLOC(CTF_TYPE_SIZE);			
 		type->kind = kind;
 		type->id = id;
 		type->is_root = is_root;
@@ -176,8 +176,9 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 
 		if (kind == CTF_KIND_TYPEDEF)
 		{
-			struct ctf_typedef* _typedef = malloc(CTF_TYPEDEF_SIZE);
-			_typedef->name = strdup(_ctf_strings_lookup(strings, small_type->name));
+			struct ctf_typedef* _typedef = CTF_MALLOC(CTF_TYPEDEF_SIZE);
+			_typedef->name = CTF_STRDUP(_ctf_strings_lookup(strings, 
+			    small_type->name));
 			_typedef->id = small_type->type;
 
 			type->data = _typedef;
@@ -194,8 +195,9 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 
 		if (kind == CTF_KIND_FWD_DECL)
 		{
-			struct ctf_fwd_decl* fwd_decl = malloc(CTF_FWD_DECL_SIZE);
-			fwd_decl->name = strdup(_ctf_strings_lookup(strings, small_type->name));
+			struct ctf_fwd_decl* fwd_decl = CTF_MALLOC(CTF_FWD_DECL_SIZE);
+			fwd_decl->name = CTF_STRDUP(_ctf_strings_lookup(strings, 
+			    small_type->name));
 			fwd_decl->kind = small_type->type;
 
 			type->data = fwd_decl;
@@ -215,7 +217,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 			}
 			offset += advance;
 
-			char *name = strdup(_ctf_strings_lookup(strings, small_type->name));
+			char *name = CTF_STRDUP(_ctf_strings_lookup(strings, small_type->name));
 
 			switch (kind)
 			{
@@ -251,7 +253,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 
 				case CTF_KIND_ENUM:
 				{
-					struct ctf_enum* _enum = malloc(CTF_ENUM_SIZE);
+					struct ctf_enum* _enum = CTF_MALLOC(CTF_ENUM_SIZE);
 					_enum->name = name;
 					_enum->enum_head = _ctf_read_enum_vardata(section->data + offset, 
 					    vardata_length, strings);
@@ -265,7 +267,8 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 				case CTF_KIND_STRUCT:
 				case CTF_KIND_UNION:
 				{
-					struct ctf_struct_union* struct_union = malloc(CTF_STRUCT_UNION_SIZE);
+					struct ctf_struct_union* struct_union = CTF_MALLOC(
+					    CTF_STRUCT_UNION_SIZE);
 					struct_union->name = name;
 					struct_union->member_head = _ctf_read_struct_union_vardata(
 					    section->data + offset, vardata_length, size, strings);
@@ -298,10 +301,10 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 		{
 			offset += _CTF_SMALL_TYPE_SIZE;
 
-			struct ctf_function* function = malloc(CTF_FUNCTION_SIZE);
+			struct ctf_function* function = CTF_MALLOC(CTF_FUNCTION_SIZE);
 			function->argument_head = _ctf_read_function_vardata( section->data + 
 			    offset, vardata_length);
-			function->name = strdup(_ctf_strings_lookup(strings, small_type->name));
+			function->name = CTF_STRDUP(_ctf_strings_lookup(strings, small_type->name));
 			function->return_id = small_type->type;
 
 			type->data = function;
