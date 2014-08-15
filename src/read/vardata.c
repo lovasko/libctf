@@ -1,8 +1,13 @@
 #include "vardata.h"
 
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
+#ifdef _KERNEL
+	#include <sys/malloc.h>
+	#include <sys/libkern.h>
+#elif
+	#include <stdint.h>
+	#include <stdlib.h>
+	#include <string.h>
+#endif
 
 #define _CTF_INT_FLOAT_ENCODING_MASK 0xff000000
 #define _CTF_INT_FLOAT_OFFSET_MASK   0x00ff0000 
@@ -17,7 +22,13 @@ struct ctf_int*
 _ctf_read_int_vardata (void* data)
 {
 	uint32_t* raw = (uint32_t*)data;
+
+#ifdef _KERNEL
+	struct ctf_int* vardata = malloc(CTF_INT_SIZE, M_CTF, M_WAITOK);
+#elif
 	struct ctf_int* vardata = malloc(CTF_INT_SIZE);
+#endif
+
 
 	vardata->offset = (*raw & _CTF_INT_FLOAT_OFFSET_MASK) >> 16;
 	vardata->size = *raw & _CTF_INT_FLOAT_SIZE_MASK;
