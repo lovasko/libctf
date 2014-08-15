@@ -11,6 +11,8 @@
 	#include <string.h>
 #endif
 
+CTF_MALLOC_DECLARE(M_CTF);
+
 int
 _ctf_read_functions_and_objects (
     struct ctf_file* file, 
