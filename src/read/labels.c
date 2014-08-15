@@ -29,7 +29,6 @@ _ctf_read_labels (struct ctf_file* file, struct _section* section,
 	{
 		struct ctf_label* label = CTF_MALLOC(CTF_LABEL_SIZE);
 		label->name = CTF_STRDUP(_ctf_strings_lookup(strings, raw_labels[i].name));
-
 		label->index = raw_labels[i].index;
 
 		TAILQ_INSERT_TAIL(file->label_head, label, labels);
