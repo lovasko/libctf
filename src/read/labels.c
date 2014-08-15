@@ -1,4 +1,5 @@
 #include "labels.h"
+#include "space.h"
 #include "../label.h"
 #include "../errors.h"
 
