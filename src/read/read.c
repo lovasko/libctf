@@ -32,9 +32,9 @@
 
 int
 ctf_file_read_data (
-    struct _ctf_section* ctf_data, 
-    struct _ctf_section* symbol_table, 
-    struct _ctf_section* string_table,
+    struct _section* ctf_data, 
+    struct _section* symbol_table, 
+    struct _section* string_table,
     ctf_file* file)
 {
 	int rv;
