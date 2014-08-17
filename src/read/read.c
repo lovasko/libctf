@@ -30,6 +30,17 @@
 	#include <libgen.h>
 #endif
 
+int
+ctf_file_read_data (
+    struct _ctf_section* ctf_data, 
+    struct _ctf_section* symbol_table, 
+    struct _ctf_section* string_table,
+    ctf_file* file)
+{
+	return CTF_OK;
+}
+
+
 #ifndef _KERNEL
 
 #define CTF_ELF_SECTION_SYMTAB ".symtab"
