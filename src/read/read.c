@@ -52,6 +52,38 @@ ctf_file_read_data (
 	if ((rv = _ctf_header_offset_sanity_check(header)) != CTF_OK)
 		return rv;
 
+	/* pointer to decompressed start of the actual CTF data without the header */
+	void *headerless_ctf;
+
+#ifdef _KERNEL
+	/* 
+	 * we do not provide decompression inside kernel space, as this functionality
+	 * is already contained in the linker_ctf_get 
+	 */
+	headerless_ctf = ctf_data->data + _CTF_HEADER_SIZE;
+#elif
+	/* decompress the CTF data (if compressed) */
+	if (header->preface.flags & _CTF_FLAG_COMPRESSED)
+	{
+		struct _section compressed;
+		compressed.data = ctf_data->data + _CTF_HEADER_SIZE;
+		compressed.size = ctf_data->size - _CTF_HEADER_SIZE;
+
+		struct _section *decompressed = _ctf_decompress(&compressed);	
+		if (decompressed == NULL)
+			return CTF_E_COMPRESSION;
+
+		/* FIXME dealloc */
+		if (decompressed->size != header->string_offset + header->string_length)
+			return CTF_E_DECOMPRESSED_DATA_SIZE;
+
+		headerless_ctf = decompressed->data;
+		free(decompressed);
+	}
+	else
+		headerless_ctf = ctf_data->data + _CTF_HEADER_SIZE;
+#endif
+
 	return CTF_OK;
 }
 
@@ -151,30 +183,6 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 
 	/* we do not need the ELF data anymore */
 	elf_end(elf);
-
-	/* pointer to decompressed start of the actual CTF data without the header */
-	void *headerless_ctf;
-
-	/* decompress the CTF data (if compressed) */
-	if (header->preface.flags & _CTF_FLAG_COMPRESSED)
-	{
-		struct _section compressed;
-		compressed.data = ctf_section->data + _CTF_HEADER_SIZE;
-		compressed.size = ctf_section->size - _CTF_HEADER_SIZE;
-
-		struct _section *decompressed = _ctf_decompress(&compressed);	
-		if (decompressed == NULL)
-			return CTF_E_COMPRESSION;
-
-		/* FIXME dealloc */
-		if (decompressed->size != header->string_offset + header->string_length)
-			return CTF_E_DECOMPRESSED_DATA_SIZE;
-
-		headerless_ctf = decompressed->data;
-		free(decompressed);
-	}
-	else
-		headerless_ctf = ctf_section->data + _CTF_HEADER_SIZE;
 
 	/* construct the string table data structure */
 	struct _strings strings;
