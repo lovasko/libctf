@@ -100,7 +100,7 @@ ctf_file_read_data (
  * @param [in] elf ELF file
  * @param [in] elf_header ELF file header
  * @param [in] to_find section name to find
- * @return section data
+ * @return section data on success, NULL otherwise
  */
 static struct _section*
 elf_section_find (Elf* elf, Elf32_Ehdr* elf_header, const char* to_find)
