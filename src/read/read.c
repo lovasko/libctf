@@ -30,6 +30,8 @@
 	#include <libgen.h>
 #endif
 
+#ifndef _KERNEL
+
 #define CTF_ELF_SECTION_SYMTAB ".symtab"
 #define CTF_ELF_SECTION_STRTAB ".strtab"
 #define CTF_ELF_SECTION_SUNW_CTF ".SUNW_ctf"
@@ -249,4 +251,6 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 	*out_file = file;
 	return CTF_OK;
 }
+
+#endif /* not _KERNEL */
 
