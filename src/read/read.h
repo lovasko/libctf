@@ -11,6 +11,7 @@
  * @param [in] symbol_table symbol table of the ELF object
  * @param [in] string_table string table of the ELF object
  * @param [out] file parsed CTF data
+ * @return CTF_OK on success, one of CTF_E_* otherwise
  */
 int
 ctf_file_read_data (
