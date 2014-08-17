@@ -8,18 +8,27 @@
 #include "types.h"
 #include "objects.h"
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/queue.h>
-#include <fcntl.h>
-#include <libelf.h>
-#include <gelf.h>
-#include <stdint.h>
-#include <libgen.h>
+
+#ifdef _KERNEL
+	#include <sys/param.h>
+	#include <sys/kernel.h>
+	#include <sys/malloc.h>
+	#include <sys/libkern.h>
+	#include <sys/elf.h>
+#elif
+	#include <stdio.h>
+	#include <string.h>
+	#include <stdlib.h>
+	#include <unistd.h>
+	#include <fcntl.h>
+	#include <libelf.h>
+	#include <gelf.h>
+	#include <stdint.h>
+	#include <libgen.h>
+#endif
 
 #define CTF_ELF_SECTION_SYMTAB ".symtab"
 #define CTF_ELF_SECTION_STRTAB ".strtab"
