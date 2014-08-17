@@ -90,7 +90,13 @@ ctf_file_read_data (
 	strings.ctf = CTF_MALLOC(_SECTION_SIZE);
 	strings.ctf->data = headerless_ctf + header->string_offset;
 	strings.ctf->size = header->string_length;
-	strings.elf = strtab_section;
+
+	/* check the presence of the ELF string table and handle the absence of it */
+	if (string_table == NULL || string_table->data == NULL 
+	 || string_table->size == 0)
+		strings.elf = NULL;
+	else
+		strings.elf = strtab_section;
 
 	return CTF_OK;
 }
