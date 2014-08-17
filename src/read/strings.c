@@ -16,6 +16,9 @@ _ctf_strings_lookup (struct _strings* strings, uint32_t reference)
 
 	if (table_id == 1)
 	{
+		if (strings->elf == NULL)
+			return "N/A";
+
 		if (strings->elf->size < offset)
 			return NULL;
 		else
