@@ -19,7 +19,6 @@ ctf_file_read_data (
     struct _ctf_section* string_table,
     ctf_file* file);
 
-
 #ifndef _KERNEL
 
 /**
