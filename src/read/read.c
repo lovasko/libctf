@@ -37,18 +37,20 @@ ctf_file_read_data (
     struct _ctf_section* string_table,
     ctf_file* file)
 {
+	int rv;
+
 	/* check for presence of the essential data */
 	if (ctf_data->data == NULL || ctf_data->size == 0)
 		return CTF_E_NO_CTF_SECTION;
 
 	/* read the CTF header */
 	struct _ctf_header *header = (struct _ctf_header*)ctf_section->data;
-	if ((retval = _ctf_preface_check(&header->preface)) != CTF_OK)
-		return retval;
+	if ((rv = _ctf_preface_check(&header->preface)) != CTF_OK)
+		return rv;
 
 	/* check the order of offsets */
-	if ((retval = _ctf_header_offset_sanity_check(header)) != CTF_OK)
-		return retval;
+	if ((rv = _ctf_header_offset_sanity_check(header)) != CTF_OK)
+		return rv;
 
 	return CTF_OK;
 }
