@@ -44,7 +44,7 @@ ctf_file_read_data (
 		return CTF_E_NO_CTF_SECTION;
 
 	/* read the CTF header */
-	struct _ctf_header *header = (struct _ctf_header*)ctf_section->data;
+	struct _ctf_header* header = (struct _ctf_header*)ctf_section->data;
 	if ((rv = _ctf_preface_check(&header->preface)) != CTF_OK)
 		return rv;
 
