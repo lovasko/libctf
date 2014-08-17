@@ -7,6 +7,7 @@
 #include "labels.h"
 #include "types.h"
 #include "objects.h"
+#include "space.h"
 
 #include <sys/types.h>
 #include <sys/stat.h>
