@@ -94,6 +94,14 @@ ctf_file_read_data (
 #define CTF_ELF_SECTION_STRTAB ".strtab"
 #define CTF_ELF_SECTION_SUNW_CTF ".SUNW_ctf"
 
+/**
+ * Find an ELF section with specified name.
+ *
+ * @param [in] elf ELF file
+ * @param [in] elf_header ELF file header
+ * @param [in] to_find section name to find
+ * @return section data
+ */
 static struct _section*
 elf_section_find (Elf *elf, Elf32_Ehdr *elf_header, const char *to_find)
 {
