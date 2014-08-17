@@ -87,7 +87,7 @@ ctf_file_read_data (
 
 	/* construct the string table data structure */
 	struct _strings strings;
-	strings.ctf = malloc(_SECTION_SIZE);
+	strings.ctf = CTF_MALLOC(_SECTION_SIZE);
 	strings.ctf->data = headerless_ctf + header->string_offset;
 	strings.ctf->size = header->string_length;
 	strings.elf = strtab_section;
