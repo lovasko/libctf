@@ -41,7 +41,7 @@ ctf_file_read_data (
 	int rv;
 
 	/* check for presence of the essential data */
-	if (ctf_data->data == NULL || ctf_data->size == 0)
+	if (ctf_data == NULL || ctf_data->data == NULL || ctf_data->size == 0)
 		return CTF_E_NO_CTF_SECTION;
 
 	/* read the CTF header */
