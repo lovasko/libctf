@@ -53,7 +53,7 @@ ctf_file_read_data (
 		return rv;
 
 	/* pointer to decompressed start of the actual CTF data without the header */
-	void *headerless_ctf;
+	void* headerless_ctf;
 
 #ifdef _KERNEL
 	/* 
@@ -69,7 +69,7 @@ ctf_file_read_data (
 		compressed.data = ctf_data->data + _CTF_HEADER_SIZE;
 		compressed.size = ctf_data->size - _CTF_HEADER_SIZE;
 
-		struct _section *decompressed = _ctf_decompress(&compressed);	
+		struct _section* decompressed = _ctf_decompress(&compressed);	
 		if (decompressed == NULL)
 			return CTF_E_COMPRESSION;
 
