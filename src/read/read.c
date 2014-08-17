@@ -41,6 +41,15 @@ ctf_file_read_data (
 	if (ctf_data->data == NULL || ctf_data->size == 0)
 		return CTF_E_NO_CTF_SECTION;
 
+	/* read the CTF header */
+	struct _ctf_header *header = (struct _ctf_header*)ctf_section->data;
+	if ((retval = _ctf_preface_check(&header->preface)) != CTF_OK)
+		return retval;
+
+	/* check the order of offsets */
+	if ((retval = _ctf_header_offset_sanity_check(header)) != CTF_OK)
+		return retval;
+
 	return CTF_OK;
 }
 
@@ -140,15 +149,6 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 
 	/* we do not need the ELF data anymore */
 	elf_end(elf);
-
-	/* read the CTF header */
-	struct _ctf_header *header = (struct _ctf_header*)ctf_section->data;
-	if ((retval = _ctf_preface_check(&header->preface)) != CTF_OK)
-		return retval;
-
-	/* check the order of offsets */
-	if ((retval = _ctf_header_offset_sanity_check(header)) != CTF_OK)
-		return retval;
 
 	/* pointer to decompressed start of the actual CTF data without the header */
 	void *headerless_ctf;
