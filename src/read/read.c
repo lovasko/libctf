@@ -84,6 +84,13 @@ ctf_file_read_data (
 		headerless_ctf = ctf_data->data + _CTF_HEADER_SIZE;
 #endif
 
+	/* construct the string table data structure */
+	struct _strings strings;
+	strings.ctf = malloc(_SECTION_SIZE);
+	strings.ctf->data = headerless_ctf + header->string_offset;
+	strings.ctf->size = header->string_length;
+	strings.elf = strtab_section;
+
 	return CTF_OK;
 }
 
@@ -191,13 +198,6 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 
 	/* we do not need the ELF data anymore */
 	elf_end(elf);
-
-	/* construct the string table data structure */
-	struct _strings strings;
-	strings.ctf = malloc(_SECTION_SIZE);
-	strings.ctf->data = headerless_ctf + header->string_offset;
-	strings.ctf->size = header->string_length;
-	strings.elf = strtab_section;
 
 	/* construct the final file structure */
 	struct ctf_file *file = malloc(CTF_FILE_SIZE);
