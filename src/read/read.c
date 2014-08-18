@@ -99,6 +99,15 @@ ctf_file_read_data (
 	else
 		strings.elf = strtab_section;
 
+	/* construct the final file structure */
+	struct ctf_file *file = malloc(CTF_FILE_SIZE);
+	file->version = _CTF_VERSION_2;
+	file->is_compressed = header->preface.flags & _CTF_FLAG_COMPRESSED;
+
+	char* filename_copy = strdup(filename);
+	file->path_basename = strdup(basename(filename_copy));
+	free(filename_copy);
+
 	return CTF_OK;
 }
 
@@ -206,15 +215,6 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 
 	/* we do not need the ELF data anymore */
 	elf_end(elf);
-
-	/* construct the final file structure */
-	struct ctf_file *file = malloc(CTF_FILE_SIZE);
-	file->version = _CTF_VERSION_2;
-	file->is_compressed = header->preface.flags & _CTF_FLAG_COMPRESSED;
-
-	char* filename_copy = strdup(filename);
-	file->path_basename = strdup(basename(filename_copy));
-	free(filename_copy);
 
 	/* check for the parent reference */
 	const char *parent_basename = _ctf_strings_lookup(&strings, 
