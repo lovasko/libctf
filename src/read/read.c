@@ -100,7 +100,7 @@ ctf_file_read_data (
 		strings.elf = strtab_section;
 
 	/* construct the final file structure */
-	struct ctf_file *file = malloc(CTF_FILE_SIZE);
+	struct ctf_file* file = malloc(CTF_FILE_SIZE);
 	file->version = _CTF_VERSION_2;
 	file->is_compressed = header->preface.flags & _CTF_FLAG_COMPRESSED;
 
