@@ -38,6 +38,7 @@ ctf_file_read_data (
     struct _section* string_table,
     ctf_file* file)
 {
+	/* return value */
 	int rv;
 
 	/* check for presence of the essential data */
