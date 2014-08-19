@@ -25,8 +25,8 @@ ctf_file_read_data (
 /**
  * Parse the file and extract all CTF data.
  * 
- * @param filename filename
- * @param out_file parsed CTF data
+ * @param [in] filename filename
+ * @param [out] file parsed CTF data
  * @return CTF_OK on success, one of CTF_E_* otherwise
  */
 int
