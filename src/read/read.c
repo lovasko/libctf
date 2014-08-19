@@ -172,6 +172,20 @@ ctf_file_read_data (
 	if ((rv = _ctf_read_types(file, &type_section, &strings)) != CTF_OK)
 		return rv;
 
+	/* TODO here should be check for some kind of flag that will be argument of
+	 * this function "read types only" so we do not bother loading the function
+	 * and object data. */
+
+	struct _section object_section;
+	object_section.data = headerless_ctf + header->object_offset;
+	object_section.size = header->function_offset - header->object_offset;
+	struct _section function_section;
+	function_section.data = headerless_ctf + header->function_offset;
+	function_section.size = header->type_offset - header->function_offset;
+	if ((retval = _ctf_read_functions_and_objects(file, symtab_section, 
+	    &object_section, &function_section, &strings)) != CTF_OK)
+		return retval;
+
 	return CTF_OK;
 }
 
@@ -278,20 +292,6 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 
 	/* we do not need the ELF data anymore */
 	elf_end(elf);
-
-	/* TODO here should be check for some kind of flag that will be argument of
-	 * this function "read types only" so we do not bother loading the function
-	 * and object data. */
-
-	struct _section object_section;
-	object_section.data = headerless_ctf + header->object_offset;
-	object_section.size = header->function_offset - header->object_offset;
-	struct _section function_section;
-	function_section.data = headerless_ctf + header->function_offset;
-	function_section.size = header->type_offset - header->function_offset;
-	if ((retval = _ctf_read_functions_and_objects(file, symtab_section, 
-	    &object_section, &function_section, &strings)) != CTF_OK)
-		return retval;
 
 	free(ctf_section->data);
 	free(ctf_section);
