@@ -299,7 +299,6 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 	free(strtab_section);
 	free(symtab_section->data);
 	free(symtab_section);
-	free(strings.ctf);
 	close(fd);
 
 	*out_file = file;
