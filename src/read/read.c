@@ -19,7 +19,7 @@
 	#include <sys/malloc.h>
 	#include <sys/libkern.h>
 	#include <sys/elf.h>
-#elif
+#else
 	#include <stdio.h>
 	#include <string.h>
 	#include <stdlib.h>
