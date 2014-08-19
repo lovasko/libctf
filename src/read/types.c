@@ -19,7 +19,7 @@
 #ifdef _KERNEL
 	#include <sys/malloc.h>
 	#include <sys/libkern.h>
-#elif
+#else
 	#include <string.h>
 	#include <stdlib.h>
 #endif
