@@ -175,7 +175,6 @@ ctf_file_read_data (
 	return CTF_OK;
 }
 
-
 #ifndef _KERNEL
 
 #define CTF_ELF_SECTION_SYMTAB ".symtab"
