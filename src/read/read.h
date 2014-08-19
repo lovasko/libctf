@@ -15,10 +15,11 @@
  */
 int
 ctf_file_read_data (
+    const char* filename,
     struct _section* ctf_data, 
     struct _section* symbol_table, 
     struct _section* string_table,
-    ctf_file* file);
+    ctf_file* result);
 
 #ifndef _KERNEL
 

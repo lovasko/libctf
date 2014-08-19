@@ -33,10 +33,11 @@
 
 int
 ctf_file_read_data (
+    const char* filename,
     struct _section* ctf_data, 
     struct _section* symbol_table, 
     struct _section* string_table,
-    ctf_file* file)
+    ctf_file* result)
 {
 	/* return value */
 	int rv;
@@ -129,8 +130,8 @@ ctf_file_read_data (
 		/* TODO is this really a basename? if so, we need to extract the dirname to
 		 * be able to locate the file properly. For the future - why isnt this a
 		 * full path? */
-		if ((ctf_file_read(parent_basename, &file->parent_file)) != CTF_OK)
-			return retval;
+		if ((rv = ctf_file_read(parent_basename, &file->parent_file)) != CTF_OK)
+			return rv;
 
 		const char* parent_label_name = _ctf_strings_lookup(&strings, 
 		    header->parent_label);
@@ -195,11 +196,12 @@ ctf_file_read_data (
 		struct _section function_section;
 		function_section.data = headerless_ctf + header->function_offset;
 		function_section.size = header->type_offset - header->function_offset;
-		if ((rv = _ctf_read_functions_and_objects(file, symtab_section, 
+		if ((rv = _ctf_read_functions_and_objects(file, symbol_table, 
 				&object_section, &function_section, &strings)) != CTF_OK)
 			return rv;
 	}
 
+	*result = file;
 	return CTF_OK;
 }
 
@@ -294,7 +296,8 @@ ctf_file_read (const char* filename, ctf_file* file)
 	elf_end(elf);
 
 	/* call the raw data parsing function */
-	rv = ctf_file_read_data(ctf_section, strtab_section, symtab_section, file);
+	rv = ctf_file_read_data(filename, ctf_section, strtab_section, symtab_section, 
+	    file);
 
 	free(ctf_section->data);
 	free(ctf_section);
