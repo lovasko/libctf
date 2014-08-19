@@ -100,13 +100,20 @@ ctf_file_read_data (
 		strings.elf = strtab_section;
 
 	/* construct the final file structure */
-	struct ctf_file* file = malloc(CTF_FILE_SIZE);
+	struct ctf_file* file = CTF_MALLOC(CTF_FILE_SIZE);
 	file->version = _CTF_VERSION_2;
 	file->is_compressed = header->preface.flags & _CTF_FLAG_COMPRESSED;
 
-	char* filename_copy = strdup(filename);
-	file->path_basename = strdup(basename(filename_copy));
-	free(filename_copy);
+	char* filename_copy = CTF_STRDUP(filename);
+
+#ifdef _KERNEL
+	/* TODO basename in kernel space */
+	file->path_basename = CTF_STRDUP(filename_copy);
+#elif
+	file->path_basename = CTF_STRDUP(basename(filename_copy));
+#endif
+
+	CTF_FREE(filename_copy);
 
 	return CTF_OK;
 }
