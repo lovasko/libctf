@@ -158,6 +158,20 @@ ctf_file_read_data (
 	}
 #endif
 
+	/* read the labels */
+	struct _section label_section;
+	label_section.data = headerless_ctf + header->label_offset;
+	label_section.size = header->object_offset - header->label_offset;
+	if ((rv = _ctf_read_labels(file, &label_section, &strings)) != CTF_OK)
+		return rv;
+
+	/* read the types */
+	struct _section type_section;
+	type_section.data = headerless_ctf + header->type_offset;
+	type_section.size = header->string_offset - header->type_offset;
+	if ((rv = _ctf_read_types(file, &type_section, &strings)) != CTF_OK)
+		return rv;
+
 	return CTF_OK;
 }
 
@@ -265,20 +279,6 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 
 	/* we do not need the ELF data anymore */
 	elf_end(elf);
-
-	/* read the labels */
-	struct _section label_section;
-	label_section.data = headerless_ctf + header->label_offset;
-	label_section.size = header->object_offset - header->label_offset;
-	if ((retval = _ctf_read_labels(file, &label_section, &strings)) != CTF_OK)
-		return retval;
-
-	/* read the types */
-	struct _section type_section;
-	type_section.data = headerless_ctf + header->type_offset;
-	type_section.size = header->string_offset - header->type_offset;
-	if ((retval = _ctf_read_types(file, &type_section, &strings)) != CTF_OK)
-		return retval;
 
 	/* TODO here should be check for some kind of flag that will be argument of
 	 * this function "read types only" so we do not bother loading the function
