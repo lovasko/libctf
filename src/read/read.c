@@ -176,15 +176,29 @@ ctf_file_read_data (
 	 * this function "read types only" so we do not bother loading the function
 	 * and object data. */
 
-	struct _section object_section;
-	object_section.data = headerless_ctf + header->object_offset;
-	object_section.size = header->function_offset - header->object_offset;
-	struct _section function_section;
-	function_section.data = headerless_ctf + header->function_offset;
-	function_section.size = header->type_offset - header->function_offset;
-	if ((rv = _ctf_read_functions_and_objects(file, symtab_section, 
-	    &object_section, &function_section, &strings)) != CTF_OK)
-		return rv;
+	if (symbol_table == NULL || symbol_table->data == NULL 
+	 || symbol_table->size == 0)
+	{
+		/* in case that the symbol table is not available, we init the function and
+		 * data object lists to be empty */
+		file->data_object_head = CTF_MALLOC(CTF_DATA_OBJECT_HEAD_SIZE);
+		TAILQ_INIT(file->data_object_head);
+
+		file->function_head = CTF_MALLOC(CTF_FUNCTION_HEAD_SIZE);
+		TAILQ_INIT(file->function_head);
+	}
+	else
+	{
+		struct _section object_section;
+		object_section.data = headerless_ctf + header->object_offset;
+		object_section.size = header->function_offset - header->object_offset;
+		struct _section function_section;
+		function_section.data = headerless_ctf + header->function_offset;
+		function_section.size = header->type_offset - header->function_offset;
+		if ((rv = _ctf_read_functions_and_objects(file, symtab_section, 
+				&object_section, &function_section, &strings)) != CTF_OK)
+			return rv;
+	}
 
 	return CTF_OK;
 }
