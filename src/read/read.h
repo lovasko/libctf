@@ -30,7 +30,7 @@ ctf_file_read_data (
  * @return CTF_OK on success, one of CTF_E_* otherwise
  */
 int
-ctf_file_read (const char* filename, ctf_file* out_file);
+ctf_file_read (const char* filename, ctf_file* file);
 
 #endif /* not _KERNEL */
 

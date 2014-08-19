@@ -246,7 +246,7 @@ elf_section_find (Elf* elf, Elf32_Ehdr* elf_header, const char* to_find)
 }
 
 int
-ctf_file_read (const char* filename, ctf_file* out_file)
+ctf_file_read (const char* filename, ctf_file* file)
 {
 	int rv; 
 
