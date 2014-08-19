@@ -15,7 +15,7 @@
 	#define CTF_STRDUP(string) strdup(string, M_CTF)
 	#define CTF_FREE(ptr) free(ptr, M_CTF)
 
-#elif
+#else
 
 	#define CTF_MALLOC(nbytes) malloc(nbytes)
 	#define CTF_MALLOC_DECLARE(name) (void)0
