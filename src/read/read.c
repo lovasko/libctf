@@ -115,6 +115,49 @@ ctf_file_read_data (
 
 	CTF_FREE(filename_copy);
 
+#ifdef _KERNEL
+	/* primary use inside kernel is the DDB - and there is no notion of file
+	 * names or file systems, therefore no parent file name is recognized */
+	file->parent_file = NULL;
+	file->type_id_offset = 0;
+#elif
+	/* check for the parent reference */
+	const char *parent_basename = _ctf_strings_lookup(&strings, 
+	    header->parent_basename);
+	if (parent_basename[0] !=	'\0')
+	{
+		/* TODO is this really a basename? if so, we need to extract the dirname to
+		 * be able to locate the file properly. For the future - why isnt this a
+		 * full path? */
+		if ((ctf_file_read(parent_basename, &file->parent_file)) != CTF_OK)
+			return retval;
+
+		const char *parent_label_name = _ctf_strings_lookup(&strings, 
+		    header->parent_label);
+		struct ctf_label *parent_label;
+		int found = 0;
+
+		TAILQ_FOREACH (parent_label, file->parent_file->label_head, labels)
+		{
+			if (strcmp(parent_label_name, parent_label->name) == 0)
+			{
+				found = 1;	
+				break;
+			}
+		}
+
+		if (found == 0)
+			return CTF_E_PARENT_LABEL_NOT_FOUND;
+		else
+			file->type_id_offset = parent_label->index;
+	}
+	else
+	{
+		file->parent_file = NULL;
+		file->type_id_offset = 0;
+	}
+#endif
+
 	return CTF_OK;
 }
 
@@ -222,42 +265,6 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 
 	/* we do not need the ELF data anymore */
 	elf_end(elf);
-
-	/* check for the parent reference */
-	const char *parent_basename = _ctf_strings_lookup(&strings, 
-	    header->parent_basename);
-	if (parent_basename[0] !=	'\0')
-	{
-		/* TODO is this really a basename? if so, we need to extract the dirname to
-		 * be able to locate the file properly. For the future - why isnt this a
-		 * full path? */
-		if ((ctf_file_read(parent_basename, &file->parent_file)) != CTF_OK)
-			return retval;
-
-		const char *parent_label_name = _ctf_strings_lookup(&strings, 
-		    header->parent_label);
-		struct ctf_label *parent_label;
-		int found = 0;
-
-		TAILQ_FOREACH (parent_label, file->parent_file->label_head, labels)
-		{
-			if (strcmp(parent_label_name, parent_label->name) == 0)
-			{
-				found = 1;	
-				break;
-			}
-		}
-
-		if (found == 0)
-			return CTF_E_PARENT_LABEL_NOT_FOUND;
-		else
-			file->type_id_offset = parent_label->index;
-	}
-	else
-	{
-		file->parent_file = NULL;
-		file->type_id_offset = 0;
-	}
 
 	/* read the labels */
 	struct _section label_section;
