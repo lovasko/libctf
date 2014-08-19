@@ -8,7 +8,7 @@
 #ifdef _KERNEL
 	#include <sys/malloc.h>
 	#include <sys/libkern.h>
-#elif
+#else
 	#include <stdlib.h>
 	#include <string.h>
 #endif
