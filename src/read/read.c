@@ -122,7 +122,7 @@ ctf_file_read_data (
 	file->type_id_offset = 0;
 #elif
 	/* check for the parent reference */
-	const char *parent_basename = _ctf_strings_lookup(&strings, 
+	const char* parent_basename = _ctf_strings_lookup(&strings, 
 	    header->parent_basename);
 	if (parent_basename[0] !=	'\0')
 	{
@@ -132,9 +132,9 @@ ctf_file_read_data (
 		if ((ctf_file_read(parent_basename, &file->parent_file)) != CTF_OK)
 			return retval;
 
-		const char *parent_label_name = _ctf_strings_lookup(&strings, 
+		const char* parent_label_name = _ctf_strings_lookup(&strings, 
 		    header->parent_label);
-		struct ctf_label *parent_label;
+		struct ctf_label* parent_label;
 		int found = 0;
 
 		TAILQ_FOREACH (parent_label, file->parent_file->label_head, labels)
