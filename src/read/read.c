@@ -293,6 +293,9 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 	/* we do not need the ELF data anymore */
 	elf_end(elf);
 
+	/* call the raw data parsing function */
+	rv = ctf_file_read_data(ctf_section, strtab_section, symtab_section, file);
+
 	free(ctf_section->data);
 	free(ctf_section);
 	free(strtab_section->data);
@@ -301,8 +304,7 @@ ctf_file_read (const char* filename, ctf_file* out_file)
 	free(symtab_section);
 	close(fd);
 
-	*out_file = file;
-	return CTF_OK;
+	return rv;
 }
 
 #endif /* not _KERNEL */
