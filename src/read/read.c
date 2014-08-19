@@ -182,9 +182,9 @@ ctf_file_read_data (
 	struct _section function_section;
 	function_section.data = headerless_ctf + header->function_offset;
 	function_section.size = header->type_offset - header->function_offset;
-	if ((retval = _ctf_read_functions_and_objects(file, symtab_section, 
+	if ((rv = _ctf_read_functions_and_objects(file, symtab_section, 
 	    &object_section, &function_section, &strings)) != CTF_OK)
-		return retval;
+		return rv;
 
 	return CTF_OK;
 }
