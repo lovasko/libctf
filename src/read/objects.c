@@ -6,7 +6,7 @@
 #ifdef _KERNEL
 	#include <sys/elf.h>
 	#include <sys/malloc.h>
-#elif
+#else
 	#include <libelf.h>
 	#include <stdlib.h>
 	#include <string.h>
