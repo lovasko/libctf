@@ -135,8 +135,8 @@ ctf_file_read_data (
 		const char* parent_label_name = _ctf_strings_lookup(&strings, 
 		    header->parent_label);
 		struct ctf_label* parent_label;
-		int found = 0;
 
+		int found = 0;
 		TAILQ_FOREACH (parent_label, file->parent_file->label_head, labels)
 		{
 			if (strcmp(parent_label_name, parent_label->name) == 0)
