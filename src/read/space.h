@@ -22,5 +22,7 @@
 	#define CTF_STRDUP(string) strdup(string)
 	#define CTF_FREE(ptr) free(ptr)
 
+#endif /* _KERNEL */
+
 #endif
 
