@@ -18,7 +18,7 @@
 #else
 
 	#define CTF_MALLOC(nbytes) malloc(nbytes)
-	#define CTF_MALLOC_DECLARE(name) (void)0
+	#define CTF_MALLOC_DECLARE(name) 
 	#define CTF_STRDUP(string) strdup(string)
 	#define CTF_FREE(ptr) free(ptr)
 
