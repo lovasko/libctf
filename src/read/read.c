@@ -63,7 +63,7 @@ ctf_file_read_data (
 	 * is already contained in the linker_ctf_get 
 	 */
 	headerless_ctf = ctf_data->data + _CTF_HEADER_SIZE;
-#elif
+#else
 	/* decompress the CTF data (if compressed) */
 	if (header->preface.flags & _CTF_FLAG_COMPRESSED)
 	{
@@ -109,7 +109,7 @@ ctf_file_read_data (
 #ifdef _KERNEL
 	/* TODO basename in kernel space */
 	file->path_basename = CTF_STRDUP(filename_copy);
-#elif
+#else
 	file->path_basename = CTF_STRDUP(basename(filename_copy));
 #endif
 
@@ -120,7 +120,7 @@ ctf_file_read_data (
 	 * names or file systems, therefore no parent file name is recognized */
 	file->parent_file = NULL;
 	file->type_id_offset = 0;
-#elif
+#else
 	/* check for the parent reference */
 	const char* parent_basename = _ctf_strings_lookup(&strings, 
 	    header->parent_basename);
