@@ -97,7 +97,7 @@ ctf_file_read_data (
 	 || string_table->size == 0)
 		strings.elf = NULL;
 	else
-		strings.elf = strtab_section;
+		strings.elf = string_table;
 
 	/* construct the final file structure */
 	struct ctf_file* file = CTF_MALLOC(CTF_FILE_SIZE);
