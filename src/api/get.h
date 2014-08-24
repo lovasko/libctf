@@ -1,5 +1,5 @@
-#ifndef CTF_PROPERTY_H
-#define CTF_PROPERTY_H
+#ifndef CTF_PROPERTY_GET_H
+#define CTF_PROPERTY_GET_H
 
 #include "../errors.h"
 
