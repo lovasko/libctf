@@ -1,5 +1,7 @@
 #include "decompress.h"
 
+#ifndef _KERNEL
+
 #include <string.h>
 #include <zlib.h>
 #include <stdlib.h>
@@ -76,4 +78,6 @@ _ctf_decompress (struct _section* to_decompress)
 	inflateEnd(&stream);
 	return result;
 }
+
+#endif
 

@@ -1,8 +1,14 @@
 #include "vardata.h"
+#include "space.h"
 
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
+#ifdef _KERNEL
+	#include <sys/malloc.h>
+	#include <sys/libkern.h>
+#else
+	#include <stdint.h>
+	#include <stdlib.h>
+	#include <string.h>
+#endif
 
 #define _CTF_INT_FLOAT_ENCODING_MASK 0xff000000
 #define _CTF_INT_FLOAT_OFFSET_MASK   0x00ff0000 
@@ -13,11 +19,13 @@
 #define _CTF_INT_BOOLEAN 4
 #define _CTF_INT_VARARGS 8
 
+CTF_MALLOC_DECLARE(M_CTF);
+
 struct ctf_int*
 _ctf_read_int_vardata (void* data)
 {
 	uint32_t* raw = (uint32_t*)data;
-	struct ctf_int* vardata = malloc(CTF_INT_SIZE);
+	struct ctf_int* vardata = CTF_MALLOC(CTF_INT_SIZE);
 
 	vardata->offset = (*raw & _CTF_INT_FLOAT_OFFSET_MASK) >> 16;
 	vardata->size = *raw & _CTF_INT_FLOAT_SIZE_MASK;
@@ -41,7 +49,7 @@ struct ctf_float*
 _ctf_read_float_vardata (void* data)
 {
 	uint32_t* raw = (uint32_t*)data;
-	struct ctf_float* vardata = malloc(CTF_FLOAT_SIZE);
+	struct ctf_float* vardata = CTF_MALLOC(CTF_FLOAT_SIZE);
 
 	vardata->encoding = (*raw & _CTF_INT_FLOAT_ENCODING_MASK) >> 24; 
 	vardata->offset = (*raw & _CTF_INT_FLOAT_OFFSET_MASK) >> 16;
@@ -54,7 +62,7 @@ struct ctf_array*
 _ctf_read_array_vardata (void* data)
 {
 	struct _ctf_array* raw = (struct _ctf_array*)data;
-	struct ctf_array* array = malloc(CTF_ARRAY_SIZE);
+	struct ctf_array* array = CTF_MALLOC(CTF_ARRAY_SIZE);
 
 	array->length = raw->element_count;
 	array->content_id = raw->content_type;
@@ -65,13 +73,13 @@ _ctf_read_array_vardata (void* data)
 struct ctf_argument_head*
 _ctf_read_function_vardata (void* data, uint16_t length)
 {
-	struct ctf_argument_head* argument_head = malloc(CTF_ARGUMENT_HEAD_SIZE);
+	struct ctf_argument_head* argument_head = CTF_MALLOC(CTF_ARGUMENT_HEAD_SIZE);
 	TAILQ_INIT(argument_head);
 
 	uint16_t* raw_arguments = (uint16_t*)data;
 	for (uint16_t i = 0; i < length; i++)
 	{
-		struct ctf_argument* argument = malloc(CTF_ARGUMENT_SIZE);
+		struct ctf_argument* argument = CTF_MALLOC(CTF_ARGUMENT_SIZE);
 		argument->id = raw_arguments[i];
 
 		TAILQ_INSERT_TAIL(argument_head, argument, arguments);
@@ -83,14 +91,14 @@ _ctf_read_function_vardata (void* data, uint16_t length)
 struct ctf_enum_head*
 _ctf_read_enum_vardata (void* data, uint16_t length, struct _strings* strings)
 {
-	struct ctf_enum_head* enum_head = malloc(CTF_ENUM_HEAD_SIZE);
+	struct ctf_enum_head* enum_head = CTF_MALLOC(CTF_ENUM_HEAD_SIZE);
 	TAILQ_INIT(enum_head);
 
 	struct _ctf_enum_entry* raw_enum_entries = (struct _ctf_enum_entry*)data;
 	for (uint16_t i = 0; i < length; i++)
 	{
-		struct ctf_enum_entry* enum_entry = malloc(CTF_ENUM_ENTRY_SIZE);
-		enum_entry->name = strdup(_ctf_strings_lookup(strings, 
+		struct ctf_enum_entry* enum_entry = CTF_MALLOC(CTF_ENUM_ENTRY_SIZE);
+		enum_entry->name = CTF_STRDUP(_ctf_strings_lookup(strings, 
 		    raw_enum_entries[i].name));
 		enum_entry->value = raw_enum_entries[i].value; 
 
@@ -121,14 +129,14 @@ _ctf_read_struct_union_vardata (void* data, uint16_t length, uint64_t size,
 		large_member = NULL;
 	}
 
-	struct ctf_member_head* member_head = malloc(CTF_MEMBER_HEAD_SIZE);
+	struct ctf_member_head* member_head = CTF_MALLOC(CTF_MEMBER_HEAD_SIZE);
 	TAILQ_INIT(member_head);
 
 	for (unsigned int i = 0; i < length; i++)
 	{
-		struct ctf_member* member = malloc(CTF_MEMBER_SIZE);
+		struct ctf_member* member = CTF_MALLOC(CTF_MEMBER_SIZE);
 
-		member->name = strdup(_ctf_strings_lookup(strings, (member_type ? 
+		member->name = CTF_STRDUP(_ctf_strings_lookup(strings, (member_type ? 
 		    large_member[i].name : small_member[i].name)));
 
 		member->id = (member_type ? large_member[i].type :

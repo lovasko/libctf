@@ -1,9 +1,18 @@
 #include "objects.h"
 #include "lookup.h"
+#include "space.h"
 #include "../info.h"
 
-#include <libelf.h>
-#include <string.h>
+#ifdef _KERNEL
+	#include <sys/elf.h>
+	#include <sys/malloc.h>
+#else
+	#include <libelf.h>
+	#include <stdlib.h>
+	#include <string.h>
+#endif
+
+CTF_MALLOC_DECLARE(M_CTF);
 
 int
 _ctf_read_functions_and_objects (
@@ -19,10 +28,10 @@ _ctf_read_functions_and_objects (
 	unsigned int object_offset = 0;
 	unsigned int function_offset = 0;
 
-	file->data_object_head = malloc(CTF_DATA_OBJECT_HEAD_SIZE);
+	file->data_object_head = CTF_MALLOC(CTF_DATA_OBJECT_HEAD_SIZE);
 	TAILQ_INIT(file->data_object_head);
 
-	file->function_head = malloc(CTF_FUNCTION_HEAD_SIZE);
+	file->function_head = CTF_MALLOC(CTF_FUNCTION_HEAD_SIZE);
 	TAILQ_INIT(file->function_head);
 
 	for (unsigned int i = 0; i < symbol_count; i++)
@@ -64,8 +73,8 @@ _ctf_read_functions_and_objects (
 				type_reference = *((uint16_t*)(object_section->data + object_offset));
 				object_offset += sizeof(uint16_t);
 
-				struct ctf_data_object* data_object = malloc(CTF_DATA_OBJECT_SIZE);
-				data_object->name = strdup(name);
+				struct ctf_data_object* data_object = CTF_MALLOC(CTF_DATA_OBJECT_SIZE);
+				data_object->name = CTF_STRDUP(name);
 				data_object->type = _ctf_lookup_type(file, type_reference);
 
 				TAILQ_INSERT_TAIL(file->data_object_head, data_object, data_objects);
@@ -83,9 +92,9 @@ _ctf_read_functions_and_objects (
 				type_reference = *(fp + function_offset);
 				function_offset++;
 
-				function = malloc(CTF_FUNCTION_SIZE);
-				function->name = strdup(name);
-				function->argument_head = malloc(CTF_ARGUMENT_HEAD_SIZE);
+				function = CTF_MALLOC(CTF_FUNCTION_SIZE);
+				function->name = CTF_STRDUP(name);
+				function->argument_head = CTF_MALLOC(CTF_ARGUMENT_HEAD_SIZE);
 				function->return_type = _ctf_lookup_type(file, type_reference);
 
 				TAILQ_INIT(function->argument_head);
@@ -94,7 +103,7 @@ _ctf_read_functions_and_objects (
 					type_reference = *(fp + function_offset);
 					function_offset++;
 
-					argument = malloc(CTF_ARGUMENT_SIZE);				
+					argument = CTF_MALLOC(CTF_ARGUMENT_SIZE);				
 					argument->type = _ctf_lookup_type(file, type_reference);
 					TAILQ_INSERT_TAIL(function->argument_head, argument, arguments);
 				}
