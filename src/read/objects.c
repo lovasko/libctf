@@ -38,6 +38,7 @@ _ctf_read_functions_and_objects (
 	{
 		Elf32_Sym* symbol = (Elf32_Sym*)(symtab_section->data + i * symbol_size);
 
+		/* FIXME strings->elf can be NULL */
 		char* name;
 		if (symbol->st_name < strings->elf->size)
 			name = strings->elf->data + symbol->st_name;
