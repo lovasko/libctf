@@ -112,6 +112,10 @@ solve_type_references (struct ctf_file* file)
 	return CTF_OK;
 }
 
+/*
+ * Second phase of the type loading is the creation of the translation table.
+ * Table keys are the type IDs and values are actual types.
+ */
 static int
 create_type_table (struct ctf_file* file)
 {
