@@ -14,7 +14,7 @@
 #include "../fwd_decl.h"
 #include "../info.h"
 
-#include <stdint.h>
+#include <sys/stdint.h>
 
 #ifdef _KERNEL
 	#include <sys/malloc.h>
