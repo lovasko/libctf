@@ -296,7 +296,7 @@ ctf_file_read (const char* filename, ctf_file* file)
 	elf_end(elf);
 
 	/* call the raw data parsing function */
-	rv = ctf_file_read_data(filename, ctf_section, strtab_section, symtab_section, 
+	rv = ctf_file_read_data(filename, ctf_section, symtab_section, strtab_section, 
 	    file);
 
 	free(ctf_section->data);
