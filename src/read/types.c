@@ -53,6 +53,17 @@ kind_has_vardata (uint8_t kind)
 		return 0;
 }
 
+/*
+ * Every type that contains a reference to another type (pointer, typedef, ...)
+ * and even non-types like member of a struct_union or an argument of a
+ * function, contains an union consisting of a ctf_type and ctf_id. It is
+ * important to note the fact that these two variables are used in different
+ * phases and therefore in order to save memory, the union is used. In the
+ * first phase of the type parsing, only the ctf_id is used to store the ID of
+ * the reference type. This allows for forward ctf_type references that do not
+ * exist yet. In this last phase the translation table is available, providing
+ * conversion between ctf_id and ctf_type. 
+ */
 static int
 solve_type_references (struct ctf_file* file)
 {
