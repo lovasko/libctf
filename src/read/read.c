@@ -12,6 +12,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/queue.h>
+#include <sys/stdint.h>
 
 #ifdef _KERNEL
 	#include <sys/param.h>
@@ -27,7 +28,6 @@
 	#include <fcntl.h>
 	#include <libelf.h>
 	#include <gelf.h>
-	#include <stdint.h>
 	#include <libgen.h>
 #endif
 
