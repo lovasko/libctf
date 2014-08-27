@@ -13,6 +13,7 @@
 #include "../float.h"
 #include "../fwd_decl.h"
 #include "../info.h"
+#include "../pointer.h"
 
 #include <sys/stdint.h>
 
@@ -27,10 +28,9 @@
 CTF_MALLOC_DECLARE(M_CTF);
 
 static int
-kind_is_pure_reference (uint8_t kind)
+kind_is_qualifier (uint8_t kind)
 {
-	if (kind == CTF_KIND_POINTER
-	 || kind == CTF_KIND_VOLATILE 
+	if (kind == CTF_KIND_VOLATILE 
 	 || kind == CTF_KIND_CONST
 	 || kind == CTF_KIND_RESTRICT)
 		return 1;
@@ -70,7 +70,7 @@ solve_type_references (struct ctf_file* file)
 	struct ctf_type* type;
 	TAILQ_FOREACH (type, file->type_head, types)
 	{
-		if (kind_is_pure_reference(type->kind))
+		if (kind_is_qualifier(type->kind))
 			type->data = _ctf_lookup_type(file, type->data_id);
 
 		if (type->kind == CTF_KIND_TYPEDEF)
@@ -130,6 +130,38 @@ create_type_table (struct ctf_file* file)
 	return CTF_OK;
 }
 
+static int
+assign_qualifiers (struct ctf_file* file)
+{
+	struct ctf_type* type;
+	TAILQ_FOREACH (type, file->type_head, types)
+	{
+		ctf_kind kind;
+		ctf_type_get_kind(type, &kind);
+
+		if (!kind_is_qualifier(kind))
+			continue;
+
+		ctf_type reference_type;
+		reference_type = type->data;
+
+		if (kind == CTF_KIND_CONST)
+			reference_type->qualifiers |= CTF_QUALIFIER_CONST;	
+		else if (kind == CTF_KIND_RESTRICT)
+			reference_type->qualifiers |= CTF_QUALIFIER_RESTRICT;	
+		else if (kind == CTF_KIND_VOLATILE)
+			reference_type->qualifiers |= CTF_QUALIFIER_VOLATILE;	
+		else
+			return CTF_E_KIND_INVALID;
+
+		TAILQ_REMOVE(file->type_head, type, types);
+		free(type);
+		continue;
+	}
+
+	return CTF_OK;
+}
+
 /* TODO update this algorithm with newer knowledge!
  * 
  * Algorithm
@@ -182,9 +214,19 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 
 		id++;
 
-		if (kind_is_pure_reference(kind))
+		if (kind_is_qualifier(kind))
 		{
 			type->data_id = small_type->type;
+
+			offset += _CTF_SMALL_TYPE_SIZE;
+		}
+
+		if (kind == CTF_KIND_POINTER)
+		{
+			struct ctf_pointer* pointer = CTF_MALLOC(CTF_POINTER_SIZE);	
+			pointer->id = small_type->type;
+
+			type->data = pointer;
 
 			offset += _CTF_SMALL_TYPE_SIZE;
 		}
@@ -337,6 +379,7 @@ _ctf_read_types (struct ctf_file* file, struct _section* section,
 
 	create_type_table(file);
 	solve_type_references(file);
+	assign_qualifiers(file);
 
 	return CTF_OK;
 }

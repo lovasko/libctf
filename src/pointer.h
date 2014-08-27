@@ -17,7 +17,6 @@ struct ctf_pointer
 		ctf_type type; /**< reference type */
 		ctf_id id; /**< reference type id*/
 	};
-	uint8_t attributes; /**< bitfield of attributes */
 };
 #define CTF_POINTER_SIZE sizeof(struct ctf_pointer)
 
