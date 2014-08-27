@@ -61,7 +61,7 @@ kind_has_vardata (uint8_t kind)
  * phases and therefore in order to save memory, the union is used. In the
  * first phase of the type parsing, only the ctf_id is used to store the ID of
  * the reference type. This allows for forward ctf_type references that do not
- * exist yet. In this last phase the translation table is available, providing
+ * exist yet. In this last third the translation table is available, providing
  * conversion between ctf_id and ctf_type. 
  */
 static int
