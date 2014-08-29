@@ -11,10 +11,6 @@
 /* if the small_type.size is greater than this, we should use the large_type */
 #define CTF_SMALL_TYPE_THRESHOLD 0xfffe
 
-#define CTF_QUALIFIER_CONST    0x1
-#define CTF_QUALIFIER_RESTRICT 0x2
-#define CTF_QUALIFIER_VOLATILE 0x4
-
 /*
  * The info table
  *
@@ -84,7 +80,6 @@ struct ctf_type
 		case of the reference types. this type should be  */
 		ctf_id data_id;
 	};
-	uint8_t qualifiers; /**< bitfield of type qualifiers */
 
 	TAILQ_ENTRY(ctf_type) types; /**< pointer to following types */
 };
