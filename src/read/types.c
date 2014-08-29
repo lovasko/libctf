@@ -73,6 +73,12 @@ solve_type_references (struct ctf_file* file)
 		if (kind_is_qualifier(type->kind))
 			type->data = _ctf_lookup_type(file, type->data_id);
 
+		if (type->kind == CTF_KIND_POINTER)
+		{
+			struct ctf_pointer* pointer = type->data;
+			pointer->type = _ctf_lookup_type(file, pointer->id);
+		}
+
 		if (type->kind == CTF_KIND_TYPEDEF)
 		{
 			struct ctf_typedef* _typedef = type->data;
@@ -125,38 +131,6 @@ create_type_table (struct ctf_file* file)
 	TAILQ_FOREACH (type, file->type_head, types)
 	{
 		file->type_id_table[type->id] = type;	
-	}
-
-	return CTF_OK;
-}
-
-static int
-assign_qualifiers (struct ctf_file* file)
-{
-	struct ctf_type* type;
-	TAILQ_FOREACH (type, file->type_head, types)
-	{
-		ctf_kind kind;
-		ctf_type_get_kind(type, &kind);
-
-		if (!kind_is_qualifier(kind))
-			continue;
-
-		ctf_type reference_type;
-		reference_type = type->data;
-
-		if (kind == CTF_KIND_CONST)
-			reference_type->qualifiers |= CTF_QUALIFIER_CONST;	
-		else if (kind == CTF_KIND_RESTRICT)
-			reference_type->qualifiers |= CTF_QUALIFIER_RESTRICT;	
-		else if (kind == CTF_KIND_VOLATILE)
-			reference_type->qualifiers |= CTF_QUALIFIER_VOLATILE;	
-		else
-			return CTF_E_KIND_INVALID;
-
-		TAILQ_REMOVE(file->type_head, type, types);
-		free(type);
-		continue;
 	}
 
 	return CTF_OK;
@@ -381,14 +355,12 @@ int
 _ctf_read_types (struct ctf_file* file, struct _section* section, 
     struct _strings* strings)
 {
-
 	file->type_head = CTF_MALLOC(CTF_TYPE_HEAD_SIZE);
 	TAILQ_INIT(file->type_head);
 
 	low_level_parsing(file, section, strings);
 	create_type_table(file);
 	solve_type_references(file);
-	assign_qualifiers(file);
 
 	return CTF_OK;
 }
