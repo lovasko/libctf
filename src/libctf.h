@@ -19,5 +19,6 @@
 #include "struct_union.h"
 #include "typedef.h"
 #include "fwd_decl.h"
+#include "pointer.h"
 	
 #endif
