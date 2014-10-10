@@ -15,6 +15,9 @@ Current status
 Goals
 -----
  * :soon: writing
+ * manipulation API
+ * improving data hierarchy
+ * unit testing
 
 Related projects
 ----------------
