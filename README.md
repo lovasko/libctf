@@ -31,6 +31,5 @@ More information
 For more information please refer to files [LICENSE](LICENSE),
 [AUTHORS.md](AUTHORS.md), [THANKS.md](THANKS.md), [INSTALL.md](INSTALL.md), 
 [TUTORIAL.md](TUTORIAL.md) and [PERF.md](PERF.md).
-Automatically generated Doxygen documentation can be found in
-[here](doc/doxygen).
+Automatically generated Doxygen documentation can be found [here](doc/doxygen).
 
