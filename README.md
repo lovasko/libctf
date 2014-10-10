@@ -25,10 +25,11 @@ Goals
 Related projects
 ----------------
  * [ctfdump](https://github.com/lovasko/ctfdump)
- * lovasko/ctfstats
- * lovasko/ddb_ctf
- * :soon: lovasko/ctfconvert
- * :soon: lovasko/ctfmerge
+ * [ctfstats](https://github.com/lovasko/ctfstats)
+ * [ctfquery](https://github.com/lovasko/ctfquery)
+ * [ddb_ctf](https://github.com/lovasko/ddb_ctf)
+ * :soon: [ctfconvert](https://github.com/lovasko/ctfconvert)
+ * :soon: [ctfmerge](https://github.com/lovasko/ctfmerge)
 
 
 More information
