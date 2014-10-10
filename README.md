@@ -1,10 +1,10 @@
 libctf
 ======
 
-libctf is a C99 BSD-licensed implementation of the Compact C Type Format.
-Initially developed as a part of the Google Summer of Code 2014, supported and
-mentored by the FreeBSD Project. Code is written with multiple platforms in
-mind and can be used in BSD, illumos and Linux worlds.
+libctf is a C99 BSD-licensed implementation of the second version of the 
+Compact C Type Format.  Initially developed as a part of the Google Summer of
+Code 2014, supported and mentored by the FreeBSD Project. Code is written with
+multiple platforms in mind and can be used in BSD, illumos and Linux worlds.
 
 The library and it's practical usage is the topic of my on-going [bachelor 
 thesis](https://github.com/lovasko/bc_thesis).
