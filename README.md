@@ -6,6 +6,9 @@ Initially developed as a part of the Google Summer of Code 2014, supported and
 mentored by the FreeBSD Project. Code is written with multiple platforms in
 mind and can be used in BSD, illumos and Linux worlds.
 
+The library and it's practical usage is the topic of my on-going undergraduate
+thesis.
+
 Current status
 --------------
  * :white_check_mark: reading and parsing the CTF data
@@ -24,6 +27,8 @@ Related projects
  * lovasko/ctfdump
  * lovasko/ctfstats
  * lovasko/ddb_ctf
+ * :soon: lovasko/ctfconvert
+ * :soon: lovasko/ctfmerge
 
 
 More information
