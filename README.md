@@ -9,12 +9,12 @@ mind and can be used in BSD, illumos and Linux worlds.
 Current status
 --------------
  * :white_check_mark: reading and parsing the CTF data
- * user-space
- * kernel-space
+ * :white_check_mark: user-space
+ * :white_check_mark: kernel-space
 
 Goals
 -----
- * writing
+ * :soon: writing
 
 Related projects
 ----------------
