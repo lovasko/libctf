@@ -1,5 +1,5 @@
 Authors
 =======
 
-### :boy: Daniel Lovasko
-principal author, maintainer (lovasko@freebsd.org)
+##### :boy: Daniel Lovasko (lovasko@freebsd.org)
+
