@@ -24,7 +24,7 @@ Goals
 
 Related projects
 ----------------
- * [ctfdump](/lovasko/ctfdump)
+ * [ctfdump](https://github.com/lovasko/ctfdump)
  * lovasko/ctfstats
  * lovasko/ddb_ctf
  * :soon: lovasko/ctfconvert
