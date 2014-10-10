@@ -8,7 +8,7 @@ mind and can be used in BSD, illumos and Linux worlds.
 
 Current status
 --------------
- * reading and parsing the CTF data
+ * :white_check_mark: reading and parsing the CTF data
  * user-space
  * kernel-space
 
