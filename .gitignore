@@ -4,4 +4,6 @@ Makefile
 cmake_install.cmake
 libctf.so
 libbsdctf.so
-
+.ninja*
+bin/
+obj/
