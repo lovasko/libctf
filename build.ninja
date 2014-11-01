@@ -1,0 +1,14 @@
+cflags = -Isrc
+ldflags = -lz -lelf
+
+rule compile
+ command = clang $cflags -c $in -o $out
+
+rule link
+ command = clang -fPIC -o $out -shared $in $ldflags
+
+include link_rule.ninja
+include compile_rules.ninja
+
+default bin/libbsdctf.so
+
