@@ -21,5 +21,8 @@ typedef uint8_t ctf_kind;
 #define CTF_KIND_RESTRICT 13
 #define CTF_KIND_MAX      13
 
+const char*
+ctf_kind_to_string(ctf_kind kind);
+
 #endif
 
