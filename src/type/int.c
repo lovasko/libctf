@@ -8,3 +8,21 @@ _CTF_GET_PROPERTY_IMPL(ctf_int_is_signed, ctf_int, ctf_bool, is_signed)
 
 _CTF_FROM_TYPE_IMPL(ctf_int_init, ctf_int)
 
+const char*
+ctf_int_content_to_string (ctf_int_content int_content)
+{
+	if (int_content == CTF_INT_CONTENT_NUMBER)
+		return "number";
+
+	if (int_content == CTF_INT_CONTENT_CHAR)
+		return "char";
+
+	if (int_content == CTF_INT_CONTENT_BOOLEAN)
+		return "boolean";
+
+	if (int_content == CTF_INT_CONTENT_VARARGS)
+		return "varargs";
+
+	return "unknown";
+}
+

@@ -21,51 +21,6 @@ _CTF_GET_PROPERTY_IMPL(ctf_type_is_root, ctf_type, ctf_bool, is_root)
 
 _CTF_FROM_TYPE_IMPL(ctf_type_init, ctf_type)
 
-static const char*
-float_encoding_to_string (ctf_float_encoding float_encoding)
-{
-	static const char* translation_table[] = 
-	{
-		"float:none", 
-		"single", 
-		"double", 
-		"complex",
-		"double complex",
-		"long double complex", 
-		"long double", 
-		"interval", 
-		"double interval", 
-		"long double interval", 
-		"imaginary",
-		"double imaginary",
-		"long double imaginary"
-	};
-
-	if (float_encoding <= CTF_FLOAT_ENCODING_MAX 
-	 && float_encoding >= CTF_FLOAT_ENCODING_MIN)
-		return translation_table[float_encoding];
-	else
-		return "unresolvable";
-}
-
-static const char*
-int_content_to_string (ctf_int_content int_content)
-{
-	if (int_content == CTF_INT_CONTENT_NUMBER)
-		return "number";
-
-	if (int_content == CTF_INT_CONTENT_CHAR)
-		return "char";
-
-	if (int_content == CTF_INT_CONTENT_BOOLEAN)
-		return "boolean";
-
-	if (int_content == CTF_INT_CONTENT_VARARGS)
-		return "varargs";
-
-	return "unknown";
-}
-
 int
 function_arguments_string(ctf_function function, char** string)
 {

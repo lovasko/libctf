@@ -9,3 +9,30 @@ _CTF_GET_PROPERTY_IMPL(ctf_float_get_encoding, ctf_float,
 
 _CTF_FROM_TYPE_IMPL(ctf_float_init, ctf_float)
 
+const char*
+ctf_float_encoding_to_string (ctf_float_encoding float_encoding)
+{
+	static const char* translation_table[] = 
+	{
+		"float:none", 
+		"single", 
+		"double", 
+		"complex",
+		"double complex",
+		"long double complex", 
+		"long double", 
+		"interval", 
+		"double interval", 
+		"long double interval", 
+		"imaginary",
+		"double imaginary",
+		"long double imaginary"
+	};
+
+	if (float_encoding <= CTF_FLOAT_ENCODING_MAX 
+	 && float_encoding >= CTF_FLOAT_ENCODING_MIN)
+		return translation_table[float_encoding];
+	else
+		return "unresolvable";
+}
+

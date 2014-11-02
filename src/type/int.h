@@ -44,5 +44,8 @@ _CTF_GET_PROPERTY_PROTO(ctf_int_is_signed, ctf_int, ctf_bool)
 
 _CTF_FROM_TYPE_PROTO(ctf_int_init, ctf_int)
 
+const char*
+ctf_int_content_to_string(ctf_int_content int_content);
+
 #endif
 

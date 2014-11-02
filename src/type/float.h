@@ -51,5 +51,8 @@ _CTF_GET_PROPERTY_PROTO(ctf_float_get_encoding, ctf_float, ctf_float_encoding)
 
 _CTF_FROM_TYPE_PROTO(ctf_float_init, ctf_float)
 
+const char*
+ctf_float_encoding_to_string(ctf_float_encoding float_encoding);
+
 #endif
 
