@@ -7,3 +7,5 @@ libbsdctf.so
 .ninja*
 bin/
 obj/
+compile_rules.ninja
+link_rule.ninja
