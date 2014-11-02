@@ -21,7 +21,7 @@ _CTF_GET_PROPERTY_IMPL(ctf_type_is_root, ctf_type, ctf_bool, is_root)
 
 _CTF_FROM_TYPE_IMPL(ctf_type_init, ctf_type)
 
-int
+static int
 function_arguments_string(ctf_function function, char** string)
 {
 	int retval;
