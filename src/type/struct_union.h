@@ -1,8 +1,8 @@
 #ifndef CTF_STRUCT_UNION_H
 #define CTF_STRUCT_UNION_H
 
-#include "member.h"
-#include "count.h"
+#include "type/member.h"
+#include "util/count.h"
 #include "util/from_type.h"
 #include "util/property.h"
 #include "util/listing.h"

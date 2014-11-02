@@ -1,7 +1,7 @@
 #ifndef CTF_POINTER_H
 #define CTF_POINTER_H
 
-#include "type.h"
+#include "type/type.h"
 #include "util/from_type.h"
 #include "util/property.h"
 

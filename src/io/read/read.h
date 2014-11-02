@@ -1,8 +1,8 @@
 #ifndef CTF_READ_READ_H
 #define CTF_READ_READ_H
 
-#include "../file.h"
-#include "../util/section.h"
+#include "file/file.h"
+#include "util/section.h"
 
 /**
  * Parse the raw uncompressed CTF data.

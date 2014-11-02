@@ -1,11 +1,11 @@
 #ifndef CTF_FILE_H
 #define CTF_FILE_H
 
-#include "read/header.h"
-#include "label.h"
-#include "type.h"
-#include "data_object.h"
-#include "function.h"
+#include "io/read/header.h"
+#include "label/label.h"
+#include "type/type.h"
+#include "object/data/data_object.h"
+#include "object/function/function.h"
 #include "util/property.h"
 #include "util/listing.h"
 #include "util/bool.h"

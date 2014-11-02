@@ -1,8 +1,8 @@
 #ifndef CTF_READ_LOOKUP_H
 #define CTF_READ_LOOKUP_H
 
-#include "../file.h"
-#include "../type.h"
+#include "file/file.h"
+#include "type/type.h"
 
 /**
  * Look up a type based on its ID.

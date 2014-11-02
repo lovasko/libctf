@@ -1,7 +1,7 @@
-#include "labels.h"
-#include "space.h"
-#include "../label.h"
-#include "../errors.h"
+#include "io/read/labels.h"
+#include "io/read/space.h"
+#include "label/label.h"
+#include "file/errors.h"
 
 #include <sys/queue.h>
 

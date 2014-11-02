@@ -1,4 +1,4 @@
-#include "function.h"
+#include "object/function/function.h"
 
 _CTF_GET_PROPERTY_IMPL(ctf_function_get_name, ctf_function, char*, name)
 _CTF_GET_PROPERTY_IMPL(ctf_function_get_return_type, ctf_function, ctf_type,

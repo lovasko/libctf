@@ -1,4 +1,4 @@
-#include "errors.h"
+#include "file/errors.h"
 
 const char *
 ctf_get_error_string (int error)

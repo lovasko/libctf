@@ -1,8 +1,8 @@
 #ifndef CTF_FROM_TYPE_H
 #define CTF_FROM_TYPE_H
 
-#include "../errors.h"
-#include "../type.h"
+#include "file/errors.h"
+#include "type/type.h"
 
 /*
  * As all public types in libctf are opaque, user of the library should not

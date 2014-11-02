@@ -1,8 +1,8 @@
 #ifndef CTF_FUNCTION_H
 #define CTF_FUNCTION_H
 
-#include "type.h"
-#include "argument.h"
+#include "type/type.h"
+#include "object/function/argument.h"
 #include "util/from_type.h"
 #include "util/property.h"
 #include "util/listing.h"

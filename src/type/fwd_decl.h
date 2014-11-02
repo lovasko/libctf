@@ -1,7 +1,7 @@
 #ifndef CTF_FWD_DECL_H
 #define CTF_FWD_DECL_H
 
-#include "kind.h"
+#include "type/kind.h"
 #include "util/from_type.h"
 #include "util/property.h"
 

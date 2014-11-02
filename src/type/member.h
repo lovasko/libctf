@@ -1,7 +1,7 @@
 #ifndef CTF_MEMBER_H
 #define CTF_MEMBER_H
 
-#include "type.h"
+#include "type/type.h"
 #include "util/property.h"
 
 #include <stdint.h>

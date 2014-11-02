@@ -1,4 +1,4 @@
-#include "int.h"
+#include "type/int.h"
 
 _CTF_GET_PROPERTY_IMPL(ctf_int_get_name, ctf_int, char*, name)
 _CTF_GET_PROPERTY_IMPL(ctf_int_get_size, ctf_int, ctf_int_size, size)

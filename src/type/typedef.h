@@ -1,7 +1,7 @@
 #ifndef CTF_TYPEDEF_H
 #define CTF_TYPEDEF_H
 
-#include "type.h"
+#include "type/type.h"
 #include "util/from_type.h"
 #include "util/property.h"
 

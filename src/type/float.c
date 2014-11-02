@@ -1,4 +1,4 @@
-#include "float.h"
+#include "type/float.h"
 
 _CTF_GET_PROPERTY_IMPL(ctf_float_get_name, ctf_float, char*, name)
 _CTF_GET_PROPERTY_IMPL(ctf_float_get_size, ctf_float, ctf_float_size, size)

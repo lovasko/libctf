@@ -1,5 +1,5 @@
-#include "header.h"
-#include "../errors.h"
+#include "io/read/header.h"
+#include "file/errors.h"
 
 int
 _ctf_preface_check (struct _ctf_preface* preface)

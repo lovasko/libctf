@@ -1,9 +1,9 @@
 #ifndef CTF_READ_TYPES_H
 #define CTF_READ_TYPES_H
 
-#include "strings.h"
-#include "../file.h"
-#include "../util/section.h"
+#include "io/read/strings.h"
+#include "file/file.h"
+#include "util/section.h"
 
 /**
  * Parse data section containing CTF types.

@@ -1,7 +1,7 @@
 #ifndef CTF_READ_STRINGS_H
 #define CTF_READ_STRINGS_H
 
-#include "../util/section.h"
+#include "util/section.h"
 
 #include <stdint.h>
 

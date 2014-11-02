@@ -1,4 +1,4 @@
-#include "pointer.h"
+#include "type/pointer.h"
 
 _CTF_GET_PROPERTY_IMPL(ctf_pointer_get_type, ctf_pointer, ctf_type, type)
 

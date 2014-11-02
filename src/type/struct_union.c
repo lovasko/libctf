@@ -1,4 +1,4 @@
-#include "struct_union.h"
+#include "type/struct_union.h"
 
 _CTF_GET_PROPERTY_IMPL(ctf_struct_union_get_name, ctf_struct_union, char*, 
     name)

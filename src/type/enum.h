@@ -1,7 +1,7 @@
 #ifndef CTF_ENUM_H
 #define CTF_ENUM_H
 
-#include "enum_entry.h"
+#include "type/enum_entry.h"
 #include "util/from_type.h"
 #include "util/listing.h"
 #include "util/property.h"

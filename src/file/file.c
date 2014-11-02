@@ -1,4 +1,4 @@
-#include "file.h"
+#include "file/file.h"
 
 _CTF_GET_PROPERTY_IMPL(ctf_file_get_version, ctf_file, ctf_version, version)
 _CTF_GET_PROPERTY_IMPL(ctf_file_is_compressed, ctf_file, ctf_bool, 

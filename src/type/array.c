@@ -1,4 +1,4 @@
-#include "array.h"
+#include "type/array.h"
 
 _CTF_GET_PROPERTY_IMPL(ctf_array_get_length, ctf_array, ctf_array_length, 
     length)

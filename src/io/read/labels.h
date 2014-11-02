@@ -1,9 +1,9 @@
 #ifndef CTF_READ_LABELS_H
 #define CTF_READ_LABELS_H
 
-#include "strings.h"
-#include "../file.h"
-#include "../util/section.h"
+#include "io/read/strings.h"
+#include "file/file.h"
+#include "util/section.h"
 
 /**
  * Parse the label section of the CTF data.

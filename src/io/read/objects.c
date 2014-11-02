@@ -1,7 +1,7 @@
-#include "objects.h"
-#include "lookup.h"
-#include "space.h"
-#include "../info.h"
+#include "io/read/objects.h"
+#include "io/read/lookup.h"
+#include "io/read/space.h"
+#include "type/info.h"
 
 #ifdef _KERNEL
 	#include <sys/elf.h>

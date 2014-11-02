@@ -1,4 +1,4 @@
-#include "info.h"
+#include "type/info.h"
 
 uint8_t
 _ctf_info_get_kind (uint16_t info)

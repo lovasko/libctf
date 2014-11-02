@@ -1,9 +1,9 @@
 #ifndef CTF_READ_OBJECTS_H
 #define CTF_READ_OBJECTS_H
 
-#include "strings.h"
-#include "../file.h"
-#include "../util/section.h"
+#include "io/read/strings.h"
+#include "file/file.h"
+#include "util/section.h"
 
 /**
  * Parse function and data objects with the help from the symbol table.

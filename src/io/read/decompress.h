@@ -3,7 +3,7 @@
 
 #ifndef _KERNEL
 
-#include "../util/section.h"
+#include "util/section.h"
 
 /**
  * Perform a ZIP decompression on a data section.

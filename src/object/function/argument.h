@@ -1,7 +1,7 @@
 #ifndef CTF_ARGUMENT_H
 #define CTF_ARGUMENT_H
 
-#include "type.h"
+#include "type/type.h"
 #include "util/property.h"
 
 #include <sys/queue.h>

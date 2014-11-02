@@ -1,7 +1,7 @@
 #ifndef CTF_PROPERTY_H
 #define CTF_PROPERTY_H
 
-#include "../errors.h"
+#include "file/errors.h"
 
 /*
  * As all public types in libctf are opaque, user of the library should not

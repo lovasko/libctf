@@ -1,16 +1,16 @@
 #ifndef CTF_READ_VARDATA_H
 #define CTF_READ_VARDATA_H
 
-#include "strings.h"
-#include "../array.h"
-#include "../type.h"
-#include "../enum.h"
-#include "../enum_entry.h"
-#include "../function.h"
-#include "../argument.h"
-#include "../member.h"
-#include "../int.h"
-#include "../float.h"
+#include "io/read/strings.h"
+#include "type/array.h"
+#include "type/type.h"
+#include "type/enum.h"
+#include "type/enum_entry.h"
+#include "object/function/function.h"
+#include "object/function/argument.h"
+#include "type/member.h"
+#include "type/int.h"
+#include "type/float.h"
 
 #include <stdint.h>
 

@@ -1,4 +1,4 @@
-#include "decompress.h"
+#include "io/read/decompress.h"
 
 #ifndef _KERNEL
 

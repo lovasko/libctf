@@ -1,5 +1,5 @@
-#include "vardata.h"
-#include "space.h"
+#include "io/read/vardata.h"
+#include "io/read/space.h"
 
 #ifdef _KERNEL
 	#include <sys/malloc.h>

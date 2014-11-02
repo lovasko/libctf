@@ -1,7 +1,7 @@
 #ifndef CTF_DATA_OBJECT_H
 #define CTF_DATA_OBJECT_H
 
-#include "type.h"
+#include "type/type.h"
 #include "util/property.h"
 
 #include <stdint.h>
