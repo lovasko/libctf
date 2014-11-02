@@ -1,7 +1,7 @@
 #ifndef CTF_TYPE_H
 #define CTF_TYPE_H
 
-#include "kind.h"
+#include "type/kind.h"
 #include "util/bool.h"
 #include "util/property.h"
 
@@ -111,6 +111,15 @@ _CTF_GET_PROPERTY_PROTO(ctf_type_is_root, ctf_type, ctf_bool)
 	*/
 int 
 ctf_type_init(ctf_type type, ctf_type* out);
+
+enum 
+{
+	CTF_TYPE_INCLUDE_IDS,
+	CTF_TYPE_OMIT_IDS
+};
+
+int
+ctf_type_to_string(ctf_type type, char** string);
 
 #endif
 
