@@ -1,0 +1,15 @@
+cflags = -I. -I/usr/include/libctf/
+ldflags = -lbsdctf
+
+rule compile
+ command = clang $cflags -c $in -o $out
+
+rule link
+ command = clang -o $out $in $ldflags
+
+build run: link run.o string_conversion/type.o string_conversion/kind.o
+build run.o: compile run.c
+
+build string_conversion/type.o: compile string_conversion/type.c
+build string_conversion/kind.o: compile string_conversion/kind.c
+
