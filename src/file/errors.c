@@ -24,7 +24,8 @@ ctf_get_error_string (int error)
 		"Null pointer.",
 		"Sections offsets corrupted.",
 		"Kind invalid.",
-		"Type ID not found."
+		"Type ID not found.",
+		"Conversion fault."
 	};
 
 	if (error < CTF_E_MIN || error > CTF_E_MAX)
