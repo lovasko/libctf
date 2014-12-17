@@ -4,6 +4,7 @@
 #include "util/bool.h"
 #include "util/from_type.h"
 #include "util/property.h"
+#include "util/create.h"
 
 #include <stdint.h>
 
@@ -41,6 +42,10 @@ _CTF_GET_PROPERTY_PROTO(ctf_int_get_size, ctf_int, ctf_int_size)
 _CTF_GET_PROPERTY_PROTO(ctf_int_get_offset, ctf_int, ctf_int_offset)
 _CTF_GET_PROPERTY_PROTO(ctf_int_get_content, ctf_int, ctf_int_content)
 _CTF_GET_PROPERTY_PROTO(ctf_int_is_signed, ctf_int, ctf_bool)
+
+_CTF_SET_PROPERTY_PROTO(ctf_int_set_name, ctf_int, char*)
+
+_CTF_CREATE_PROTO(ctf_int_create, ctf_int)
 
 _CTF_FROM_TYPE_PROTO(ctf_int_init, ctf_int)
 

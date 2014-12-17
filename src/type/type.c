@@ -19,6 +19,11 @@ _CTF_GET_PROPERTY_IMPL(ctf_type_get_kind, ctf_type, ctf_kind, kind)
 _CTF_GET_PROPERTY_IMPL(ctf_type_get_id, ctf_type, ctf_id, id)
 _CTF_GET_PROPERTY_IMPL(ctf_type_is_root, ctf_type, ctf_bool, is_root)
 
+_CTF_SET_PROPERTY_IMPL(ctf_type_set_kind, ctf_type, ctf_kind, kind)
+_CTF_SET_PROPERTY_IMPL(ctf_type_set_data, ctf_type, void*, data)
+
+_CTF_CREATE_IMPL(ctf_type_create, ctf_type, CTF_TYPE_SIZE)
+
 _CTF_FROM_TYPE_IMPL(ctf_type_init, ctf_type)
 
 static int
@@ -74,6 +79,8 @@ ctf_type_to_string(ctf_type type, char** string)
 	
 	ctf_kind kind;
 	ctf_type_get_kind(type, &kind);
+
+	printf("START\n%s\n", ctf_kind_to_string(kind));
 
 	switch (kind)
 	{

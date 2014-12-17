@@ -4,6 +4,7 @@
 #include "type/type.h"
 #include "util/from_type.h"
 #include "util/property.h"
+#include "util/create.h"
 
 #include <sys/stdint.h>
 
@@ -23,6 +24,10 @@ struct ctf_pointer
 typedef struct ctf_pointer* ctf_pointer;
 
 _CTF_GET_PROPERTY_PROTO(ctf_pointer_get_type, ctf_pointer, ctf_type)
+
+_CTF_SET_PROPERTY_PROTO(ctf_pointer_set_type, ctf_pointer, ctf_type)
+
+_CTF_CREATE_PROTO(ctf_pointer_create, ctf_pointer)
 
 _CTF_FROM_TYPE_PROTO(ctf_pointer_init, ctf_pointer)
 

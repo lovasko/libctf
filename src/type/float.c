@@ -7,6 +7,12 @@ _CTF_GET_PROPERTY_IMPL(ctf_float_get_offset, ctf_float, ctf_float_offset,
 _CTF_GET_PROPERTY_IMPL(ctf_float_get_encoding, ctf_float, 
     ctf_float_encoding, encoding)
 
+_CTF_SET_PROPERTY_IMPL(ctf_float_set_name, ctf_float, char*, name)
+_CTF_SET_PROPERTY_IMPL(ctf_float_set_encoding, ctf_float, ctf_float_encoding, 
+    encoding)
+
+_CTF_CREATE_IMPL(ctf_float_create, ctf_float, CTF_FLOAT_SIZE)
+
 _CTF_FROM_TYPE_IMPL(ctf_float_init, ctf_float)
 
 const char*

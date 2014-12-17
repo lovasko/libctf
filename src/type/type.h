@@ -4,6 +4,7 @@
 #include "type/kind.h"
 #include "util/bool.h"
 #include "util/property.h"
+#include "util/create.h"
 
 #include <stdint.h>
 #include <sys/queue.h>
@@ -93,6 +94,11 @@ TAILQ_HEAD(ctf_type_head, ctf_type);
 _CTF_GET_PROPERTY_PROTO(ctf_type_get_kind, ctf_type, ctf_kind)
 _CTF_GET_PROPERTY_PROTO(ctf_type_get_id, ctf_type, ctf_id)
 _CTF_GET_PROPERTY_PROTO(ctf_type_is_root, ctf_type, ctf_bool)
+
+_CTF_SET_PROPERTY_PROTO(ctf_type_set_kind, ctf_type, ctf_kind)
+_CTF_SET_PROPERTY_PROTO(ctf_type_set_data, ctf_type, void*)
+
+_CTF_CREATE_PROTO(ctf_type_create, ctf_type)
 
 /*
  * Please note that this is not a _copy/duplicate_ function, but rather a

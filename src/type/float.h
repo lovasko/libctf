@@ -3,6 +3,7 @@
 
 #include "util/from_type.h"
 #include "util/property.h"
+#include "util/create.h"
 
 #include <stdint.h>
 
@@ -48,6 +49,11 @@ _CTF_GET_PROPERTY_PROTO(ctf_float_get_name, ctf_float, char*)
 _CTF_GET_PROPERTY_PROTO(ctf_float_get_size, ctf_float, ctf_float_size)
 _CTF_GET_PROPERTY_PROTO(ctf_float_get_offset, ctf_float, ctf_float_offset)
 _CTF_GET_PROPERTY_PROTO(ctf_float_get_encoding, ctf_float, ctf_float_encoding) 
+
+_CTF_SET_PROPERTY_PROTO(ctf_float_set_name, ctf_float, char*)
+_CTF_SET_PROPERTY_PROTO(ctf_float_set_encoding, ctf_float, ctf_float_encoding) 
+
+_CTF_CREATE_PROTO(ctf_float_create, ctf_float)
 
 _CTF_FROM_TYPE_PROTO(ctf_float_init, ctf_float)
 
