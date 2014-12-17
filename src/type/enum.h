@@ -14,7 +14,7 @@
  */
 struct ctf_enum
 {
-	char* name /*< name of the enum */;
+	char* name; /*< name of the enum */
 
 	struct ctf_enum_head* enum_head;
 };
