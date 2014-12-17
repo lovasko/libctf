@@ -13,6 +13,7 @@ _CTF_SET_PROPERTY_IMPL(
 	ctf_array_length,
 	length)
 
+
 /* content type */
 _CTF_GET_PROPERTY_IMPL(
 	ctf_array_get_content_type, 
@@ -26,14 +27,14 @@ _CTF_SET_PROPERTY_IMPL(
 	ctf_type,
 	content_type)
 
-/* from type */
 
+/* from type */
 _CTF_FROM_TYPE_IMPL(
 	ctf_array_init, 
 	ctf_array)
 
-/* create */
 
+/* create */
 _CTF_CREATE_IMPL(
 	ctf_array_create,
 	ctf_array,
