@@ -40,9 +40,16 @@ struct ctf_file
 typedef struct ctf_file* ctf_file;
 
 _CTF_GET_PROPERTY_PROTO(ctf_file_get_version, ctf_file, ctf_version)
-_CTF_GET_PROPERTY_PROTO(ctf_file_is_compressed, ctf_file, uint8_t)
+_CTF_SET_PROPERTY_PROTO(ctf_file_set_version, ctf_file, ctf_version)
+
+_CTF_GET_PROPERTY_PROTO(ctf_file_get_is_compressed, ctf_file, uint8_t)
+_CTF_SET_PROPERTY_PROTO(ctf_file_set_is_compressed, ctf_file, uint8_t)
+
 _CTF_GET_PROPERTY_PROTO(ctf_file_get_parent_file, ctf_file, ctf_file)
+_CTF_SET_PROPERTY_PROTO(ctf_file_set_parent_file, ctf_file, ctf_file)
+
 _CTF_GET_PROPERTY_PROTO(ctf_file_get_basename, ctf_file, char*)
+_CTF_SET_PROPERTY_PROTO(ctf_file_set_basename, ctf_file, char*)
 
 _CTF_LISTING_PROTO(ctf_file_get_next_label, ctf_file, ctf_label)
 _CTF_LISTING_PROTO(ctf_file_get_next_type, ctf_file, ctf_type)
