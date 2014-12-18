@@ -3,6 +3,7 @@
 
 #include "type/type.h"
 #include "util/property.h"
+#include "util/create.h"
 
 #include <stdint.h>
 #include <sys/queue.h>
@@ -70,8 +71,15 @@ TAILQ_HEAD(ctf_member_head, ctf_member);
 #define CTF_MEMBER_HEAD_SIZE sizeof(struct ctf_member_head)
 
 _CTF_GET_PROPERTY_PROTO(ctf_member_get_name, ctf_member, char*)
+_CTF_SET_PROPERTY_PROTO(ctf_member_set_name, ctf_member, char*)
+
 _CTF_GET_PROPERTY_PROTO(ctf_member_get_type, ctf_member, ctf_type)
+_CTF_SET_PROPERTY_PROTO(ctf_member_set_type, ctf_member, ctf_type)
+
 _CTF_GET_PROPERTY_PROTO(ctf_member_get_offset, ctf_member, ctf_member_offset)
+_CTF_SET_PROPERTY_PROTO(ctf_member_set_offset, ctf_member, ctf_member_offset)
+
+_CTF_CREATE_PROTO(ctf_member_create, ctf_member)
 
 #endif
 
