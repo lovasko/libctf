@@ -40,7 +40,11 @@ TAILQ_HEAD(ctf_enum_head, ctf_enum_entry);
 #define CTF_ENUM_HEAD_SIZE sizeof(struct ctf_enum_head)
 
 _CTF_GET_PROPERTY_PROTO(ctf_enum_entry_get_name, ctf_enum_entry, char*)
+_CTF_SET_PROPERTY_PROTO(ctf_enum_entry_set_name, ctf_enum_entry, char*)
+
 _CTF_GET_PROPERTY_PROTO(ctf_enum_entry_get_value, ctf_enum_entry, 
+    ctf_enum_entry_value)
+_CTF_SET_PROPERTY_PROTO(ctf_enum_entry_set_value, ctf_enum_entry,
     ctf_enum_entry_value)
 
 #endif
