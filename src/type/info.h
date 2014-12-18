@@ -3,6 +3,21 @@
 
 #include <stdint.h>
 
+/*
+ * Info table.
+ *
+ * The member info from both, the small_ and large_type, is not a single
+ * number, but rather 3 separate variables packed into single 16-bit word.
+ * 
+ * Bits 0-9 represent the length of the variable data section following the
+ * general type information. 
+ *
+ * Bit 10 represents the boolean flag for the attribute root. 
+ *
+ * Bits 11-15 form the kind of the types. The kind constants CTF_KIND can be
+ * found inside the kind.h file.
+ */
+
 /**
  * Extract kind information from info.
  * 
