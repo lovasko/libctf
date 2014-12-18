@@ -60,7 +60,7 @@ typedef uint16_t ctf_id;
  */
 struct ctf_type
 {
-	ctf_bool is_root;
+	uint8_t is_root;
 	ctf_kind kind; /**< kind of the type, one of the CTF_KIND constants */
 	ctf_id id;
 	union
@@ -80,10 +80,14 @@ TAILQ_HEAD(ctf_type_head, ctf_type);
 #define CTF_TYPE_HEAD_SIZE sizeof(struct ctf_type_head)
 
 _CTF_GET_PROPERTY_PROTO(ctf_type_get_kind, ctf_type, ctf_kind)
-_CTF_GET_PROPERTY_PROTO(ctf_type_get_id, ctf_type, ctf_id)
-_CTF_GET_PROPERTY_PROTO(ctf_type_is_root, ctf_type, ctf_bool)
-
 _CTF_SET_PROPERTY_PROTO(ctf_type_set_kind, ctf_type, ctf_kind)
+
+_CTF_GET_PROPERTY_PROTO(ctf_type_get_id, ctf_type, ctf_id)
+_CTF_SET_PROPERTY_PROTO(ctf_type_set_id, ctf_type, ctf_id)
+
+_CTF_GET_PROPERTY_PROTO(ctf_type_get_is_root, ctf_type, uint8_t)
+_CTF_SET_PROPERTY_PROTO(ctf_type_set_is_root, ctf_type, ctf_bool)
+
 _CTF_SET_PROPERTY_PROTO(ctf_type_set_data, ctf_type, void*)
 
 _CTF_CREATE_PROTO(ctf_type_create, ctf_type)
