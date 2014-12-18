@@ -2,7 +2,7 @@
 #define CTF_DATA_OBJECT_H
 
 #include "type/type.h"
-#include "util/property.h"
+#include "api/property.h"
 
 #include <stdint.h>
 #include <sys/queue.h>

@@ -1,6 +1,6 @@
 #include "type/type.h"
 #include "type/kind.h"
-#include "util/from_type.h"
+#include "api/from_type.h"
 #include "type/int.h"
 #include "type/float.h"
 #include "object/function/function.h"

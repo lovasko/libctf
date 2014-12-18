@@ -1,7 +1,7 @@
 #ifndef CTF_LABEL_H
 #define CTF_LABEL_H
 
-#include "util/property.h"
+#include "api/property.h"
 
 #include <stdint.h>
 #include <sys/queue.h>

@@ -2,9 +2,9 @@
 #define CTF_ARRAY_H
 
 #include "type/type.h"
-#include "util/property.h"
-#include "util/from_type.h"
-#include "util/create.h"
+#include "api/property.h"
+#include "api/from_type.h"
+#include "api/create.h"
 
 #include <stdint.h>
 

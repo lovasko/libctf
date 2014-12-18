@@ -3,9 +3,9 @@
 
 #include "type/type.h"
 #include "object/function/argument.h"
-#include "util/from_type.h"
-#include "util/property.h"
-#include "util/listing.h"
+#include "api/from_type.h"
+#include "api/property.h"
+#include "api/listing.h"
 
 #include <stdint.h>
 #include <sys/queue.h>

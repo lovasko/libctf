@@ -2,10 +2,10 @@
 #define CTF_ENUM_H
 
 #include "type/enum_entry.h"
-#include "util/from_type.h"
-#include "util/listing.h"
-#include "util/property.h"
-#include "util/create.h"
+#include "api/from_type.h"
+#include "api/listing.h"
+#include "api/property.h"
+#include "api/create.h"
 
 #include <stdint.h>
 #include <sys/queue.h>

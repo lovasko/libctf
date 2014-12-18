@@ -2,7 +2,7 @@
 #define CTF_ARGUMENT_H
 
 #include "type/type.h"
-#include "util/property.h"
+#include "api/property.h"
 
 #include <sys/queue.h>
 

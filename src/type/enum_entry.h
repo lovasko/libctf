@@ -1,7 +1,7 @@
 #ifndef CTF_ENUM_ENTRY_H
 #define CTF_ENUM_ENTRY_H
 
-#include "util/property.h"
+#include "api/property.h"
 
 #include <stdint.h>
 #include <sys/queue.h>

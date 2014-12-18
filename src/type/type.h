@@ -3,8 +3,8 @@
 
 #include "type/kind.h"
 #include "util/bool.h"
-#include "util/property.h"
-#include "util/create.h"
+#include "api/property.h"
+#include "api/create.h"
 
 #include <stdint.h>
 #include <sys/queue.h>

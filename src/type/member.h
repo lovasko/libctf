@@ -2,8 +2,8 @@
 #define CTF_MEMBER_H
 
 #include "type/type.h"
-#include "util/property.h"
-#include "util/create.h"
+#include "api/property.h"
+#include "api/create.h"
 
 #include <stdint.h>
 #include <sys/queue.h>

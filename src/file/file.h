@@ -6,8 +6,8 @@
 #include "type/type.h"
 #include "object/data/data_object.h"
 #include "object/function/function.h"
-#include "util/property.h"
-#include "util/listing.h"
+#include "api/property.h"
+#include "api/listing.h"
 #include "util/bool.h"
 
 #include <stdint.h>

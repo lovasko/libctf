@@ -3,10 +3,10 @@
 
 #include "type/member.h"
 #include "util/count.h"
-#include "util/from_type.h"
-#include "util/property.h"
-#include "util/listing.h"
-#include "util/create.h"
+#include "api/from_type.h"
+#include "api/property.h"
+#include "api/listing.h"
+#include "api/create.h"
 
 struct ctf_struct_union
 {

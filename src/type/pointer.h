@@ -2,9 +2,9 @@
 #define CTF_POINTER_H
 
 #include "type/type.h"
-#include "util/from_type.h"
-#include "util/property.h"
-#include "util/create.h"
+#include "api/from_type.h"
+#include "api/property.h"
+#include "api/create.h"
 
 #include <sys/stdint.h>
 
