@@ -62,7 +62,7 @@ ctf_float_encoding_to_string (ctf_float_encoding float_encoding)
 {
 	static const char* translation_table[] = 
 	{
-		"float:none", 
+		"none", 
 		"single", 
 		"double", 
 		"complex",
