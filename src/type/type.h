@@ -92,14 +92,10 @@ _CTF_SET_PROPERTY_PROTO(ctf_type_set_data, ctf_type, void*)
 
 _CTF_CREATE_PROTO(ctf_type_create, ctf_type)
 
-/*
- * Please note that this is not a _copy/duplicate_ function, but rather a
- * function used in handling consts, restricts, volatiles and pointers.
+/* HACK
+ * This is exactly the same as the FROM_TYPE macro output, but it causes some
+ * compilation problems due to the fact that the from_type.h includes type.h
  */
- /* HACK
-  * This is exactly the same as the FROM_TYPE macro output, but it causes some
-	* compilation problems due to the fact that the from_type.h includes type.h
-	*/
 int 
 ctf_type_init(ctf_type type, ctf_type* out);
 
