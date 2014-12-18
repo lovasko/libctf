@@ -1,7 +1,7 @@
 #include "file/file.h"
 
 _CTF_GET_PROPERTY_IMPL(ctf_file_get_version, ctf_file, ctf_version, version)
-_CTF_GET_PROPERTY_IMPL(ctf_file_is_compressed, ctf_file, ctf_bool, 
+_CTF_GET_PROPERTY_IMPL(ctf_file_is_compressed, ctf_file, uint8_t, 
     is_compressed)
 _CTF_GET_PROPERTY_IMPL(ctf_file_get_parent_file, ctf_file, ctf_file, 
     parent_file)

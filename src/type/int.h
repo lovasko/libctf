@@ -1,7 +1,6 @@
 #ifndef CTF_INT_H
 #define CTF_INT_H
 
-#include "util/bool.h"
 #include "api/from_type.h"
 #include "api/property.h"
 #include "api/create.h"

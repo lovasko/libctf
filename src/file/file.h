@@ -8,7 +8,6 @@
 #include "object/function/function.h"
 #include "api/property.h"
 #include "api/listing.h"
-#include "util/bool.h"
 
 #include <stdint.h>
 
@@ -20,7 +19,7 @@
  */
 struct ctf_file
 {
-	ctf_bool is_compressed; /**< 0/1 false/true flag for the compression */
+	uint8_t is_compressed; /**< 0/1 false/true flag for the compression */
 	ctf_version version; /**< version indicator */
 	char* path_basename; /**< basename of the current file containing the CTF
 	    data */
@@ -41,7 +40,7 @@ struct ctf_file
 typedef struct ctf_file* ctf_file;
 
 _CTF_GET_PROPERTY_PROTO(ctf_file_get_version, ctf_file, ctf_version)
-_CTF_GET_PROPERTY_PROTO(ctf_file_is_compressed, ctf_file, ctf_bool)
+_CTF_GET_PROPERTY_PROTO(ctf_file_is_compressed, ctf_file, uint8_t)
 _CTF_GET_PROPERTY_PROTO(ctf_file_get_parent_file, ctf_file, ctf_file)
 _CTF_GET_PROPERTY_PROTO(ctf_file_get_basename, ctf_file, char*)
 

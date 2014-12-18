@@ -2,7 +2,6 @@
 #define CTF_TYPE_H
 
 #include "type/kind.h"
-#include "util/bool.h"
 #include "api/property.h"
 #include "api/create.h"
 
@@ -86,7 +85,7 @@ _CTF_GET_PROPERTY_PROTO(ctf_type_get_id, ctf_type, ctf_id)
 _CTF_SET_PROPERTY_PROTO(ctf_type_set_id, ctf_type, ctf_id)
 
 _CTF_GET_PROPERTY_PROTO(ctf_type_get_is_root, ctf_type, uint8_t)
-_CTF_SET_PROPERTY_PROTO(ctf_type_set_is_root, ctf_type, ctf_bool)
+_CTF_SET_PROPERTY_PROTO(ctf_type_set_is_root, ctf_type, uint8_t)
 
 _CTF_SET_PROPERTY_PROTO(ctf_type_set_data, ctf_type, void*)
 
