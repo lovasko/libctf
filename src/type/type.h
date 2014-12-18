@@ -106,12 +106,6 @@ _CTF_CREATE_PROTO(ctf_type_create, ctf_type)
 int 
 ctf_type_init(ctf_type type, ctf_type* out);
 
-enum 
-{
-	CTF_TYPE_INCLUDE_IDS,
-	CTF_TYPE_OMIT_IDS
-};
-
 int
 ctf_type_to_string(ctf_type type, char** string);
 
