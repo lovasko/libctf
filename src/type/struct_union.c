@@ -30,7 +30,8 @@ _CTF_ADD_IMPL(
 	ctf_struct_union,
 	ctf_member,
 	member_head,
-	members)
+	members,
+	member_count)
 
 _CTF_FROM_TYPE_IMPL(
 	ctf_struct_union_init,
