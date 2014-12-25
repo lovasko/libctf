@@ -25,6 +25,13 @@ _CTF_LISTING_IMPL(
 	member_head,
 	members)
 
+_CTF_ADD_IMPL(
+	ctf_struct_union_add_member,
+	ctf_struct_union,
+	ctf_member,
+	member_head,
+	members)
+
 _CTF_FROM_TYPE_IMPL(
 	ctf_struct_union_init,
 	ctf_struct_union)
