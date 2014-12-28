@@ -15,7 +15,7 @@ OBJECT_TYPE \
 FUNCTION_NAME () \
 { \
 	void* object = malloc(OBJECT_SIZE); \
-	bzero(object, OBJECT_SIZE); \
+	memset(object, 0, OBJECT_SIZE); \
 	return object; \
 }
 
@@ -25,7 +25,7 @@ OBJECT_TYPE \
 FUNCTION_NAME () \
 { \
 	void* object = malloc(OBJECT_SIZE); \
-	bzero(object, OBJECT_SIZE); \
+	memset(object, 0, OBJECT_SIZE); \
 	TAILQ_INIT(((OBJECT_TYPE)object)->LIST_NAME); \
 	((OBJECT_TYPE)object)->LIST_COUNTER_NAME = 0; \
 	return object; \
@@ -40,7 +40,7 @@ OBJECT_TYPE \
 FUNCTION_NAME () \
 { \
 	void* object = malloc(OBJECT_SIZE); \
-	bzero(object, OBJECT_SIZE); \
+	memset(object, 0, OBJECT_SIZE); \
 	TAILQ_INIT(((OBJECT_TYPE)object)->LIST1_NAME); \
 	((OBJECT_TYPE)object)->LIST1_COUNTER_NAME = 0; \
 	TAILQ_INIT(((OBJECT_TYPE)object)->LIST2_NAME); \
