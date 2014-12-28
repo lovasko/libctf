@@ -1,3 +1,5 @@
+#include <sys/queue.h>
+
 #include "file/file.h"
 
 _CTF_GET_PROPERTY_IMPL(
@@ -74,4 +76,17 @@ _CTF_LISTING_IMPL(
 	ctf_data_object,
 	data_object_head,
 	data_objects);
+
+_CTF_CREATE_4_LIST_IMPL(
+	ctf_file_create,
+	ctf_file,
+	CTF_FILE_SIZE,
+	label_head,
+	label_count,
+	type_head,
+	type_count,
+	data_object_head,
+	data_object_count,
+	function_head,
+	function_count)
 
