@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* TODO create smaller __CTF_ALLOCATE and __CTF_SETUP_LIST macros */
+
 #define _CTF_CREATE_PROTO(FUNCTION_NAME, OBJECT_TYPE) \
 OBJECT_TYPE \
 FUNCTION_NAME ();
