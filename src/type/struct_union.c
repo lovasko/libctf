@@ -37,8 +37,10 @@ _CTF_FROM_TYPE_IMPL(
 	ctf_struct_union_init,
 	ctf_struct_union)
 
-_CTF_CREATE_IMPL(
+_CTF_CREATE_1_LIST_IMPL(
 	ctf_struct_union_create,
 	ctf_struct_union,
-	CTF_STRUCT_UNION_SIZE)
+	CTF_STRUCT_UNION_SIZE,
+	member_head,
+	member_count)
 
