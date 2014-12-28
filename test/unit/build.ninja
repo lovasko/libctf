@@ -7,9 +7,9 @@ rule compile
 rule link
  command = clang -o $out $in $ldflags
 
-build run: link run.o obj/type.o obj/kind.o
-build run.o: compile run.c
+build run: link obj/run.o obj/sc_type.o obj/sc_kind.o
+build obj/run.o: compile src/run.c
 
-build obj/type.o: compile string_conversion/type.c
-build obj/kind.o: compile string_conversion/kind.c
+build obj/sc_type.o: compile string_conversion/type.c
+build obj/sc_kind.o: compile string_conversion/kind.c
 
