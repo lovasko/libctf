@@ -19,5 +19,17 @@ FUNCTION_NAME () \
 	return object; \
 }
 
+#define _CTF_CREATE_1_LIST_IMPL(FUNCTION_NAME, OBJECT_TYPE, OBJECT_SIZE, \
+  LIST_NAME, LIST_COUNTER_NAME) \
+OBJECT_TYPE \
+FUNCTION_NAME () \
+{ \
+	void* object = malloc(OBJECT_SIZE); \
+	bzero(object, OBJECT_SIZE); \
+	TAILQ_INIT(((OBJECT_TYPE)object)->LIST_NAME); \
+	((OBJECT_TYPE)object)->LIST_COUNTER_NAME = 0; \
+	return object; \
+}
+
 #endif
 
