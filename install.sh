@@ -4,6 +4,7 @@ HEADER_PREFIX=/usr/include
 LIB_PREFIX=/usr/lib
 
 mkdir -vp ${HEADER_PREFIX}/libctf
+mkdir -vp ${HEADER_PREFIX}/libctf/api
 mkdir -vp ${HEADER_PREFIX}/libctf/file
 mkdir -vp ${HEADER_PREFIX}/libctf/type
 mkdir -vp ${HEADER_PREFIX}/libctf/io
