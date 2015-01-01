@@ -112,6 +112,41 @@ volatile_pointer_to_const_union ()
 	return tc;
 }
 
+struct test_case*
+double_pointer_to_struct ()
+{
+	/* struct */
+	ctf_struct_union struct_data = ctf_struct_union_create();
+	ctf_struct_union_set_name(struct_data, "test");
+
+	ctf_type struct_type = ctf_type_create();
+	ctf_type_set_kind(struct_type, CTF_KIND_STRUCT);
+	ctf_type_set_data(struct_type, struct_data);
+
+	/* second pointer */
+	ctf_pointer second_pointer_data = ctf_pointer_create();
+	ctf_pointer_set_type(second_pointer_data, struct_type);
+
+	ctf_type second_pointer_type = ctf_type_create();
+	ctf_type_set_kind(second_pointer_type, CTF_KIND_POINTER);
+	ctf_type_set_data(second_pointer_type, second_pointer_data);
+
+	/* first pointer */
+	ctf_pointer first_pointer_data = ctf_pointer_create();
+	ctf_pointer_set_type(first_pointer_data, second_pointer_type);
+
+	ctf_type first_pointer_type = ctf_type_create();
+	ctf_type_set_kind(first_pointer_type, CTF_KIND_POINTER);
+	ctf_type_set_data(first_pointer_type, first_pointer_data);
+
+	struct test_case* tc = malloc(sizeof(struct test_case));
+	tc->description = "Double pointer to struct";
+	tc->expected = "struct test**";
+	tc->input = first_pointer_type;
+
+	return tc;
+}
+
 struct test_case_head*
 init_type_string_conversion ()
 {
