@@ -44,8 +44,6 @@ main (void)
 	fprintf(report, "\\begin{center}\n");
 	fprintf(report, "{\\Huge \\bf libctf unit tests}\\\\\n");
 
-	printf("A\n");
-
 	time_t t = time(NULL);
 	struct tm* tm = localtime(&t);
 	fprintf(report, "%d-%d-%d %d:%d:%d \\\\ \n", tm->tm_year + 1900, tm->tm_mon + 1,
@@ -77,11 +75,10 @@ main (void)
 	#endif
 
 	fprintf(report, "\\newpage \n");
-	printf("A\n");
 
 	for (t_idx = 0; t_idx < unit_test_count; t_idx++)
 	{
-		printf("B\n");
+		printf("  %02d) %s\n", t_idx, unit_tests[t_idx].name);
 		fprintf(report, "\\section*{\\#%d %s}\n", t_idx, unit_tests[t_idx].name);
 
 		struct test_case_head* head = unit_tests[t_idx].init();
@@ -90,21 +87,23 @@ main (void)
 
 		TAILQ_FOREACH(runner, head, test_cases)
 		{
-			printf("C\n");
+			printf("  %02d.%02d) %s", t_idx, c_idx, runner->description);
 			retval = unit_tests[t_idx].test(runner);
 
-			/* if (c_idx % 2 == 1) */
-			/* 	fprintf(report, "\\mybox{"); */
-
 			if (retval == _CTF_UNIT_TEST_SUCCESS)
+			{
+				printf(" ... OK\n");
 				fprintf(report, "{\\tt %s} \\hfill {\\tt OK} \\\\\n",
 				    runner->description);	
+			}
 			else
 			{
+				printf(" ... FAIL: '%s' != '%s'\n", runner->expected,
+				    runner->actual);
+
 				fprintf(report, "{\\tt %s} \\hfill {\\tt Fail} \n",
 				    runner->description);	
 				fprintf(report, "\\begin{description}\n");
-
 					fprintf(report, "\\item[Expected] \\hfill \\\\\n");
 					fprintf(report, "%s\n", runner->expected);
 
@@ -113,16 +112,12 @@ main (void)
 				fprintf(report, "\\end{description}\n");
 			}
 
-			/* if (c_idx % 2 == 1) */
-			/* 	fprintf(report, "}\n"); */
-
 			c_idx++;
 		}
+		
 		unit_tests[t_idx].clean(head);
-
 		fprintf(report, "\\newpage");
 	}
-	printf("A\n");
 
 	fprintf(report, "\\end{document}\n");
 	fclose(report);
