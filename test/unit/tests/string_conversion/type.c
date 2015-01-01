@@ -167,6 +167,9 @@ init_type_string_conversion ()
 	struct test_case* vpcu_tc = volatile_pointer_to_const_union();
 	TAILQ_INSERT_TAIL(head, vpcu_tc, test_cases);
 
+	struct test_case* dps_tc = double_pointer_to_struct();
+	TAILQ_INSERT_TAIL(head, dps_tc, test_cases);
+
 	return head;
 }
 
