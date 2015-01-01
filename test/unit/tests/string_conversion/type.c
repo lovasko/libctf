@@ -51,6 +51,34 @@ const_int ()
 	return tc;
 }
 
+struct test_case*
+array_of_5_chars ()
+{
+	ctf_int char_data = ctf_int_create();
+	ctf_int_set_content(char_data, CTF_INT_CONTENT_CHAR);
+	ctf_int_set_size(char_data, 8);
+	ctf_int_set_name(char_data, "char");
+
+	ctf_type char_type = ctf_type_create();
+	ctf_type_set_kind(char_type, CTF_KIND_INT);
+	ctf_type_set_data(char_type, char_data);
+
+	ctf_array array_data = ctf_array_create();
+	ctf_array_set_length(array_data, 5);
+	ctf_array_set_content_type(array_data, char_type);
+
+	ctf_type array_type = ctf_type_create();
+	ctf_type_set_kind(array_type, CTF_KIND_ARRAY);
+	ctf_type_set_data(array_type, array_data);
+
+	struct test_case* tc = malloc(sizeof(struct test_case));
+	tc->description = "Array of 5 chars";
+	tc->expected = "char[5]";
+	tc->input = array_type;
+
+	return tc;
+}
+
 struct test_case_head*
 init_type_string_conversion ()
 {
