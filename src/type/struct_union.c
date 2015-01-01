@@ -42,5 +42,6 @@ _CTF_CREATE_1_LIST_IMPL(
 	ctf_struct_union,
 	CTF_STRUCT_UNION_SIZE,
 	member_head,
+	CTF_MEMBER_HEAD_SIZE,
 	member_count)
 
