@@ -120,8 +120,6 @@ ctf_type_to_string(ctf_type type, char** string)
 	ctf_kind kind;
 	ctf_type_get_kind(type, &kind);
 
-	printf("START\n%s\n", ctf_kind_to_string(kind));
-
 	switch (kind)
 	{
 		case CTF_KIND_INT:
