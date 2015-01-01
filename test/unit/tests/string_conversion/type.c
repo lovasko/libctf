@@ -23,7 +23,7 @@ float_pointer ()
 	
 	struct test_case* tc = malloc(sizeof(struct test_case));
 	tc->description = "Pointer to float";
-	tc->expected = "float&";
+	tc->expected = "float*";
 	tc->input = pointer_type;
 
 	return tc;
@@ -45,7 +45,7 @@ const_int ()
 
 	struct test_case* tc = malloc(sizeof(struct test_case));
 	tc->description = "Const long";
-	tc->expected = "const longg";
+	tc->expected = "const long";
 	tc->input = const_type;
 
 	return tc;
@@ -59,8 +59,11 @@ init_type_string_conversion ()
 	head = malloc(sizeof(struct test_case_head));
 	TAILQ_INIT(head);
 
-	TAILQ_INSERT_TAIL(head, float_pointer(), test_cases);
-	TAILQ_INSERT_TAIL(head, const_int(), test_cases);
+	struct test_case* fp_tc = float_pointer();
+	TAILQ_INSERT_TAIL(head, fp_tc, test_cases);
+
+	struct test_case* ci_tc = const_int();
+	TAILQ_INSERT_TAIL(head, ci_tc, test_cases);
 
 	return head;
 }
@@ -69,27 +72,20 @@ int
 test_type_string_conversion (struct test_case* tc)
 {
 	/* prepare values */
-	ctf_type type = (ctf_type)tc->input;
+	ctf_type type = tc->input;
 	char* expected_string = (char*)tc->expected;
-	printf("a\n");
 
 	/* perform the function */
 	char* actual_string = NULL;
 	int retval = CTF_OK;
 	if ((retval = ctf_type_to_string(type, &actual_string)) != CTF_OK)
-	{
-		printf("retval: %d\n", retval);
 		return _CTF_UNIT_TEST_FAILURE;
-	}
-	printf("b\n");
 
 	/* store the actual result */
 	tc->actual = strdup(actual_string);
-	printf("c\n");
 
 	/* free the computed string */
 	free(actual_string);
-	printf("d\n");
 
 	/* perform the equality test */
 	if (strcmp(tc->actual, expected_string) == 0)
@@ -103,13 +99,11 @@ free_type_string_conversion (struct test_case_head* head)
 {
 	struct test_case* runner;
 
-	TAILQ_FOREACH(runner, head, test_cases)
+	while (!TAILQ_EMPTY(head))
 	{
-		free(runner->input);
-		free(runner->expected);
-		free(runner->actual);
-
+		runner = TAILQ_FIRST(head);
 		TAILQ_REMOVE(head, runner, test_cases);
+		free(runner);
 	}
 }
 

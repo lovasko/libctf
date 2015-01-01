@@ -1,7 +1,7 @@
 #include <string.h>
 #include <libctf.h>
 
-#include "kind.h"
+#include "string_conversion/kind.h"
 
 struct test_case_head*
 init_kind_string_conversion ()
@@ -167,13 +167,11 @@ free_kind_string_conversion (struct test_case_head* head)
 {
 	struct test_case* runner;
 
-	TAILQ_FOREACH(runner, head, test_cases)
+	while (!TAILQ_EMPTY(head))
 	{
-		free(runner->input);
-		free(runner->expected);
-		free(runner->actual);
-
+		runner = TAILQ_FIRST(head);
 		TAILQ_REMOVE(head, runner, test_cases);
+		free(runner);
 	}
 }
 
