@@ -1,4 +1,4 @@
-cflags = -I. -I/usr/include/libctf/
+cflags = -Isrc -Itests -I/usr/include/libctf/
 ldflags = -lbsdctf
 
 rule compile
@@ -10,6 +10,6 @@ rule link
 build run: link obj/run.o obj/sc_type.o obj/sc_kind.o
 build obj/run.o: compile src/run.c
 
-build obj/sc_type.o: compile string_conversion/type.c
-build obj/sc_kind.o: compile string_conversion/kind.c
+build obj/sc_type.o: compile tests/string_conversion/type.c
+build obj/sc_kind.o: compile tests/string_conversion/kind.c
 
