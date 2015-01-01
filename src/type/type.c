@@ -114,7 +114,7 @@ function_arguments_string(ctf_function function, char** string)
 int
 ctf_type_to_string(ctf_type type, char** string)
 {
-	if (type == NULL || string == NULL || *string == NULL)
+	if (type == NULL || string == NULL)
 		return CTF_E_NULL;
 	
 	ctf_kind kind;
