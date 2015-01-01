@@ -1,7 +1,7 @@
 #ifndef CTF_UNIT_TEST_STRING_CONVERSION_KIND
 #define CTF_UNIT_TEST_STRING_CONVERSION_KIND
 
-#include "../test_case.h"
+#include "test_case.h"
 
 struct test_case_head*
 init_kind_string_conversion ();
