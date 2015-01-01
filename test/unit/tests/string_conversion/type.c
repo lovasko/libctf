@@ -79,6 +79,39 @@ array_of_5_chars ()
 	return tc;
 }
 
+struct test_case*
+volatile_pointer_to_const_union ()
+{
+	ctf_struct_union union_data = ctf_struct_union_create();
+	ctf_struct_union_set_name(union_data, "test");
+
+	ctf_type union_type = ctf_type_create();
+	ctf_type_set_kind(union_type, CTF_KIND_UNION);
+	ctf_type_set_data(union_type, union_data);
+
+	ctf_type const_type = ctf_type_create();
+	ctf_type_set_kind(const_type, CTF_KIND_CONST);
+	ctf_type_set_data(const_type, union_type);
+
+	ctf_pointer pointer_data = ctf_pointer_create();
+	ctf_pointer_set_type(pointer_data, const_type);
+
+	ctf_type pointer_type = ctf_type_create();
+	ctf_type_set_kind(pointer_type, CTF_KIND_POINTER);
+	ctf_type_set_data(pointer_type, pointer_data);
+
+	ctf_type volatile_type = ctf_type_create();
+	ctf_type_set_kind(volatile_type, CTF_KIND_VOLATILE);
+	ctf_type_set_data(volatile_type, pointer_type);
+
+	struct test_case* tc = malloc(sizeof(struct test_case));
+	tc->description = "Volatile pointer to const union";
+	tc->expected = "const union test * volatile";
+	tc->input = volatile_type;
+
+	return tc;
+}
+
 struct test_case_head*
 init_type_string_conversion ()
 {
@@ -92,6 +125,12 @@ init_type_string_conversion ()
 
 	struct test_case* ci_tc = const_int();
 	TAILQ_INSERT_TAIL(head, ci_tc, test_cases);
+
+	struct test_case* a5c_tc = array_of_5_chars();
+	TAILQ_INSERT_TAIL(head, a5c_tc, test_cases);
+
+	struct test_case* vpcu_tc = volatile_pointer_to_const_union();
+	TAILQ_INSERT_TAIL(head, vpcu_tc, test_cases);
 
 	return head;
 }
