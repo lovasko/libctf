@@ -78,7 +78,7 @@ main (void)
 
 	for (t_idx = 0; t_idx < unit_test_count; t_idx++)
 	{
-		printf("  %02d) %s\n", t_idx, unit_tests[t_idx].name);
+		printf("  \e[1m%02d) %s\e[0m\n", t_idx, unit_tests[t_idx].name);
 		fprintf(report, "\\section*{\\#%d %s}\n", t_idx, unit_tests[t_idx].name);
 
 		struct test_case_head* head = unit_tests[t_idx].init();
@@ -92,13 +92,13 @@ main (void)
 
 			if (retval == _CTF_UNIT_TEST_SUCCESS)
 			{
-				printf(" ... OK\n");
+				printf(" ... \e[32mOK\e[0m\n");
 				fprintf(report, "{\\tt %s} \\hfill {\\tt OK} \\\\\n",
 				    runner->description);	
 			}
 			else
 			{
-				printf(" ... FAIL: '%s' != '%s'\n", runner->expected,
+				printf(" ... \e[31mFAIL\e[0m '%s' != '%s'\n", runner->expected,
 				    runner->actual);
 
 				fprintf(report, "{\\tt %s} \\hfill {\\tt Fail} \n",
