@@ -125,6 +125,8 @@ solve_type_references (struct ctf_file* file)
 static int
 create_type_table (struct ctf_file* file)
 {
+	/* TODO is this optimal? shouldnt it be only sizeof(ctf_type) and not the
+	 * CTF_TYPE_SIZE? */
 	file->type_id_table = CTF_MALLOC((CTF_TYPE_SIZE * (file->type_count + 1)));
 
 	struct ctf_type* type;
