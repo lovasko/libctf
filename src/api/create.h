@@ -7,6 +7,16 @@
 #include <string.h>
 
 /* TODO create smaller __CTF_ALLOCATE and __CTF_SETUP_LIST macros */
+#define __CTF_CREATE_ALLOCATE(OBJECT_SIZE) \
+	void* object = malloc(OBJECT_SIZE); \
+	memset(object, 0, OBJECT_SIZE); \
+
+#define __CTF_CREATE_SETUP_LIST(OBJECT_TYPE, LIST_NAME, LIST_HEAD_SIZE, \
+    LIST_COUNTER_NAME) \
+	((OBJECT_TYPE)object)->LIST_NAME = malloc(LIST_HEAD_SIZE); \
+	TAILQ_INIT(((OBJECT_TYPE)object)->LIST_NAME); \
+	((OBJECT_TYPE)object)->LIST_COUNTER_NAME = 0; \
+
 
 #define _CTF_CREATE_PROTO(FUNCTION_NAME, OBJECT_TYPE) \
 OBJECT_TYPE \
