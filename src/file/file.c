@@ -90,3 +90,55 @@ _CTF_CREATE_4_LIST_IMPL(
 	function_head,
 	function_count)
 
+static size_t
+label_memory_usage (ctf_file file)
+{
+	size_t usage = 0;
+
+	usage += CTF_LABEL_HEAD_SIZE;
+
+	ctf_label runner;
+	TAILQ_FOREACH (file->label_head, runner, labels)
+	{
+		usage += CTF_LABEL_SIZE;
+		usage += strlen(runner->name);
+	}
+
+	return usage;
+}
+
+static size_t
+type_memory_usage (ctf_file file)
+{
+
+}
+
+static size_t
+data_object_memory_usage (ctf_file file)
+{
+
+}
+
+static size_t
+function_memory_usage (ctf_file file)
+{
+
+}
+
+size_t
+ctf_file_get_memory_usage (ctf_file file)
+{
+	size_t usage = 0;
+
+	usage += CTF_FILE_SIZE;
+	usage += CTF_TYPE_SIZE * file->type_count;
+	usage += strlen(file->path_basename);
+
+	usage += label_memory_usage(file);
+	usage += type_memory_usage(file);
+	usage += data_object_memory_usage(file);
+	usage += function_memory_usage(file);
+
+	return usage;
+}
+
