@@ -21,3 +21,11 @@ _CTF_CREATE_IMPL(
 	ctf_pointer,
 	CTF_POINTER_SIZE)
 
+size_t
+ctf_pointer_memory_usage (ctf_pointer pointer)
+{
+	(void) pointer;
+
+	return CTF_POINTER_SIZE;
+}
+
