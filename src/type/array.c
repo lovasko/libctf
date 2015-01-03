@@ -40,3 +40,11 @@ _CTF_CREATE_IMPL(
 	ctf_array,
 	CTF_ARRAY_SIZE)
 
+size_t
+ctf_array_memory_usage (ctf_array array)
+{
+	(void) array;
+
+	return CTF_ARRAY_SIZE;
+}
+
