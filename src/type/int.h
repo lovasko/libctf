@@ -4,6 +4,7 @@
 #include "api/from_type.h"
 #include "api/property.h"
 #include "api/create.h"
+#include "api/memory_usage.h"
 
 #include <stdint.h>
 
@@ -50,6 +51,8 @@ _CTF_SET_PROPERTY_PROTO(ctf_int_set_content, ctf_int, ctf_int_content)
 
 _CTF_GET_PROPERTY_PROTO(ctf_int_get_is_signed, ctf_int, uint8_t)
 _CTF_SET_PROPERTY_PROTO(ctf_int_set_is_signed, ctf_int, uint8_t)
+
+_CTF_MEMORY_USAGE_PROTO(ctf_int_memory_usage, ctf_int)
 
 _CTF_FROM_TYPE_PROTO(ctf_int_init, ctf_int)
 _CTF_CREATE_PROTO(ctf_int_create, ctf_int)

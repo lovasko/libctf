@@ -69,6 +69,17 @@ _CTF_CREATE_IMPL(
 	ctf_int,
 	CTF_INT_SIZE)
 
+size_t
+ctf_int_memory_usage (ctf_int _int)
+{
+	size_t usage = 0;
+
+	usage += CTF_INT_SIZE;
+	usage += strlen(_int->name);
+
+	return usage;
+}
+
 const char*
 ctf_int_content_to_string (ctf_int_content int_content)
 {
