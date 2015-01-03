@@ -4,6 +4,7 @@
 #include "api/from_type.h"
 #include "api/property.h"
 #include "api/create.h"
+#include "api/memory_usage.h"
 
 #include <stdint.h>
 
@@ -56,6 +57,8 @@ _CTF_SET_PROPERTY_PROTO(ctf_float_set_offset, ctf_float, ctf_float_offset)
 
 _CTF_GET_PROPERTY_PROTO(ctf_float_get_encoding, ctf_float, ctf_float_encoding)
 _CTF_SET_PROPERTY_PROTO(ctf_float_set_encoding, ctf_float, ctf_float_encoding) 
+
+_CTF_MEMORY_USAGE_PROTO(ctf_float_memory_usage, ctf_float)
 
 _CTF_FROM_TYPE_PROTO(ctf_float_init, ctf_float)
 _CTF_CREATE_PROTO(ctf_float_create, ctf_float)

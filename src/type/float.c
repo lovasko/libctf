@@ -57,6 +57,17 @@ _CTF_FROM_TYPE_IMPL(
 	ctf_float_init,
 	ctf_float)
 
+size_t
+ctf_float_memory_usage (ctf_float _float)
+{
+	size_t usage = 0;
+
+	usage += CTF_FLOAT_SIZE;
+	usage += strlen(_float->name);
+
+	return usage;
+}
+
 const char*
 ctf_float_encoding_to_string (ctf_float_encoding float_encoding)
 {
