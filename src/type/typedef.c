@@ -33,3 +33,14 @@ _CTF_CREATE_IMPL(
 	ctf_typedef,
 	CTF_TYPEDEF_SIZE)
 
+size_t
+ctf_typedef_memory_usage (ctf_typedef _typedef)
+{
+	size_t usage = 0;
+
+	usage += CTF_TYPEDEF_SIZE;
+	usage += strlen(_typedef->name);
+
+	return usage;
+}
+
