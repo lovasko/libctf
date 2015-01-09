@@ -5,6 +5,7 @@
 #include "api/from_type.h"
 #include "api/property.h"
 #include "api/create.h"
+#include "api/memory_usage.h"
 
 #include <stdint.h>
 
@@ -25,6 +26,8 @@ _CTF_SET_PROPERTY_PROTO(ctf_fwd_decl_set_name, ctf_fwd_decl, char*)
 
 _CTF_GET_PROPERTY_PROTO(ctf_fwd_decl_get_kind, ctf_fwd_decl, ctf_kind)
 _CTF_SET_PROPERTY_PROTO(ctf_fwd_decl_set_kind, ctf_fwd_decl, ctf_kind)
+
+_CTF_MEMORY_USAGE_PROTO(ctf_fwd_decl_memory_usage, ctf_fwd_decl)
 
 _CTF_FROM_TYPE_PROTO(ctf_fwd_decl_init, ctf_fwd_decl)
 _CTF_CREATE_PROTO(ctf_fwd_decl_create, ctf_fwd_decl)

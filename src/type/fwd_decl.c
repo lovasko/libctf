@@ -33,3 +33,14 @@ _CTF_CREATE_IMPL(
 	ctf_fwd_decl,
 	CTF_FWD_DECL_SIZE)
 
+size_t
+ctf_fwd_decl_memory_usage (ctf_fwd_decl fwd_decl)
+{
+	size_t usage = 0;
+
+	usage += CTF_FWD_DECL_SIZE;
+	usage += strlen(fwd_decl->name);
+
+	return usage;
+}
+
