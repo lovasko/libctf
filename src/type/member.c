@@ -41,3 +41,14 @@ _CTF_CREATE_IMPL(
 	ctf_member,
 	CTF_MEMBER_SIZE)
 
+size_t
+ctf_member_memory_usage (ctf_member member)
+{
+	size_t usage = 0;
+
+	usage += CTF_MEMBER_SIZE;
+	usage += strlen(member->name);
+
+	return usage;
+}
+

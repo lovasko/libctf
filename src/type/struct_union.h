@@ -8,6 +8,7 @@
 #include "api/property.h"
 #include "api/listing.h"
 #include "api/create.h"
+#include "api/memory_usage.h"
 
 struct ctf_struct_union
 {
@@ -27,6 +28,8 @@ _CTF_GET_PROPERTY_PROTO(ctf_struct_union_get_member_count, ctf_struct_union,
 _CTF_LISTING_PROTO(ctf_struct_union_get_next_member, ctf_struct_union,
     ctf_member)
 _CTF_ADD_PROTO(ctf_struct_union_add_member, ctf_struct_union, ctf_member)
+
+_CTF_MEMORY_USAGE_PROTO(ctf_struct_union_memory_usage, ctf_struct_union)
 
 _CTF_FROM_TYPE_PROTO(ctf_struct_union_init, ctf_struct_union)
 _CTF_CREATE_PROTO(ctf_struct_union_create, ctf_struct_union)

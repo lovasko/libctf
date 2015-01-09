@@ -4,6 +4,7 @@
 #include "type/type.h"
 #include "api/property.h"
 #include "api/create.h"
+#include "api/memory_usage.h"
 
 #include <stdint.h>
 #include <sys/queue.h>
@@ -78,6 +79,8 @@ _CTF_SET_PROPERTY_PROTO(ctf_member_set_type, ctf_member, ctf_type)
 
 _CTF_GET_PROPERTY_PROTO(ctf_member_get_offset, ctf_member, ctf_member_offset)
 _CTF_SET_PROPERTY_PROTO(ctf_member_set_offset, ctf_member, ctf_member_offset)
+
+_CTF_MEMORY_USAGE_PROTO(ctf_member_memory_usage, ctf_member)
 
 _CTF_CREATE_PROTO(ctf_member_create, ctf_member)
 

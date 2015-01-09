@@ -45,3 +45,19 @@ _CTF_CREATE_1_LIST_IMPL(
 	CTF_MEMBER_HEAD_SIZE,
 	member_count)
 
+size_t
+ctf_struct_union_memory_usage (ctf_struct_union struct_union)
+{
+	size_t usage = 0;
+
+	usage += CTF_STRUCT_UNION_SIZE;
+
+	ctf_member runner;
+	TAILQ_FOREACH (runner, struct_union->member_head, members)
+	{
+		usage += ctf_member_memory_usage(runner);
+	}
+
+	return usage;
+}
+
