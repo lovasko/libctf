@@ -51,6 +51,7 @@ ctf_struct_union_memory_usage (ctf_struct_union struct_union)
 	size_t usage = 0;
 
 	usage += CTF_STRUCT_UNION_SIZE;
+	usage += strlen(struct_union->name);
 
 	ctf_member runner;
 	TAILQ_FOREACH (runner, struct_union->member_head, members)
