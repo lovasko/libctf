@@ -28,3 +28,20 @@ _CTF_CREATE_IMPL(
 	ctf_enum,
 	CTF_ENUM_SIZE)
 
+size_t
+ctf_enum_memory_usage (ctf_enum _enum)
+{
+	size_t usage = 0;
+
+	usage += CTF_ENUM_SIZE;
+	usage += strlen(_enum->name);
+
+	ctf_enum_entry runner;
+	TAILQ_FOREACH (runner, _enum->enum_head, entries)
+	{
+		usage += ctf_enum_entry_memory_usage(runner);
+	}
+
+	return usage;
+}
+

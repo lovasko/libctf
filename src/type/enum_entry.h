@@ -2,6 +2,7 @@
 #define CTF_ENUM_ENTRY_H
 
 #include "api/property.h"
+#include "api/memory_usage.h"
 
 #include <stdint.h>
 #include <sys/queue.h>
@@ -46,6 +47,8 @@ _CTF_GET_PROPERTY_PROTO(ctf_enum_entry_get_value, ctf_enum_entry,
     ctf_enum_entry_value)
 _CTF_SET_PROPERTY_PROTO(ctf_enum_entry_set_value, ctf_enum_entry,
     ctf_enum_entry_value)
+
+_CTF_MEMORY_USAGE_PROTO(ctf_enum_entry_memory_usage, ctf_enum_entry)
 
 #endif
 

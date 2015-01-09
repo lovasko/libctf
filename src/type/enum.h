@@ -6,6 +6,7 @@
 #include "api/listing.h"
 #include "api/property.h"
 #include "api/create.h"
+#include "api/memory_usage.h"
 
 #include <stdint.h>
 #include <sys/queue.h>
@@ -27,6 +28,8 @@ _CTF_GET_PROPERTY_PROTO(ctf_enum_get_name, ctf_enum, char*)
 _CTF_SET_PROPERTY_PROTO(ctf_enum_set_name, ctf_enum, char*)
 
 _CTF_LISTING_PROTO(ctf_enum_get_next_enum_entry, ctf_enum, ctf_enum_entry)
+
+_CTF_MEMORY_USAGE_PROTO(ctf_enum_memory_usage, ctf_enum)
 
 _CTF_FROM_TYPE_PROTO(ctf_enum_init, ctf_enum)
 _CTF_CREATE_PROTO(ctf_enum_create, ctf_enum)
