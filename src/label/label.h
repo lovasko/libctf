@@ -2,6 +2,7 @@
 #define CTF_LABEL_H
 
 #include "api/property.h"
+#include "api/memory_usage.h"
 
 #include <stdint.h>
 #include <sys/queue.h>
@@ -41,6 +42,8 @@ TAILQ_HEAD(ctf_label_head, ctf_label);
 
 _CTF_GET_PROPERTY_PROTO(ctf_label_get_name, ctf_label, char*)
 _CTF_GET_PROPERTY_PROTO(ctf_label_get_index, ctf_label, ctf_label_index)
+
+_CTF_MEMORY_USAGE_PROTO(ctf_label_memory_usage, ctf_label)
 
 #endif
 
