@@ -9,3 +9,20 @@ _CTF_LISTING_IMPL(ctf_function_get_next_argument, ctf_function,
 
 _CTF_FROM_TYPE_IMPL(ctf_function_init, ctf_function)
 
+size_t
+ctf_function_memory_usage (ctf_function function)
+{
+	size_t usage = 0;
+
+	usage += CTF_FUNCTION_SIZE;
+	usage += strlen(function->name);
+
+	ctf_argument runner;
+	TAILQ_FOREACH (runner, function->argument_head, arguments)
+	{
+		usage += ctf_argument_memory_usage(runner);
+	}
+
+	return usage;
+}
+

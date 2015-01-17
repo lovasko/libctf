@@ -3,6 +3,7 @@
 
 #include "type/type.h"
 #include "api/property.h"
+#include "api/memory_usage.h"
 
 #include <sys/queue.h>
 
@@ -29,6 +30,8 @@ TAILQ_HEAD(ctf_argument_head, ctf_argument);
 #define CTF_ARGUMENT_HEAD_SIZE sizeof(struct ctf_argument_head)
 
 _CTF_GET_PROPERTY_PROTO(ctf_argument_get_type, ctf_argument, ctf_type)
+
+_CTF_MEMORY_USAGE_PROTO(ctf_argument_memory_usage, ctf_argument)
 
 #endif
 
