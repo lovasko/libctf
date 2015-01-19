@@ -34,3 +34,14 @@ ctf_get_error_string (int error)
 		return strings[error];
 }
 
+int
+ctf_is_error (int code)
+{
+	if (code == CTF_OK ||
+	    code == CTF_END ||
+	    code == CTF_EMPTY)
+		return 0;
+	else
+		return 1;
+}
+

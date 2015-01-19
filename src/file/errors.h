@@ -31,5 +31,8 @@
 const char*
 ctf_get_error_string (int error);
 
+int
+ctf_is_error (int code);
+
 #endif
 
