@@ -1,6 +1,15 @@
 #include <sys/queue.h>
 
 #include "file/file.h"
+#include "type/int.h"
+#include "type/float.h"
+#include "type/pointer.h"
+#include "type/array.h"
+#include "type/typedef.h"
+#include "type/fwd_decl.h"
+#include "type/struct_union.h"
+#include "type/enum.h"
+#include "object/function/function.h"
 
 _CTF_GET_PROPERTY_IMPL(
 	ctf_file_get_version,
@@ -98,10 +107,9 @@ label_memory_usage (ctf_file file)
 	usage += CTF_LABEL_HEAD_SIZE;
 
 	ctf_label runner;
-	TAILQ_FOREACH (file->label_head, runner, labels)
+	TAILQ_FOREACH (runner, file->label_head, labels)
 	{
-		usage += CTF_LABEL_SIZE;
-		usage += strlen(runner->name);
+		usage += ctf_label_memory_usage(runner);
 	}
 
 	return usage;
@@ -110,28 +118,100 @@ label_memory_usage (ctf_file file)
 static size_t
 type_memory_usage (ctf_file file)
 {
+	size_t usage = 0;
 
+	usage += CTF_TYPE_HEAD_SIZE;
+
+	ctf_type runner;
+	TAILQ_FOREACH (runner, file->type_head, types)
+	{
+		usage += CTF_TYPE_SIZE;
+
+		switch (runner->kind)
+		{
+			case CTF_KIND_INT:
+				usage += ctf_int_memory_usage(runner->data);
+			break;
+
+			case CTF_KIND_FLOAT:
+				usage += ctf_float_memory_usage(runner->data);
+			break;
+
+			case CTF_KIND_POINTER:
+				usage += ctf_pointer_memory_usage(runner->data);
+			break;
+
+			case CTF_KIND_ARRAY:
+				usage += ctf_array_memory_usage(runner->data);
+			break;
+
+			case CTF_KIND_FUNC:
+				usage += ctf_function_memory_usage(runner->data);
+			break;
+
+			/* FALL THROUGH */
+			case CTF_KIND_UNION:
+			case CTF_KIND_STRUCT:
+				usage += ctf_struct_union_memory_usage(runner->data);
+			break;
+
+			case CTF_KIND_ENUM:
+				usage += ctf_enum_memory_usage(runner->data);
+			break;
+
+			case CTF_KIND_FWD_DECL:
+				usage += ctf_fwd_decl_memory_usage(runner->data);
+			break;
+
+			case CTF_KIND_TYPEDEF:
+				usage += ctf_typedef_memory_usage(runner->data);
+			break;
+		}
+	}
+
+	return usage;
 }
 
 static size_t
 data_object_memory_usage (ctf_file file)
 {
+	size_t usage = 0;
 
+	usage += CTF_DATA_OBJECT_HEAD_SIZE;
+
+	ctf_data_object runner;
+	TAILQ_FOREACH (runner, file->data_object_head, data_objects)
+	{
+		usage += CTF_DATA_OBJECT_SIZE;
+		usage += strlen(runner->name);
+	}
+
+	return usage;
 }
 
 static size_t
 function_memory_usage (ctf_file file)
 {
+	size_t usage = 0;
 
+	usage += CTF_FUNCTION_HEAD_SIZE;
+
+	ctf_function runner;
+	TAILQ_FOREACH (runner, file->function_head, functions)
+	{
+		usage += ctf_function_memory_usage(runner);
+	}
+
+	return usage;
 }
 
 size_t
-ctf_file_get_memory_usage (ctf_file file)
+ctf_file_memory_usage (ctf_file file)
 {
 	size_t usage = 0;
 
 	usage += CTF_FILE_SIZE;
-	usage += CTF_TYPE_SIZE * file->type_count;
+	usage += sizeof(ctf_type) * file->type_count;
 	usage += strlen(file->path_basename);
 
 	usage += label_memory_usage(file);

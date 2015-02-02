@@ -66,7 +66,7 @@ _CTF_LISTING_PROTO(ctf_file_get_next_data_object, ctf_file, ctf_data_object)
 _CTF_CREATE_PROTO(ctf_file_create, ctf_file)
 
 size_t
-ctf_file_get_memory_usage (ctf_file file);
+ctf_file_memory_usage (ctf_file file);
 
 #endif
 
