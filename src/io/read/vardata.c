@@ -19,7 +19,7 @@
 #define _CTF_INT_BOOLEAN 4
 #define _CTF_INT_VARARGS 8
 
-CTF_MALLOC_DECLARE(M_CTF);
+CTF_MALLOC_DECLARE();
 
 struct ctf_int*
 _ctf_read_int_vardata (void* data)

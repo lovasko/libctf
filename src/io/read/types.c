@@ -25,7 +25,7 @@
 	#include <stdlib.h>
 #endif
 
-CTF_MALLOC_DECLARE(M_CTF);
+CTF_MALLOC_DECLARE();
 
 static int
 kind_is_qualifier (uint8_t kind)

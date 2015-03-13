@@ -12,7 +12,7 @@
 	#include <string.h>
 #endif
 
-CTF_MALLOC_DECLARE(M_CTF);
+CTF_MALLOC_DECLARE();
 
 int
 _ctf_read_functions_and_objects (
