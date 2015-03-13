@@ -7,8 +7,36 @@ rule compile
 rule link
  command = clang -fPIC -o $out -shared $in $ldflags
 
-include link_rule.ninja
-include compile_rules.ninja
+build obj/file/errors.o: compile src/file/errors.c
+build obj/file/file.o: compile src/file/file.c
+build obj/io/read/decompress.o: compile src/io/read/decompress.c
+build obj/io/read/header.o: compile src/io/read/header.c
+build obj/io/read/labels.o: compile src/io/read/labels.c
+build obj/io/read/lookup.o: compile src/io/read/lookup.c
+build obj/io/read/objects.o: compile src/io/read/objects.c
+build obj/io/read/read.o: compile src/io/read/read.c
+build obj/io/read/strings.o: compile src/io/read/strings.c
+build obj/io/read/types.o: compile src/io/read/types.c
+build obj/io/read/vardata.o: compile src/io/read/vardata.c
+build obj/label/label.o: compile src/label/label.c
+build obj/object/data/data_object.o: compile src/object/data/data_object.c
+build obj/object/function/argument.o: compile src/object/function/argument.c
+build obj/object/function/function.o: compile src/object/function/function.c
+build obj/type/array.o: compile src/type/array.c
+build obj/type/enum.o: compile src/type/enum.c
+build obj/type/enum_entry.o: compile src/type/enum_entry.c
+build obj/type/float.o: compile src/type/float.c
+build obj/type/fwd_decl.o: compile src/type/fwd_decl.c
+build obj/type/info.o: compile src/type/info.c
+build obj/type/int.o: compile src/type/int.c
+build obj/type/kind.o: compile src/type/kind.c
+build obj/type/member.o: compile src/type/member.c
+build obj/type/pointer.o: compile src/type/pointer.c
+build obj/type/struct_union.o: compile src/type/struct_union.c
+build obj/type/type.o: compile src/type/type.c
+build obj/type/typedef.o: compile src/type/typedef.c
+
+build bin/libbsdctf.so: link obj/file/errors.o obj/file/file.o obj/io/read/decompress.o obj/io/read/header.o obj/io/read/labels.o obj/io/read/lookup.o obj/io/read/objects.o obj/io/read/read.o obj/io/read/strings.o obj/io/read/types.o obj/io/read/vardata.o obj/label/label.o obj/object/data/data_object.o obj/object/function/argument.o obj/object/function/function.o obj/type/array.o obj/type/enum.o obj/type/enum_entry.o obj/type/float.o obj/type/fwd_decl.o obj/type/info.o obj/type/int.o obj/type/kind.o obj/type/member.o obj/type/pointer.o obj/type/struct_union.o obj/type/type.o obj/type/typedef.o 
 
 default bin/libbsdctf.so
 
