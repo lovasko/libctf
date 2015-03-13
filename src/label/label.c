@@ -2,8 +2,29 @@
 
 #include "label/label.h"
 
-_CTF_GET_PROPERTY_IMPL(ctf_label_get_name, ctf_label, char*, name)
-_CTF_GET_PROPERTY_IMPL(ctf_label_get_index, ctf_label, ctf_label_index, index)
+_CTF_GET_PROPERTY_IMPL(
+	ctf_label_get_name,
+	ctf_label,
+	char*,
+	name)
+
+_CTF_SET_PROPERTY_IMPL(
+	ctf_label_set_name,
+	ctf_label,
+	char*,
+	name)
+
+_CTF_GET_PROPERTY_IMPL(
+	ctf_label_get_index,
+	ctf_label,
+	ctf_label_index,
+	index)
+
+_CTF_SET_PROPERTY_IMPL(
+	ctf_label_set_index,
+	ctf_label,
+	ctf_label_index,
+	index)
 
 size_t
 ctf_label_memory_usage (ctf_label label)
