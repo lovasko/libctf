@@ -27,14 +27,16 @@ Current status
  * :white_check_mark: reading and parsing the CTF data
  * :white_check_mark: user-space
  * :white_check_mark: kernel-space
+ * :white_check_mark: manipulation API
 
 Goals
 -----
  * writing
- * manipulation API
  * unit testing
  * integration testing
  * code coverage measuring during tests
+ * ARM support
+ * MIPS support
 
 Related projects
 ----------------
