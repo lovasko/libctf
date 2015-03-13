@@ -26,7 +26,7 @@
 #define CTF_E_TYPE_ID_NOT_FOUND      20
 #define CTF_E_CONVERSION_FAULT       21
 
-#define CTF_E_MAX                    32
+#define CTF_E_MAX                    21
 
 const char*
 ctf_get_error_string (int error);
