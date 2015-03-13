@@ -49,6 +49,17 @@ Related projects
  * :soon: [ctfconvert](https://github.com/lovasko/ctfconvert)
  * :soon: [ctfmerge](https://github.com/lovasko/ctfmerge)
 
+Authors
+------
+ * Daniel Lovasko lovasko@freebsd.org
+
+Thanks
+------
+ * George Neville-Neil
+ * Pedro Giffuni
+ * Robert Mustacchi
+ * John-Mark Gurney
+
 
 More information
 ----------------
