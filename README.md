@@ -37,6 +37,8 @@ Goals
  * code coverage measuring during tests
  * ARM support
  * MIPS support
+ * Linux support
+ * illumos support
 
 Related projects
 ----------------
