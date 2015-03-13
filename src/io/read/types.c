@@ -1,7 +1,7 @@
 #include "io/read/types.h"
 #include "io/read/lookup.h"
 #include "io/read/vardata.h"
-#include "io/read/space.h"
+#include "space.h"
 #include "file/file.h"
 #include "file/errors.h"
 #include "object/data/data_object.h"

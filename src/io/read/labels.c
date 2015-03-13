@@ -1,5 +1,5 @@
 #include "io/read/labels.h"
-#include "io/read/space.h"
+#include "space.h"
 #include "label/label.h"
 #include "file/errors.h"
 
