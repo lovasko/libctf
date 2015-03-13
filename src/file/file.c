@@ -1,15 +1,15 @@
 #include <sys/queue.h>
 
 #include "file/file.h"
-#include "type/int.h"
-#include "type/float.h"
-#include "type/pointer.h"
-#include "type/array.h"
-#include "type/typedef.h"
-#include "type/fwd_decl.h"
-#include "type/struct_union.h"
-#include "type/enum.h"
 #include "object/function/function.h"
+#include "type/array.h"
+#include "type/enum.h"
+#include "type/float.h"
+#include "type/fwd_decl.h"
+#include "type/int.h"
+#include "type/pointer.h"
+#include "type/struct_union.h"
+#include "type/typedef.h"
 
 _CTF_GET_PROPERTY_IMPL(
 	ctf_file_get_version,

@@ -1,17 +1,17 @@
 #ifndef CTF_FILE_H
 #define CTF_FILE_H
 
+#include <sys/stdint.h>
+
+#include "api/create.h"
+#include "api/listing.h"
+#include "api/property.h"
 #include "io/read/header.h"
 #include "label/label.h"
-#include "type/type.h"
 #include "object/data/data_object.h"
 #include "object/function/function.h"
-#include "api/property.h"
-#include "api/listing.h"
-#include "api/create.h"
+#include "type/type.h"
 #include "util/count.h"
-
-#include <stdint.h>
 
 /**
  * Root CTF data structure.
