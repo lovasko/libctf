@@ -1,13 +1,13 @@
 #ifndef CTF_POINTER_H
 #define CTF_POINTER_H
 
-#include "type/type.h"
-#include "api/from_type.h"
-#include "api/property.h"
-#include "api/create.h"
-#include "api/memory_usage.h"
-
 #include <sys/stdint.h>
+
+#include "api/create.h"
+#include "api/from_type.h"
+#include "api/memory_usage.h"
+#include "api/property.h"
+#include "type/type.h"
 
 /**
  * Pointer.
