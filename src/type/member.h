@@ -1,13 +1,13 @@
 #ifndef CTF_MEMBER_H
 #define CTF_MEMBER_H
 
-#include "type/type.h"
-#include "api/property.h"
+#include <sys/stdint.h>
+#include <sys/queue.h>
+
 #include "api/create.h"
 #include "api/memory_usage.h"
-
-#include <stdint.h>
-#include <sys/queue.h>
+#include "api/property.h"
+#include "type/type.h"
 
 /* 
  * If size member of the small_/large_type is above this threshold, all members

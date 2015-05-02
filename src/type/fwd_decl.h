@@ -1,13 +1,13 @@
 #ifndef CTF_FWD_DECL_H
 #define CTF_FWD_DECL_H
 
-#include "type/kind.h"
-#include "api/from_type.h"
-#include "api/property.h"
-#include "api/create.h"
-#include "api/memory_usage.h"
+#include <sys/stdint.h>
 
-#include <stdint.h>
+#include "api/create.h"
+#include "api/from_type.h"
+#include "api/memory_usage.h"
+#include "api/property.h"
+#include "type/kind.h"
 
 /**
  * Forward declaration.

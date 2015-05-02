@@ -1,12 +1,12 @@
 #ifndef CTF_FLOAT_H
 #define CTF_FLOAT_H
 
-#include "api/from_type.h"
-#include "api/property.h"
-#include "api/create.h"
-#include "api/memory_usage.h"
+#include <sys/stdint.h>
 
-#include <stdint.h>
+#include "api/create.h"
+#include "api/from_type.h"
+#include "api/memory_usage.h"
+#include "api/property.h"
 
 typedef uint8_t ctf_float_encoding;
 #define CTF_FLOAT_ENCODING_MIN                    1

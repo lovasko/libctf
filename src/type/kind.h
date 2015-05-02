@@ -1,7 +1,7 @@
 #ifndef CTF_KIND_H
 #define CTF_KIND_H
 
-#include <stdint.h>
+#include <sys/stdint.h>
 
 typedef uint8_t ctf_kind;
 #define CTF_KIND_MIN       0

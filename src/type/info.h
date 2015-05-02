@@ -1,7 +1,7 @@
 #ifndef CTF_INFO_H
 #define CTF_INFO_H
 
-#include <stdint.h>
+#include <sys/stdint.h>
 
 /*
  * Info table.

@@ -1,12 +1,12 @@
 #ifndef CTF_INT_H
 #define CTF_INT_H
 
-#include "api/from_type.h"
-#include "api/property.h"
-#include "api/create.h"
-#include "api/memory_usage.h"
+#include <sys/stdint.h>
 
-#include <stdint.h>
+#include "api/create.h"
+#include "api/from_type.h"
+#include "api/memory_usage.h"
+#include "api/property.h"
 
 typedef uint8_t ctf_int_content;
 #define CTF_INT_CONTENT_NUMBER  1
