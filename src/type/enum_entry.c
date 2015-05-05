@@ -1,6 +1,6 @@
-#include "type/enum_entry.h"
-
 #include <string.h>
+
+#include "type/enum_entry.h"
 
 _CTF_GET_PROPERTY_IMPL(
 	ctf_enum_entry_get_name,

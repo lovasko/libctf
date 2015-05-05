@@ -1,11 +1,11 @@
 #ifndef CTF_ENUM_ENTRY_H
 #define CTF_ENUM_ENTRY_H
 
-#include "api/property.h"
-#include "api/memory_usage.h"
-
-#include <stdint.h>
+#include <sys/stdint.h>
 #include <sys/queue.h>
+
+#include "api/memory_usage.h"
+#include "api/property.h"
 
 /**
  * Binary reflection of the enum variant data.
