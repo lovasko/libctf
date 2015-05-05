@@ -66,6 +66,18 @@ _CTF_LISTING_IMPL(
 	label_head,
 	labels)
 
+_CTF_FOREACH_IMPL(
+	ctf_file_foreach_label,
+	ctf_file,
+	ctf_label,
+	ctf_file_get_next_label)
+
+_CTF_GET_PROPERTY_IMPL(
+	ctf_file_get_type_count,
+	ctf_file,
+	ctf_count,
+	type_count)
+
 _CTF_LISTING_IMPL(
 	ctf_file_get_next_type,
 	ctf_file,
@@ -73,18 +85,36 @@ _CTF_LISTING_IMPL(
 	type_head,
 	types)
 
+_CTF_FOREACH_IMPL(
+	ctf_file_foreach_type,
+	ctf_file,
+	ctf_type,
+	ctf_file_get_next_type)
+
 _CTF_LISTING_IMPL(
 	ctf_file_get_next_function,
 	ctf_file, ctf_function,
 	function_head,
-	functions);
+	functions)
+
+_CTF_FOREACH_IMPL(
+	ctf_file_foreach_function,
+	ctf_file,
+	ctf_function,
+	ctf_file_get_next_function)
 
 _CTF_LISTING_IMPL(
 	ctf_file_get_next_data_object,
 	ctf_file,
 	ctf_data_object,
 	data_object_head,
-	data_objects);
+	data_objects)
+
+_CTF_FOREACH_IMPL(
+	ctf_file_foreach_data_object,
+	ctf_file,
+	ctf_data_object,
+	ctf_file_get_next_data_object)
 
 _CTF_CREATE_4_LIST_IMPL(
 	ctf_file_create,

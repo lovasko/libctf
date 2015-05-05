@@ -4,6 +4,7 @@
 #include <sys/stdint.h>
 
 #include "api/create.h"
+#include "api/foreach.h"
 #include "api/listing.h"
 #include "api/property.h"
 #include "io/read/header.h"
@@ -59,9 +60,17 @@ _CTF_GET_PROPERTY_PROTO(ctf_file_get_basename, ctf_file, char*)
 _CTF_SET_PROPERTY_PROTO(ctf_file_set_basename, ctf_file, char*)
 
 _CTF_LISTING_PROTO(ctf_file_get_next_label, ctf_file, ctf_label)
+_CTF_FOREACH_PROTO(ctf_file_foreach_label, ctf_file, ctf_label)
+
+_CTF_GET_PROPERTY_PROTO(ctf_file_get_type_count, ctf_file, ctf_count)
 _CTF_LISTING_PROTO(ctf_file_get_next_type, ctf_file, ctf_type)
+_CTF_FOREACH_PROTO(ctf_file_foreach_type, ctf_file, ctf_type)
+
 _CTF_LISTING_PROTO(ctf_file_get_next_function, ctf_file, ctf_function)
+_CTF_FOREACH_PROTO(ctf_file_foreach_function, ctf_file, ctf_function)
+
 _CTF_LISTING_PROTO(ctf_file_get_next_data_object, ctf_file, ctf_data_object)
+_CTF_FOREACH_PROTO(ctf_file_foreach_data_object, ctf_file, ctf_data_object)
 
 _CTF_CREATE_PROTO(ctf_file_create, ctf_file)
 
