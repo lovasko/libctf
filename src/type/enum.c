@@ -12,12 +12,32 @@ _CTF_SET_PROPERTY_IMPL(
 	char*,
 	name)
 
+_CTF_GET_PROPERTY_IMPL(
+	ctf_enum_get_enum_entry_count,
+	ctf_enum,
+	ctf_count,
+	enum_entry_count)
+
 _CTF_LISTING_IMPL(
 	ctf_enum_get_next_enum_entry,
 	ctf_enum,
 	ctf_enum_entry,
 	enum_head,
 	entries)
+
+_CTF_FOREACH_IMPL(
+	ctf_enum_foreach_enum_entry,
+	ctf_enum,
+	ctf_enum_entry,
+	ctf_enum_get_next_enum_entry)
+
+_CTF_ADD_IMPL(
+	ctf_enum_add_enum_entry,
+	ctf_enum,
+	ctf_enum_entry,
+	enum_head,
+	entries,
+	enum_entry_count)
 
 _CTF_FROM_TYPE_IMPL(
 	ctf_enum_init,
