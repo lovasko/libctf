@@ -1,4 +1,4 @@
-#include "io/read/lookup.h"
+#include "io/read/read.h"
 
 struct ctf_type*
 _ctf_lookup_type (struct ctf_file* file, uint16_t id)

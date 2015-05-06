@@ -1,8 +1,3 @@
-#include "io/read/labels.h"
-#include "space.h"
-#include "label/label.h"
-#include "file/errors.h"
-
 #include <sys/queue.h>
 
 #ifdef _KERNEL
@@ -12,6 +7,11 @@
 	#include <stdlib.h>
 	#include <string.h>
 #endif
+
+#include "file/errors.h"
+#include "io/read/read.h"
+#include "label/label.h"
+#include "space.h"
 
 CTF_MALLOC_DECLARE();
 

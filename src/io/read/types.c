@@ -1,19 +1,3 @@
-#include "io/read/types.h"
-#include "io/read/lookup.h"
-#include "io/read/vardata.h"
-#include "space.h"
-#include "file/file.h"
-#include "file/errors.h"
-#include "object/data/data_object.h"
-#include "type/kind.h"
-#include "type/array.h"
-#include "type/typedef.h"
-#include "type/struct_union.h"
-#include "type/int.h"
-#include "type/float.h"
-#include "type/fwd_decl.h"
-#include "type/info.h"
-#include "type/pointer.h"
 
 #include <sys/stdint.h>
 
@@ -24,6 +8,8 @@
 	#include <string.h>
 	#include <stdlib.h>
 #endif
+
+#include "io/read/read.h"
 
 CTF_MALLOC_DECLARE();
 

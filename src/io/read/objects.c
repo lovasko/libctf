@@ -1,8 +1,3 @@
-#include "io/read/objects.h"
-#include "io/read/lookup.h"
-#include "space.h"
-#include "type/info.h"
-
 #ifdef _KERNEL
 	#include <sys/elf.h>
 	#include <sys/malloc.h>
@@ -11,6 +6,10 @@
 	#include <stdlib.h>
 	#include <string.h>
 #endif
+
+#include "io/read/read.h"
+#include "space.h"
+#include "type/info.h"
 
 CTF_MALLOC_DECLARE();
 

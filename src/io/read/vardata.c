@@ -1,6 +1,3 @@
-#include "io/read/vardata.h"
-#include "space.h"
-
 #ifdef _KERNEL
 	#include <sys/malloc.h>
 	#include <sys/libkern.h>
@@ -9,6 +6,9 @@
 	#include <stdlib.h>
 	#include <string.h>
 #endif
+
+#include "io/read/read.h"
+#include "space.h"
 
 #define _CTF_INT_FLOAT_ENCODING_MASK 0xff000000
 #define _CTF_INT_FLOAT_OFFSET_MASK   0x00ff0000 

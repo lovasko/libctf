@@ -1,10 +1,10 @@
-#include "io/read/decompress.h"
-
 #ifndef _KERNEL
 
 #include <string.h>
 #include <zlib.h>
 #include <stdlib.h>
+
+#include "io/read/read.h"
 
 #define _CTF_DECOMPRESS_CHUNK_SIZE 16384 
 

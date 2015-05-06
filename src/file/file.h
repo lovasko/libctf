@@ -13,6 +13,7 @@
 #include "object/function/function.h"
 #include "type/type.h"
 #include "util/count.h"
+#include "version.h"
 
 /**
  * Root CTF data structure.

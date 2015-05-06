@@ -1,14 +1,3 @@
-#include "read.h"
-#include "vardata.h"
-#include "header.h"
-#include "strings.h"
-#include "decompress.h"
-#include "lookup.h"
-#include "labels.h"
-#include "types.h"
-#include "objects.h"
-#include "space.h"
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/queue.h>
@@ -30,6 +19,8 @@
 	#include <gelf.h>
 	#include <libgen.h>
 #endif
+
+#include "read.h"
 
 int
 ctf_file_read_data (

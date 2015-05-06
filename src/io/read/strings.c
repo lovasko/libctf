@@ -1,4 +1,4 @@
-#include "strings.h"
+#include "io/read/read.h"
 
 const char*
 _ctf_strings_lookup (struct _strings* strings, uint32_t reference)
