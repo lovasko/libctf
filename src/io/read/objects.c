@@ -77,6 +77,8 @@ _ctf_read_functions_and_objects (
 				struct ctf_data_object* data_object = CTF_MALLOC(CTF_DATA_OBJECT_SIZE);
 				data_object->name = CTF_STRDUP(name);
 				data_object->type = _ctf_lookup_type(file, type_reference);
+				data_object->value = symbol->st_value;
+				data_object->size = symbol->st_size;
 
 				TAILQ_INSERT_TAIL(file->data_object_head, data_object, data_objects);
 			break;
