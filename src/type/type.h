@@ -1,12 +1,12 @@
 #ifndef CTF_TYPE_H
 #define CTF_TYPE_H
 
-#include "type/kind.h"
-#include "api/property.h"
-#include "api/create.h"
-
-#include <stdint.h>
+#include <sys/stdint.h>
 #include <sys/queue.h>
+
+#include "api/create.h"
+#include "api/property.h"
+#include "type/kind.h"
 
 /* if the small_type.size is greater than this, we should use the large_type */
 #define CTF_SMALL_TYPE_THRESHOLD 0xfffe
@@ -100,6 +100,11 @@ ctf_type_init(ctf_type type, ctf_type* out);
 
 int
 ctf_type_to_string(ctf_type type, char** string);
+
+typedef int (*ctf_polycall)(ctf_type type, void* arg);
+
+int
+ctf_type_polycall(ctf_type type, void* arg, ctf_polycall polycall[]);
 
 #endif
 

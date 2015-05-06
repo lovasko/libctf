@@ -1,19 +1,19 @@
-#include "type/type.h"
-#include "type/kind.h"
-#include "api/from_type.h"
-#include "type/int.h"
-#include "type/float.h"
-#include "object/function/function.h"
-#include "object/function/argument.h"
-#include "type/fwd_decl.h"
-#include "type/enum.h"
-#include "type/struct_union.h"
-#include "type/pointer.h"
-#include "type/typedef.h"
-#include "type/array.h"
-
 #include <string.h>
 #include <stdio.h>
+
+#include "type/type.h"
+#include "api/from_type.h"
+#include "object/function/argument.h"
+#include "object/function/function.h"
+#include "type/array.h"
+#include "type/enum.h"
+#include "type/float.h"
+#include "type/fwd_decl.h"
+#include "type/int.h"
+#include "type/kind.h"
+#include "type/pointer.h"
+#include "type/struct_union.h"
+#include "type/typedef.h"
 
 _CTF_GET_PROPERTY_IMPL(
 	ctf_type_get_kind,
@@ -326,5 +326,14 @@ ctf_type_to_string(ctf_type type, char** string)
 	}
 
 	return CTF_E_CONVERSION_FAULT;
+}
+
+int
+ctf_type_polycall(ctf_type type, void* arg, ctf_polycall polycall[])
+{
+	if (type->kind < CTF_KIND_MIN || type->kind > CTF_KIND_MAX)
+		return CTF_E_KIND_INVALID;
+
+	return polycall[type->kind](type, arg);
 }
 
