@@ -3,9 +3,7 @@
 
 #include "file/errors.h"
 #include "file/file.h"
-#include "io/read/header.h"
 #include "io/read/read.h"
-#include "io/read/vardata.h"
 #include "label/label.h"
 #include "object/data/data_object.h"
 #include "object/function/argument.h"

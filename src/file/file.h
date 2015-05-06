@@ -7,7 +7,6 @@
 #include "api/foreach.h"
 #include "api/listing.h"
 #include "api/property.h"
-#include "io/read/header.h"
 #include "label/label.h"
 #include "object/data/data_object.h"
 #include "object/function/function.h"
