@@ -25,6 +25,12 @@ _CTF_LISTING_IMPL(
 	member_head,
 	members)
 
+_CTF_FOREACH_IMPL(
+	ctf_struct_union_foreach_member, 
+	ctf_struct_union,
+	ctf_member,
+	ctf_struct_union_get_next_member)
+
 _CTF_ADD_IMPL(
 	ctf_struct_union_add_member,
 	ctf_struct_union,

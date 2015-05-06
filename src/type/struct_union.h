@@ -1,14 +1,15 @@
 #ifndef CTF_STRUCT_UNION_H
 #define CTF_STRUCT_UNION_H
 
+#include "api/add.h"
+#include "api/create.h"
+#include "api/foreach.h"
+#include "api/from_type.h"
+#include "api/listing.h"
+#include "api/memory_usage.h"
+#include "api/property.h"
 #include "type/member.h"
 #include "util/count.h"
-#include "api/add.h"
-#include "api/from_type.h"
-#include "api/property.h"
-#include "api/listing.h"
-#include "api/create.h"
-#include "api/memory_usage.h"
 
 struct ctf_struct_union
 {
@@ -26,6 +27,8 @@ _CTF_SET_PROPERTY_PROTO(ctf_struct_union_set_name, ctf_struct_union, char*)
 _CTF_GET_PROPERTY_PROTO(ctf_struct_union_get_member_count, ctf_struct_union, 
     ctf_count)
 _CTF_LISTING_PROTO(ctf_struct_union_get_next_member, ctf_struct_union,
+    ctf_member)
+_CTF_FOREACH_PROTO(ctf_struct_union_foreach_member, ctf_struct_union,
     ctf_member)
 _CTF_ADD_PROTO(ctf_struct_union_add_member, ctf_struct_union, ctf_member)
 
