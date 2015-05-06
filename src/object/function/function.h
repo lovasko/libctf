@@ -1,15 +1,16 @@
 #ifndef CTF_FUNCTION_H
 #define CTF_FUNCTION_H
 
-#include "type/type.h"
-#include "object/function/argument.h"
+#include <sys/stdint.h>
+#include <sys/queue.h>
+
+#include "api/foreach.h"
 #include "api/from_type.h"
-#include "api/property.h"
 #include "api/listing.h"
 #include "api/memory_usage.h"
-
-#include <stdint.h>
-#include <sys/queue.h>
+#include "api/property.h"
+#include "object/function/argument.h"
+#include "type/type.h"
 
 /**
  * Function vardata.
@@ -34,9 +35,13 @@ TAILQ_HEAD(ctf_function_head, ctf_function);
 #define CTF_FUNCTION_HEAD_SIZE sizeof(struct ctf_function_head)
 
 _CTF_GET_PROPERTY_PROTO(ctf_function_get_name, ctf_function, char*)
+_CTF_SET_PROPERTY_PROTO(ctf_function_set_name, ctf_function, char*)
+
 _CTF_GET_PROPERTY_PROTO(ctf_function_get_return_type, ctf_function, ctf_type)
-	
+_CTF_SET_PROPERTY_PROTO(ctf_function_set_return_type, ctf_function, ctf_type)
+
 _CTF_LISTING_PROTO(ctf_function_get_next_argument, ctf_function, ctf_argument)
+_CTF_FOREACH_PROTO(ctf_function_foreach_argument, ctf_function, ctf_argument)
 
 _CTF_MEMORY_USAGE_PROTO(ctf_function_memory_usage, ctf_function)
 
