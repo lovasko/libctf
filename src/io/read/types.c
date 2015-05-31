@@ -53,52 +53,72 @@ kind_has_vardata (uint8_t kind)
 static int
 solve_type_references (struct ctf_file* file)
 {
+	struct ctf_argument* argument;
+	struct ctf_function* function;
+	struct ctf_member* member;
+	struct ctf_struct_union* struct_union;
+	struct ctf_array* array;
+	struct ctf_typedef* _typedef;
+	struct ctf_pointer* pointer;
 	struct ctf_type* type;
-	TAILQ_FOREACH (type, file->type_head, types)
+	struct m_elem* runner;
+	struct m_elem* member_runner;
+	struct m_elem* argument_runner;
+
+	m_list_first(&file->types, &runner);
+	while (runner != NULL)
 	{
+		m_elem_data(runner, (void**)&type);
+
 		if (kind_is_qualifier(type->kind))
 			type->data = _ctf_lookup_type(file, type->data_id);
 
 		if (type->kind == CTF_KIND_POINTER)
 		{
-			struct ctf_pointer* pointer = type->data;
+			pointer = type->data;
 			pointer->type = _ctf_lookup_type(file, pointer->id);
 		}
 
 		if (type->kind == CTF_KIND_TYPEDEF)
 		{
-			struct ctf_typedef* _typedef = type->data;
+			_typedef = type->data;
 			_typedef->type = _ctf_lookup_type(file, _typedef->id);
 		}
 
 		if (type->kind == CTF_KIND_ARRAY)
 		{
-			struct ctf_array* array = type->data;
+			array = type->data;
 			array->content_type = _ctf_lookup_type(file, array->content_id);
 		}
 
 		if (type->kind == CTF_KIND_STRUCT 
 		 || type->kind == CTF_KIND_UNION)
 		{
-			struct ctf_struct_union* struct_union = type->data;
-			struct ctf_member* member;
-			TAILQ_FOREACH (member, struct_union->member_head, members)
+			struct_union = type->data;
+			m_list_first(&struct_union->members, &member_runner);
+			while (member_runner != NULL)
 			{
+				m_elem_data(member_runner, (void**)&member);
 				member->type = _ctf_lookup_type(file, member->id);
+				m_elem_next(member_runner, &member_runner);
 			}
 		}
 
 		if (type->kind == CTF_KIND_FUNC)
 		{
-			struct ctf_function* func = type->data;
-			func->return_type = _ctf_lookup_type(file, func->return_id);
+			function = type->data;
+			function->return_type = _ctf_lookup_type(file, function->return_id);
 
-			struct ctf_argument* argument;
-			TAILQ_FOREACH (argument, func->argument_head, arguments)
+			m_list_first(&function->arguments, &argument_runner);
+			while (argument_runner != NULL)
 			{
+				m_elem_data(argument_runner, (void**)&argument);
 				argument->type = _ctf_lookup_type(file, argument->id);
+				m_elem_next(argument_runner, &argument_runner);
 			}
 		}
+
+		m_elem_next(runner, &runner);
 	}
 
 	return CTF_OK;
@@ -111,14 +131,17 @@ solve_type_references (struct ctf_file* file)
 static int
 create_type_table (struct ctf_file* file)
 {
-	/* TODO is this optimal? shouldnt it be only sizeof(ctf_type) and not the
-	 * CTF_TYPE_SIZE? */
+	struct ctf_type* type;
+	struct m_elem* runner;
+
 	file->type_id_table = CTF_MALLOC((sizeof(ctf_type) * (file->type_count + 1)));
 
-	struct ctf_type* type;
-	TAILQ_FOREACH (type, file->type_head, types)
+	m_list_first(&file->types, &runner);
+	while (runner != NULL)
 	{
+		m_elem_data(runner, (void**)&type);
 		file->type_id_table[type->id] = type;	
+		m_elem_next(runner, &runner);
 	}
 
 	return CTF_OK;
@@ -246,8 +269,10 @@ low_level_parsing (struct ctf_file* file, struct _section* section,
 				{
 					struct ctf_enum* _enum = CTF_MALLOC(CTF_ENUM_SIZE);
 					_enum->name = name;
-					_enum->enum_head = _ctf_read_enum_vardata(section->data + offset, 
-					    vardata_length, strings);
+					_ctf_read_enum_vardata(&_enum->entries,
+					                       section->data + offset, 
+					                       vardata_length,
+																 strings);
 
 					type->data = _enum;
 					
@@ -261,15 +286,11 @@ low_level_parsing (struct ctf_file* file, struct _section* section,
 					struct ctf_struct_union* struct_union = CTF_MALLOC(
 					    CTF_STRUCT_UNION_SIZE);
 					struct_union->name = name;
-					struct_union->member_head = _ctf_read_struct_union_vardata(
-					    section->data + offset, vardata_length, size, strings);
-
-					ctf_member member;
-					struct_union->member_count = 0;
-					TAILQ_FOREACH(member, struct_union->member_head, members)
-					{
-						struct_union->member_count++;
-					}
+					_ctf_read_struct_union_vardata(&struct_union->members,
+					                               section->data + offset,
+																				 vardata_length,
+																				 size,
+																				 strings);
 
 					type->data = struct_union;	
 					
@@ -293,8 +314,9 @@ low_level_parsing (struct ctf_file* file, struct _section* section,
 			offset += _CTF_SMALL_TYPE_SIZE;
 
 			struct ctf_function* function = CTF_MALLOC(CTF_FUNCTION_SIZE);
-			function->argument_head = _ctf_read_function_vardata( section->data + 
-			    offset, vardata_length);
+			_ctf_read_function_vardata(&function->arguments,
+			                           section->data + offset,
+																 vardata_length);
 			function->name = CTF_STRDUP(_ctf_strings_lookup(strings, small_type->name));
 			function->return_id = small_type->type;
 
@@ -308,7 +330,7 @@ low_level_parsing (struct ctf_file* file, struct _section* section,
 			offset += (vardata_length + (vardata_length & 1)) * sizeof(uint16_t);
 		}
 
-		TAILQ_INSERT_TAIL(file->type_head, type, types);
+		m_list_append(&file->types, M_LIST_COPY_SHALLOW, type, 0);
 	}
 
 	return CTF_OK;
@@ -340,12 +362,11 @@ low_level_parsing (struct ctf_file* file, struct _section* section,
  */
 
 int
-_ctf_read_types (struct ctf_file* file, struct _section* section, 
-    struct _strings* strings)
+_ctf_read_types(struct ctf_file* file,
+                 struct _section* section, 
+                 struct _strings* strings)
 {
-	file->type_head = CTF_MALLOC(CTF_TYPE_HEAD_SIZE);
-	TAILQ_INIT(file->type_head);
-
+	m_list_init(&file->types);
 	low_level_parsing(file, section, strings);
 	create_type_table(file);
 	solve_type_references(file);

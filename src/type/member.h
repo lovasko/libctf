@@ -2,7 +2,6 @@
 #define CTF_MEMBER_H
 
 #include <sys/stdint.h>
-#include <sys/queue.h>
 
 #include "api/create.h"
 #include "api/memory_usage.h"
@@ -61,15 +60,10 @@ struct ctf_member
 	};
 	ctf_member_offset offset; /**< offset inside the struct 
 	    (union, by the language design, has all offsets 0) */
-
-	TAILQ_ENTRY(ctf_member) members; /**< pointer to following members */
 };
 #define CTF_MEMBER_SIZE sizeof(struct ctf_member)
 
 typedef struct ctf_member* ctf_member;
-
-TAILQ_HEAD(ctf_member_head, ctf_member);
-#define CTF_MEMBER_HEAD_SIZE sizeof(struct ctf_member_head)
 
 _CTF_GET_PROPERTY_PROTO(ctf_member_get_name, ctf_member, char*)
 _CTF_SET_PROPERTY_PROTO(ctf_member_set_name, ctf_member, char*)

@@ -1,7 +1,7 @@
 #ifndef CTF_LABEL_H
 #define CTF_LABEL_H
 
-#include <sys/queue.h>
+/* #include <sys/queue.h> */
 #include <sys/stdint.h>
 
 #include "api/memory_usage.h"
@@ -30,15 +30,10 @@ struct ctf_label
 {
 	char* name; /**< resolved name */
 	ctf_label_index index; /**< starting index in the type table */
-
-	TAILQ_ENTRY(ctf_label) labels; /**< pointer to next labels */
 };
 #define CTF_LABEL_SIZE sizeof(struct ctf_label)
 
 typedef struct ctf_label* ctf_label;
-
-TAILQ_HEAD(ctf_label_head, ctf_label);
-#define CTF_LABEL_HEAD_SIZE sizeof(struct ctf_label_head)
 
 _CTF_GET_PROPERTY_PROTO(ctf_label_get_name, ctf_label, char*)
 _CTF_SET_PROPERTY_PROTO(ctf_label_set_name, ctf_label, char*)

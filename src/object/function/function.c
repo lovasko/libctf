@@ -24,18 +24,16 @@ _CTF_SET_PROPERTY_IMPL(
 	ctf_type,
 	return_type)
 
-_CTF_LISTING_IMPL(
-	ctf_function_get_next_argument,
-	ctf_function, 
-	ctf_argument,
-	argument_head,
-	arguments)
-
 _CTF_FOREACH_IMPL(
 	ctf_function_foreach_argument,
 	ctf_function,
 	ctf_argument,
-	ctf_function_get_next_argument)
+	arguments)
+
+_CTF_COUNT_IMPL(
+	ctf_function_get_argument_count,
+	ctf_function,
+	arguments)
 
 _CTF_FROM_TYPE_IMPL(
 	ctf_function_init,
@@ -44,15 +42,19 @@ _CTF_FROM_TYPE_IMPL(
 size_t
 ctf_function_memory_usage (ctf_function function)
 {
-	size_t usage = 0;
+	size_t usage;
+	struct m_elem* runner;
+	ctf_argument argument;
 
-	usage += CTF_FUNCTION_SIZE;
+	usage = CTF_FUNCTION_SIZE;
 	usage += strlen(function->name);
 
-	ctf_argument runner;
-	TAILQ_FOREACH (runner, function->argument_head, arguments)
+	m_list_first(&function->arguments, &runner);
+	while (runner == NULL)
 	{
-		usage += ctf_argument_memory_usage(runner);
+		m_elem_data(runner, (void**)&argument);
+		usage += ctf_argument_memory_usage(argument);
+		m_elem_next(runner, &runner);
 	}
 
 	return usage;

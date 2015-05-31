@@ -157,8 +157,10 @@ _ctf_read_array_vardata (void* data);
  * @param length number of the arguments 
  * @return pointer to filled ctf_function struct
  */
-struct ctf_argument_head*
-_ctf_read_function_vardata (void* data, uint16_t length);
+void
+_ctf_read_function_vardata (struct m_list* arguments,
+                            void* data,
+                            uint16_t length);
 
 /**
  * Read the enum variable data.
@@ -170,8 +172,11 @@ _ctf_read_function_vardata (void* data, uint16_t length);
  * @param length number of enum entries
  * @return pointer to filled ctf_enum_head struct
  */
-struct ctf_enum_head*
-_ctf_read_enum_vardata (void* data, uint16_t length, struct _strings* strings);
+void
+_ctf_read_enum_vardata (struct m_list* entries,
+                        void* data,
+                        uint16_t length,
+                        struct _strings* strings);
 
 /**
  * Read the struct/union variable data.
@@ -187,9 +192,12 @@ _ctf_read_enum_vardata (void* data, uint16_t length, struct _strings* strings);
  * @param strings string resolvation tables
  * @return pointer to filled ctf_member_head struct
  */
-struct ctf_member_head*
-_ctf_read_struct_union_vardata (void* data, uint16_t length, uint64_t size, 
-    struct _strings* strings);
+void
+_ctf_read_struct_union_vardata (struct m_list* members,
+                                void* data,
+                                uint16_t length,
+                                uint64_t size, 
+                                struct _strings* strings);
 
 /**
  * Look up a string identified by the reference from either ELF or CTF string

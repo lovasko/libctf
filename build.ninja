@@ -1,5 +1,5 @@
-cflags = -Isrc -std=c99 -Wall -Wextra
-ldflags = -lz -lelf
+cflags = -g -Isrc -std=c99 -Wall -Wextra
+ldflags = -lz -lelf -lmlist
 
 rule compile
  command = clang $cflags -c $in -o $out

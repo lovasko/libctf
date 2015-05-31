@@ -12,54 +12,49 @@ _CTF_SET_PROPERTY_IMPL(
 	char*,
 	name)
 
-_CTF_GET_PROPERTY_IMPL(
-	ctf_enum_get_enum_entry_count,
-	ctf_enum,
-	ctf_count,
-	enum_entry_count)
-
-_CTF_LISTING_IMPL(
-	ctf_enum_get_next_enum_entry,
-	ctf_enum,
-	ctf_enum_entry,
-	enum_head,
-	entries)
-
 _CTF_FOREACH_IMPL(
 	ctf_enum_foreach_enum_entry,
 	ctf_enum,
 	ctf_enum_entry,
-	ctf_enum_get_next_enum_entry)
+	entries)
+
+_CTF_COUNT_IMPL(
+	ctf_enum_get_entry_count,
+	ctf_enum,
+	entries)
 
 _CTF_ADD_IMPL(
 	ctf_enum_add_enum_entry,
 	ctf_enum,
 	ctf_enum_entry,
-	enum_head,
-	entries,
-	enum_entry_count)
+	entries)
 
 _CTF_FROM_TYPE_IMPL(
 	ctf_enum_init,
 	ctf_enum)
 
-_CTF_CREATE_IMPL(
+_CTF_CREATE_1_LIST_IMPL(
 	ctf_enum_create,
 	ctf_enum,
-	CTF_ENUM_SIZE)
+	CTF_ENUM_SIZE,
+	entries)
 
 size_t
 ctf_enum_memory_usage (ctf_enum _enum)
 {
-	size_t usage = 0;
+	size_t usage;
+	struct m_elem* runner;
+	ctf_enum_entry entry;
 
-	usage += CTF_ENUM_SIZE;
+	usage = CTF_ENUM_SIZE;
 	usage += strlen(_enum->name);
 
-	ctf_enum_entry runner;
-	TAILQ_FOREACH (runner, _enum->enum_head, entries)
+	m_list_first(&_enum->entries, &runner);
+	while (runner != NULL)
 	{
-		usage += ctf_enum_entry_memory_usage(runner);
+		m_elem_data(runner, (void**)&entry);	
+		usage += ctf_enum_entry_memory_usage(entry);
+		m_elem_next(runner, &runner);
 	}
 
 	return usage;

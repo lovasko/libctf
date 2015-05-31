@@ -14,24 +14,20 @@
 CTF_MALLOC_DECLARE();
 
 int
-_ctf_read_functions_and_objects (
-    struct ctf_file* file, 
-		struct _section* symtab_section, 
-		struct _section* object_section, 
-		struct _section* function_section, 
-		struct _strings* strings)
+_ctf_read_functions_and_objects(struct ctf_file* file,
+                                struct _section* symtab_section,
+                                struct _section* object_section,
+                                struct _section* function_section,
+                                struct _strings* strings)
 {
-	size_t symbol_size = sizeof(Elf32_Sym);	
+	size_t symbol_size = sizeof(Elf32_Sym);
 	unsigned int symbol_count = symtab_section->size / symbol_size;
 
 	unsigned int object_offset = 0;
 	unsigned int function_offset = 0;
 
-	file->data_object_head = CTF_MALLOC(CTF_DATA_OBJECT_HEAD_SIZE);
-	TAILQ_INIT(file->data_object_head);
-
-	file->function_head = CTF_MALLOC(CTF_FUNCTION_HEAD_SIZE);
-	TAILQ_INIT(file->function_head);
+	m_list_init(&file->data_objects);
+	m_list_init(&file->function_objects);
 
 	for (unsigned int i = 0; i < symbol_count; i++)
 	{
@@ -79,7 +75,7 @@ _ctf_read_functions_and_objects (
 				data_object->value = symbol->st_value;
 				data_object->size = symbol->st_size;
 
-				TAILQ_INSERT_TAIL(file->data_object_head, data_object, data_objects);
+				m_list_append(&file->data_objects, M_LIST_COPY_SHALLOW, data_object, 0);
 			break;
 
 			case STT_FUNC:
@@ -87,8 +83,7 @@ _ctf_read_functions_and_objects (
 				function_offset++;
 
 				vardata_length = _ctf_info_get_vardata_length(info);
-				if (_ctf_info_get_kind(info) == CTF_KIND_NONE 
-				 && vardata_length == 0)
+				if (_ctf_info_get_kind(info) == CTF_KIND_NONE && vardata_length == 0)
 					break;
 
 				type_reference = *(fp + function_offset);
@@ -96,10 +91,8 @@ _ctf_read_functions_and_objects (
 
 				function = CTF_MALLOC(CTF_FUNCTION_SIZE);
 				function->name = CTF_STRDUP(name);
-				function->argument_head = CTF_MALLOC(CTF_ARGUMENT_HEAD_SIZE);
 				function->return_type = _ctf_lookup_type(file, type_reference);
 
-				TAILQ_INIT(function->argument_head);
 				for (unsigned int k = 0; k < vardata_length; k++)
 				{
 					type_reference = *(fp + function_offset);
@@ -107,10 +100,10 @@ _ctf_read_functions_and_objects (
 
 					argument = CTF_MALLOC(CTF_ARGUMENT_SIZE);				
 					argument->type = _ctf_lookup_type(file, type_reference);
-					TAILQ_INSERT_TAIL(function->argument_head, argument, arguments);
+					m_list_append(&function->arguments, M_LIST_COPY_SHALLOW, argument, 0);
 				}
 				
-				TAILQ_INSERT_TAIL(file->function_head, function, functions);
+				m_list_append(&file->function_objects, M_LIST_COPY_SHALLOW, function, 0);
 			break;
 		}
 	}

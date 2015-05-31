@@ -70,52 +70,62 @@ _ctf_read_array_vardata (void* data)
 	return array;
 }
 
-struct ctf_argument_head*
-_ctf_read_function_vardata (void* data, uint16_t length)
+void
+_ctf_read_function_vardata (struct m_list* arguments,
+                            void* data,
+														uint16_t length)
 {
-	struct ctf_argument_head* argument_head = CTF_MALLOC(CTF_ARGUMENT_HEAD_SIZE);
-	TAILQ_INIT(argument_head);
-
-	uint16_t* raw_arguments = (uint16_t*)data;
-	for (uint16_t i = 0; i < length; i++)
+	struct ctf_argument* argument;
+	uint16_t i;
+	uint16_t* raw_arguments;
+	
+	m_list_init(arguments);
+	raw_arguments = (uint16_t*)data;
+	for (i = 0; i < length; i++)
 	{
-		struct ctf_argument* argument = CTF_MALLOC(CTF_ARGUMENT_SIZE);
+		argument = CTF_MALLOC(CTF_ARGUMENT_SIZE);
 		argument->id = raw_arguments[i];
 
-		TAILQ_INSERT_TAIL(argument_head, argument, arguments);
+		m_list_append(arguments, M_LIST_COPY_SHALLOW, argument, 0);
 	}
-
-	return argument_head;
 }
 
-struct ctf_enum_head*
-_ctf_read_enum_vardata (void* data, uint16_t length, struct _strings* strings)
+void
+_ctf_read_enum_vardata (struct m_list* entries,
+                        void* data,
+												uint16_t length,
+												struct _strings* strings)
 {
-	struct ctf_enum_head* enum_head = CTF_MALLOC(CTF_ENUM_HEAD_SIZE);
-	TAILQ_INIT(enum_head);
-
-	struct _ctf_enum_entry* raw_enum_entries = (struct _ctf_enum_entry*)data;
-	for (uint16_t i = 0; i < length; i++)
+	struct _ctf_enum_entry* raw_entries;
+	struct ctf_enum_entry* entry;
+	uint16_t i;
+	
+	m_list_init(entries);
+	raw_entries = (struct _ctf_enum_entry*)data;
+	for (i = 0; i < length; i++)
 	{
-		struct ctf_enum_entry* enum_entry = CTF_MALLOC(CTF_ENUM_ENTRY_SIZE);
-		enum_entry->name = CTF_STRDUP(_ctf_strings_lookup(strings, 
-		    raw_enum_entries[i].name));
-		enum_entry->value = raw_enum_entries[i].value; 
+		entry = CTF_MALLOC(CTF_ENUM_ENTRY_SIZE);
+		entry->name = CTF_STRDUP(_ctf_strings_lookup(strings, raw_entries[i].name));
+		entry->value = raw_entries[i].value; 
 
-		TAILQ_INSERT_TAIL(enum_head, enum_entry, entries);
+		m_list_append(entries, M_LIST_COPY_SHALLOW, entry, 0);
 	}
-
-	return enum_head;
 }
 
-struct ctf_member_head*
-_ctf_read_struct_union_vardata (void* data, uint16_t length, uint64_t size, 
-    struct _strings* strings)
+void
+_ctf_read_struct_union_vardata (struct m_list* members,
+                                void* data,
+																uint16_t length,
+																uint64_t size, 
+																struct _strings* strings)
 {
+	struct ctf_member* member;
 	struct _ctf_small_member* small_member;
 	struct _ctf_large_member* large_member;
-	uint8_t member_type = 0;
+	uint8_t member_type;
+	uint16_t i;
 
+	member_type = 0;
 	if (size >= CTF_MEMBER_THRESHOLD)
 	{
 		member_type = 1;
@@ -129,26 +139,18 @@ _ctf_read_struct_union_vardata (void* data, uint16_t length, uint64_t size,
 		large_member = NULL;
 	}
 
-	struct ctf_member_head* member_head = CTF_MALLOC(CTF_MEMBER_HEAD_SIZE);
-	TAILQ_INIT(member_head);
-
-	for (unsigned int i = 0; i < length; i++)
+	m_list_init(members);
+	for (i = 0; i < length; i++)
 	{
-		struct ctf_member* member = CTF_MALLOC(CTF_MEMBER_SIZE);
+		member = CTF_MALLOC(CTF_MEMBER_SIZE);
 
-		member->name = CTF_STRDUP(_ctf_strings_lookup(strings, (member_type ? 
-		    large_member[i].name : small_member[i].name)));
-
-		member->id = (member_type ? large_member[i].type :
-		    small_member[i].type);
-
+		member->name = CTF_STRDUP(_ctf_strings_lookup(strings, (member_type ?  large_member[i].name : small_member[i].name)));
+		member->id = (member_type ? large_member[i].type : small_member[i].type);
 		member->offset = (member_type ? 
 		    (((uint64_t)large_member[i].high_offset << 32) + 
 		    (uint64_t)large_member[i].low_offset) : small_member[i].offset);
 
-		TAILQ_INSERT_TAIL(member_head, member, members);
+		m_list_append(members, M_LIST_COPY_SHALLOW, member, 0);
 	}
-
-	return member_head;
 }
 

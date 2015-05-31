@@ -2,7 +2,6 @@
 #define CTF_ENUM_ENTRY_H
 
 #include <sys/stdint.h>
-#include <sys/queue.h>
 
 #include "api/memory_usage.h"
 #include "api/property.h"
@@ -30,15 +29,10 @@ struct ctf_enum_entry
 {
 	char* name; /**< name of the entry */
 	ctf_enum_entry_value value; /**< value of the entry */
-
-	TAILQ_ENTRY(ctf_enum_entry) entries;
 };
 #define CTF_ENUM_ENTRY_SIZE sizeof(struct ctf_enum_entry)
 
 typedef struct ctf_enum_entry* ctf_enum_entry;
-
-TAILQ_HEAD(ctf_enum_head, ctf_enum_entry);
-#define CTF_ENUM_HEAD_SIZE sizeof(struct ctf_enum_head)
 
 _CTF_GET_PROPERTY_PROTO(ctf_enum_entry_get_name, ctf_enum_entry, char*)
 _CTF_SET_PROPERTY_PROTO(ctf_enum_entry_set_name, ctf_enum_entry, char*)

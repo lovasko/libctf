@@ -1,6 +1,5 @@
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <sys/queue.h>
 #include <sys/stdint.h>
 
 #ifdef _KERNEL
@@ -127,15 +126,20 @@ ctf_file_read_data (
 		const char* parent_label_name = _ctf_strings_lookup(&strings, 
 		    header->parent_label);
 		struct ctf_label* parent_label;
-
+		struct m_elem* parent_runner;
 		int found = 0;
-		TAILQ_FOREACH (parent_label, file->parent_file->label_head, labels)
+
+		m_list_first(&file->parent_file->labels, &parent_runner);
+		while (parent_runner != NULL)
 		{
+			m_elem_data(parent_runner, (void**)&parent_label);
 			if (strcmp(parent_label_name, parent_label->name) == 0)
 			{
 				found = 1;	
 				break;
 			}
+
+			m_elem_next(parent_runner, &parent_runner);	
 		}
 
 		if (found == 0)
@@ -173,11 +177,6 @@ ctf_file_read_data (
 	{
 		/* in case that the symbol table is not available, we init the function and
 		 * data object lists to be empty */
-		file->data_object_head = CTF_MALLOC(CTF_DATA_OBJECT_HEAD_SIZE);
-		TAILQ_INIT(file->data_object_head);
-
-		file->function_head = CTF_MALLOC(CTF_FUNCTION_HEAD_SIZE);
-		TAILQ_INIT(file->function_head);
 	}
 	else
 	{

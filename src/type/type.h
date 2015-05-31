@@ -2,7 +2,7 @@
 #define CTF_TYPE_H
 
 #include <sys/stdint.h>
-#include <sys/queue.h>
+/* #include <sys/queue.h> */
 
 #include "api/create.h"
 #include "api/property.h"
@@ -68,15 +68,10 @@ struct ctf_type
 		case of the reference types. this type should be  */
 		ctf_id data_id;
 	};
-
-	TAILQ_ENTRY(ctf_type) types; /**< pointer to following types */
 };
 #define CTF_TYPE_SIZE sizeof(struct ctf_type)
 
 typedef struct ctf_type* ctf_type;
-
-TAILQ_HEAD(ctf_type_head, ctf_type);
-#define CTF_TYPE_HEAD_SIZE sizeof(struct ctf_type_head)
 
 _CTF_GET_PROPERTY_PROTO(ctf_type_get_kind, ctf_type, ctf_kind)
 _CTF_SET_PROPERTY_PROTO(ctf_type_set_kind, ctf_type, ctf_kind)

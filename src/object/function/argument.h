@@ -1,8 +1,6 @@
 #ifndef CTF_ARGUMENT_H
 #define CTF_ARGUMENT_H
 
-#include <sys/queue.h>
-
 #include "api/memory_usage.h"
 #include "api/property.h"
 #include "type/type.h"
@@ -19,15 +17,10 @@ struct ctf_argument
 		ctf_type type; /**< type of the argument */
 		ctf_id id; /**< id of the type of the argument */
 	};
-
-	TAILQ_ENTRY(ctf_argument) arguments; /**< pointer to following arguments */
 };
 #define CTF_ARGUMENT_SIZE sizeof(struct ctf_argument)
 
 typedef struct ctf_argument* ctf_argument;
-
-TAILQ_HEAD(ctf_argument_head, ctf_argument);
-#define CTF_ARGUMENT_HEAD_SIZE sizeof(struct ctf_argument_head)
 
 _CTF_GET_PROPERTY_PROTO(ctf_argument_get_type, ctf_argument, ctf_type)
 _CTF_SET_PROPERTY_PROTO(ctf_argument_set_type, ctf_argument, ctf_type)

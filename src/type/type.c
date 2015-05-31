@@ -69,18 +69,28 @@ _CTF_CREATE_IMPL(
 static int
 function_arguments_string(ctf_function function, char** string)
 {
-	int retval;
 	char result[2048];
 	unsigned int head;
 	ctf_argument argument;
+	struct m_elem* runner;
+	uint64_t size;
 
 	argument = NULL;
 	head = 0;
 	memset(result, '\0', 2048);
 
-	while ((retval = ctf_function_get_next_argument(function,
-			argument, &argument)) == CTF_OK)
+	m_list_size(&function->arguments, &size);
+	if (size == 0)
 	{
+		*string = strdup("void");
+		return CTF_OK;
+	}
+
+	m_list_first(&function->arguments, &runner);
+	while (runner == NULL)
+	{
+		m_elem_data(runner, (void**)&argument);
+
 		ctf_type argument_type;
 		ctf_argument_get_type(argument, &argument_type);
 
@@ -92,16 +102,9 @@ function_arguments_string(ctf_function function, char** string)
 		head += strlen(argument_type_string);
 
 		free(argument_type_string);
-	}
 
-	if (retval == CTF_EMPTY)
-	{
-		*string = strdup("void");
-		return CTF_OK;
+		m_elem_next(runner, &runner);
 	}
-
-	if (retval != CTF_END)
-		return retval;
 
 	/* delete the last ", " (comma and space) */
 	result[head--] = '\0';

@@ -1,4 +1,4 @@
-#include <sys/queue.h>
+/* #include <sys/queue.h> */
 
 #ifdef _KERNEL
 	#include <sys/malloc.h>
@@ -16,22 +16,22 @@
 CTF_MALLOC_DECLARE();
 
 int
-_ctf_read_labels (struct ctf_file* file, struct _section* section, 
-    struct _strings* strings)
+_ctf_read_labels(struct ctf_file* file,
+                 struct _section* section, 
+                 struct _strings* strings)
 {
 	if (section->size % _CTF_LABEL_SIZE != 0)
 		return CTF_E_LABEL_SECTION_CORRUPT;
-	file->label_head = CTF_MALLOC(CTF_LABEL_HEAD_SIZE);
 
-	TAILQ_INIT(file->label_head);
-	struct _ctf_label* raw_labels = (struct _ctf_label*)section->data;	
+	m_list_init(&file->labels);
+	struct _ctf_label* raw_labels = (struct _ctf_label*)section->data;
 	for (unsigned int i = 0; i < section->size/_CTF_LABEL_SIZE; i++)
 	{
 		struct ctf_label* label = CTF_MALLOC(CTF_LABEL_SIZE);
 		label->name = CTF_STRDUP(_ctf_strings_lookup(strings, raw_labels[i].name));
 		label->index = raw_labels[i].index;
 
-		TAILQ_INSERT_TAIL(file->label_head, label, labels);
+		m_list_append(&file->labels, M_LIST_COPY_SHALLOW, label, 0);
 	}
 
 	return CTF_OK;
