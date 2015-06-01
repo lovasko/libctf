@@ -2,7 +2,7 @@
 #include "io/read/read.h"
 
 int
-_ctf_preface_check (struct _ctf_preface* preface)
+_ctf_preface_check(struct _ctf_preface* preface)
 {
 	if (preface->magic != _CTF_MAGIC)
 		return CTF_E_MAGIC;
@@ -14,7 +14,7 @@ _ctf_preface_check (struct _ctf_preface* preface)
 }
 
 int
-_ctf_header_offset_sanity_check (struct _ctf_header* header)
+_ctf_header_offset_sanity_check(struct _ctf_header* header)
 {
 	if (header->label_offset    < header->object_offset   &&
 	    header->object_offset   < header->function_offset &&
