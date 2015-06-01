@@ -1,5 +1,5 @@
 #ifndef CTF_MEMORY_USAGE_H
-#define CTF_MEMORU_USAGE_H
+#define CTF_MEMORY_USAGE_H
 
 #include <sys/types.h>
 
