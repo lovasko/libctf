@@ -30,6 +30,10 @@ struct ctf_file;
 
 #define _CTF_FLAG_COMPRESSED 0x1
 
+#define CTF_ELF_SECTION_SYMTAB ".symtab"
+#define CTF_ELF_SECTION_STRTAB ".strtab"
+#define CTF_ELF_SECTION_SUNW_CTF ".SUNW_ctf"
+
 /**
  * Binary reflection of the preface of the CTF header.
  *

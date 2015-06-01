@@ -22,12 +22,11 @@
 #include "read.h"
 
 int
-ctf_file_read_data (
-    const char* filename,
-    struct _section* ctf_data, 
-    struct _section* symbol_table, 
-    struct _section* string_table,
-    ctf_file* result)
+ctf_file_read_data(const char* filename,
+                   struct _section* ctf_data, 
+                   struct _section* symbol_table, 
+                   struct _section* string_table,
+                   ctf_file* result)
 {
 	/* return value */
 	int rv;
@@ -197,10 +196,6 @@ ctf_file_read_data (
 
 #ifndef _KERNEL
 
-#define CTF_ELF_SECTION_SYMTAB ".symtab"
-#define CTF_ELF_SECTION_STRTAB ".strtab"
-#define CTF_ELF_SECTION_SUNW_CTF ".SUNW_ctf"
-
 /**
  * Find an ELF section with specified name.
  *
@@ -210,22 +205,25 @@ ctf_file_read_data (
  * @return section data on success, NULL otherwise
  */
 static struct _section*
-elf_section_find (Elf* elf, Elf32_Ehdr* elf_header, const char* to_find)
+elf_section_find (Elf* elf, GElf_Ehdr* elf_header, const char* to_find)
 {
-	Elf_Scn* section = NULL;  	
+	Elf_Scn* section;
 	GElf_Shdr section_header;
+	char* section_name;
+	struct _section* result;
+	Elf_Data* data;
 	
+	section = NULL;
 	while ((section = elf_nextscn(elf, section)) != 0)
 	{
 		gelf_getshdr(section, &section_header);
-		char* section_name = elf_strptr(elf, elf_header->e_shstrndx, 
-		    section_header.sh_name);
+		section_name = elf_strptr(elf, elf_header->e_shstrndx, section_header.sh_name);
 
 		if (strcmp(section_name, to_find) == 0)
 		{
-			Elf_Data* data = elf_getdata(section, NULL);
+			data = elf_getdata(section, NULL);
 
-			struct _section* result = malloc(_SECTION_SIZE);
+			result = malloc(_SECTION_SIZE);
 			result->size = data->d_size;
 			result->data = malloc(data->d_size);
 			memcpy(result->data, data->d_buf, data->d_size);
@@ -238,63 +236,66 @@ elf_section_find (Elf* elf, Elf32_Ehdr* elf_header, const char* to_find)
 }
 
 int
-ctf_file_read (const char* filename, ctf_file* file)
+ctf_file_read(const char* path, ctf_file* file)
 {
-	int rv; 
-
-	/* open the file */
+	Elf* elf;
+	GElf_Ehdr elf_header;
 	int fd;
-	if ((fd = open(filename, O_RDONLY)) < 0)
-		return CTF_E_NO_FILE;
-
-	/* read the ELF header */
-	Elf32_Ehdr elf_header;
-	if (read(fd, &elf_header, sizeof(Elf32_Ehdr)) != sizeof(Elf32_Ehdr))
-	{
-		close(fd);
-		return CTF_E_ELF_HEADER_CORRUPT;
-	}
+	int rv; 
+	struct _section* ctf_section;
+	struct _section* strtab;
+	struct _section* symtab;
 
 	/* set the libelf version */
 	if (elf_version(EV_CURRENT) == EV_NONE)
-	{
-		close(fd);
 		return CTF_E_ELF_VERSION;
-	}
+
+	/* open the file */
+	if ((fd = open(path, O_RDONLY)) < 0)
+		return CTF_E_NO_FILE;
 
 	/* load the ELF file */
-	Elf* elf = NULL;
 	if ((elf = elf_begin(fd, ELF_C_READ, NULL)) == NULL)
 	{
 		close(fd);
 		return CTF_E_ELF_OPEN;
 	}
 
+	/* read the ELF header */
+	if (gelf_getehdr(elf, &elf_header) == NULL)
+	{
+		elf_end(elf);
+		close(fd);
+		return CTF_E_ELF_HEADER_CORRUPT;
+	}
+
 	/* find the CTF section */
-	struct _section* ctf_section = elf_section_find(elf, &elf_header,
-	    CTF_ELF_SECTION_SUNW_CTF);
+	ctf_section = elf_section_find(elf, &elf_header, CTF_ELF_SECTION_SUNW_CTF);
+	if (ctf_section == NULL)
+	{
+		elf_end(elf);
+		close(fd);
+		return CTF_E_NO_CTF_SECTION;
+	}
 
-	/* find the string table section */
-	struct _section* strtab_section = elf_section_find(elf, &elf_header,
-	    CTF_ELF_SECTION_STRTAB);
+	/* find the string table section (might be NULL) */
+	strtab = elf_section_find(elf, &elf_header, CTF_ELF_SECTION_STRTAB);
 
-	/* find the symbol table section */
-	struct _section* symtab_section = elf_section_find(elf, &elf_header,
-	    CTF_ELF_SECTION_SYMTAB);
+	/* find the symbol table section (might be NULL) */
+	symtab = elf_section_find(elf, &elf_header, CTF_ELF_SECTION_SYMTAB);
 
 	/* we do not need the ELF data anymore */
 	elf_end(elf);
 
 	/* call the raw data parsing function */
-	rv = ctf_file_read_data(filename, ctf_section, symtab_section, strtab_section, 
-	    file);
+	rv = ctf_file_read_data(path, ctf_section, symtab, strtab, file);
 
 	free(ctf_section->data);
 	free(ctf_section);
-	free(strtab_section->data);
-	free(strtab_section);
-	free(symtab_section->data);
-	free(symtab_section);
+	free(strtab->data);
+	free(strtab);
+	free(symtab->data);
+	free(symtab);
 	close(fd);
 
 	return rv;
