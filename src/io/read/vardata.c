@@ -24,13 +24,16 @@ CTF_MALLOC_DECLARE();
 struct ctf_int*
 _ctf_read_int_vardata (void* data)
 {
-	uint32_t* raw = (uint32_t*)data;
-	struct ctf_int* vardata = CTF_MALLOC(CTF_INT_SIZE);
+	uint32_t* raw;
+	struct ctf_int* vardata;
+	uint8_t encoding;
 
+	raw = (uint32_t*)data;
+	encoding = (*raw & _CTF_INT_FLOAT_ENCODING_MASK) >> 24; 
+
+	vardata = CTF_MALLOC(CTF_INT_SIZE);
 	vardata->offset = (*raw & _CTF_INT_FLOAT_OFFSET_MASK) >> 16;
 	vardata->size = *raw & _CTF_INT_FLOAT_SIZE_MASK;
-
-	uint8_t encoding = (*raw & _CTF_INT_FLOAT_ENCODING_MASK) >> 24; 
 	vardata->is_signed = encoding & _CTF_INT_SIGNED;
 
 	if (encoding & _CTF_INT_CHAR)
@@ -46,11 +49,14 @@ _ctf_read_int_vardata (void* data)
 }
 
 struct ctf_float*
-_ctf_read_float_vardata (void* data)
+_ctf_read_float_vardata(void* data)
 {
-	uint32_t* raw = (uint32_t*)data;
-	struct ctf_float* vardata = CTF_MALLOC(CTF_FLOAT_SIZE);
+	uint32_t* raw;
+	struct ctf_float* vardata;
 
+	raw = (uint32_t*)data;
+
+	vardata = CTF_MALLOC(CTF_FLOAT_SIZE);
 	vardata->encoding = (*raw & _CTF_INT_FLOAT_ENCODING_MASK) >> 24; 
 	vardata->offset = (*raw & _CTF_INT_FLOAT_OFFSET_MASK) >> 16;
 	vardata->size = *raw & _CTF_INT_FLOAT_SIZE_MASK;
@@ -59,11 +65,14 @@ _ctf_read_float_vardata (void* data)
 }
 
 struct ctf_array*
-_ctf_read_array_vardata (void* data)
+_ctf_read_array_vardata(void* data)
 {
-	struct _ctf_array* raw = (struct _ctf_array*)data;
-	struct ctf_array* array = CTF_MALLOC(CTF_ARRAY_SIZE);
+	struct _ctf_array* raw;
+	struct ctf_array* array;
 
+	raw = (struct _ctf_array*)data;
+
+	array = CTF_MALLOC(CTF_ARRAY_SIZE);
 	array->length = raw->element_count;
 	array->content_id = raw->content_type;
 
@@ -71,14 +80,14 @@ _ctf_read_array_vardata (void* data)
 }
 
 void
-_ctf_read_function_vardata (struct m_list* arguments,
-                            void* data,
-														uint16_t length)
+_ctf_read_function_vardata(struct m_list* arguments,
+                           void* data,
+                           uint16_t length)
 {
 	struct ctf_argument* argument;
 	uint16_t i;
 	uint16_t* raw_arguments;
-	
+
 	m_list_init(arguments);
 	raw_arguments = (uint16_t*)data;
 	for (i = 0; i < length; i++)
@@ -91,15 +100,15 @@ _ctf_read_function_vardata (struct m_list* arguments,
 }
 
 void
-_ctf_read_enum_vardata (struct m_list* entries,
-                        void* data,
-												uint16_t length,
-												struct _strings* strings)
+_ctf_read_enum_vardata(struct m_list* entries,
+                       void* data,
+                       uint16_t length,
+                       struct _strings* strings)
 {
 	struct _ctf_enum_entry* raw_entries;
 	struct ctf_enum_entry* entry;
 	uint16_t i;
-	
+
 	m_list_init(entries);
 	raw_entries = (struct _ctf_enum_entry*)data;
 	for (i = 0; i < length; i++)
@@ -113,11 +122,11 @@ _ctf_read_enum_vardata (struct m_list* entries,
 }
 
 void
-_ctf_read_struct_union_vardata (struct m_list* members,
-                                void* data,
-																uint16_t length,
-																uint64_t size, 
-																struct _strings* strings)
+_ctf_read_struct_union_vardata(struct m_list* members,
+                               void* data,
+                               uint16_t length,
+                               uint64_t size, 
+                               struct _strings* strings)
 {
 	struct ctf_member* member;
 	struct _ctf_small_member* small_member;
