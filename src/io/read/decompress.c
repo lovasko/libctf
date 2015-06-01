@@ -9,7 +9,7 @@
 #define _CTF_DECOMPRESS_CHUNK_SIZE 16384 
 
 struct _section*
-_ctf_decompress (struct _section* to_decompress)
+_ctf_decompress(struct _section* to_decompress)
 {
 	int ret;
 	z_stream stream;
