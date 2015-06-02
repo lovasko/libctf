@@ -225,6 +225,7 @@ elf_section_find (Elf* elf, GElf_Ehdr* elf_header, const char* to_find)
 
 			result = malloc(_SECTION_SIZE);
 			result->size = data->d_size;
+			result->elf_data = data;
 			result->data = malloc(data->d_size);
 			memcpy(result->data, data->d_buf, data->d_size);
 
