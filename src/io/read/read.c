@@ -207,11 +207,11 @@ ctf_file_read_data(const char* filename,
 static struct _section*
 elf_section_find (Elf* elf, GElf_Ehdr* elf_header, const char* to_find)
 {
+	Elf_Data* data;
 	Elf_Scn* section;
 	GElf_Shdr section_header;
 	char* section_name;
 	struct _section* result;
-	Elf_Data* data;
 	
 	section = NULL;
 	while ((section = elf_nextscn(elf, section)) != 0)
@@ -285,11 +285,11 @@ ctf_file_read(const char* path, ctf_file* file)
 	/* find the symbol table section (might be NULL) */
 	symtab = elf_section_find(elf, &elf_header, CTF_ELF_SECTION_SYMTAB);
 
-	/* we do not need the ELF data anymore */
-	elf_end(elf);
-
 	/* call the raw data parsing function */
 	rv = ctf_file_read_data(path, ctf_section, symtab, strtab, file);
+
+	/* we do not need the ELF data anymore */
+	elf_end(elf);
 
 	free(ctf_section->data);
 	free(ctf_section);
