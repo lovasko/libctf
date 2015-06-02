@@ -92,6 +92,7 @@ _ctf_read_functions_and_objects(struct ctf_file* file,
 				function = CTF_MALLOC(CTF_FUNCTION_SIZE);
 				function->name = CTF_STRDUP(name);
 				function->return_type = _ctf_lookup_type(file, type_reference);
+				m_list_init(&function->arguments);
 
 				for (unsigned int k = 0; k < vardata_length; k++)
 				{
