@@ -107,8 +107,8 @@ function_arguments_string(ctf_function function, char** string)
 	}
 
 	/* delete the last ", " (comma and space) */
-	result[head--] = '\0';
-	result[head--] = '\0';
+	if (head > 0) result[head--] = '\0';
+	if (head > 0) result[head--] = '\0';
 
 	*string = strdup(result);
 	return CTF_OK;
