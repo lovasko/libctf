@@ -3,6 +3,7 @@
 	#include <sys/malloc.h>
 #else
 	#include <libelf.h>
+	#include <gelf.h>
 	#include <stdlib.h>
 	#include <string.h>
 #endif
@@ -15,35 +16,46 @@ CTF_MALLOC_DECLARE();
 
 int
 _ctf_read_functions_and_objects(struct ctf_file* file,
-                                struct _section* symtab_section,
+                                struct _section* symtab,
                                 struct _section* object_section,
                                 struct _section* function_section,
                                 struct _strings* strings)
 {
-	size_t symbol_size = sizeof(Elf32_Sym);
-	unsigned int symbol_count = symtab_section->size / symbol_size;
+	unsigned int i;
+	unsigned int k;
+	unsigned int object_offset;
+	unsigned int function_offset;
+	char* name;
+	GElf_Sym symbol;
+	uint16_t type_reference;
+	uint16_t info;
+	uint8_t vardata_length;
+	struct ctf_function* function;
+	struct ctf_argument* argument;
 
-	unsigned int object_offset = 0;
-	unsigned int function_offset = 0;
+	object_offset = 0;
+	function_offset = 0;
 
 	m_list_init(&file->data_objects);
 	m_list_init(&file->function_objects);
 
-	for (unsigned int i = 0; i < symbol_count; i++)
+	if (symtab == NULL || strings == NULL || strings->elf == NULL)
+		return CTF_OK;
+
+	for (i = 0; ; i++)
 	{
-		Elf32_Sym* symbol = (Elf32_Sym*)(symtab_section->data + i * symbol_size);
+		if (gelf_getsym(symtab->elf_data, i, &symbol) == NULL)
+			break;
 
-		/* FIXME strings->elf can be NULL */
-		char* name;
-		if (symbol->st_name < strings->elf->size)
-			name = strings->elf->data + symbol->st_name;
+		if (symbol.st_name < strings->elf->size)
+			name = strings->elf->data + symbol.st_name;
 		else
-			name = NULL;
-
-		if (symbol->st_name == 0)
 			continue;
 
-		if (symbol->st_shndx == SHN_UNDEF)
+		if (symbol.st_name == 0)
+			continue;
+
+		if (symbol.st_shndx == SHN_UNDEF)
 			continue;
 
 		if (strcmp(name, "_START_") == 0)
@@ -52,18 +64,13 @@ _ctf_read_functions_and_objects(struct ctf_file* file,
 		if (strcmp(name, "_END_") == 0)
 			continue;
 
-		uint16_t type_reference;
-		uint16_t info;
-		uint8_t vardata_length;
-		struct ctf_function* function;
-		struct ctf_argument* argument;
 
 		uint16_t* fp = (uint16_t*)(function_section->data);
 
-		switch (ELF32_ST_TYPE(symbol->st_info))
+		switch (GELF_ST_TYPE(symbol.st_info))
 		{
 			case STT_OBJECT:
-				if (symbol->st_shndx == SHN_ABS && symbol->st_value == 0)
+				if (symbol.st_shndx == SHN_ABS && symbol.st_value == 0)
 					break;
 
 				type_reference = *((uint16_t*)(object_section->data + object_offset));
@@ -72,8 +79,8 @@ _ctf_read_functions_and_objects(struct ctf_file* file,
 				struct ctf_data_object* data_object = CTF_MALLOC(CTF_DATA_OBJECT_SIZE);
 				data_object->name = CTF_STRDUP(name);
 				data_object->type = _ctf_lookup_type(file, type_reference);
-				data_object->value = symbol->st_value;
-				data_object->size = symbol->st_size;
+				data_object->value = symbol.st_value;
+				data_object->size = symbol.st_size;
 
 				m_list_append(&file->data_objects, M_LIST_COPY_SHALLOW, data_object, 0);
 			break;
@@ -94,7 +101,7 @@ _ctf_read_functions_and_objects(struct ctf_file* file,
 				function->return_type = _ctf_lookup_type(file, type_reference);
 				m_list_init(&function->arguments);
 
-				for (unsigned int k = 0; k < vardata_length; k++)
+				for (k = 0; k < vardata_length; k++)
 				{
 					type_reference = *(fp + function_offset);
 					function_offset++;
