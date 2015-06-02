@@ -1,7 +1,8 @@
-#ifndef CTF_SECTION_H
-#define CTF_SECTION_H
+#ifndef CTF_UTIL_SECTION_H
+#define CTF_UTIL_SECTION_H
 
 #include <stdlib.h>
+#include <libelf.h>
 
 /**
  * Simplified representation of universal data section.
@@ -14,6 +15,7 @@ struct _section
 {
 	void* data; /**< binary data */
 	size_t size; /**< size in bytes */
+	Elf_Data* elf_data; /**< optional associated ELF data */
 };
 #define _SECTION_SIZE sizeof(struct _section)
 
