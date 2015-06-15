@@ -1,9 +1,9 @@
 #ifndef CTF_LABEL_H
 #define CTF_LABEL_H
 
-/* #include <sys/queue.h> */
 #include <sys/stdint.h>
 
+#include "api/create.h"
 #include "api/memory_usage.h"
 #include "api/property.h"
 
@@ -40,6 +40,8 @@ _CTF_SET_PROPERTY_PROTO(ctf_label_set_name, ctf_label, char*)
 
 _CTF_GET_PROPERTY_PROTO(ctf_label_get_index, ctf_label, ctf_label_index)
 _CTF_SET_PROPERTY_PROTO(ctf_label_set_index, ctf_label, ctf_label_index)
+
+_CTF_CREATE_PROTO(ctf_label_create, ctf_label)
 
 _CTF_MEMORY_USAGE_PROTO(ctf_label_memory_usage, ctf_label)
 

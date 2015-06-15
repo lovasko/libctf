@@ -26,6 +26,11 @@ _CTF_SET_PROPERTY_IMPL(
 	ctf_label_index,
 	index)
 
+_CTF_CREATE_IMPL(
+	ctf_label_create,
+	ctf_label,
+	CTF_LABEL_SIZE)
+
 size_t
 ctf_label_memory_usage (ctf_label label)
 {
