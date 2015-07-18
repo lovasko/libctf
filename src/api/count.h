@@ -19,7 +19,7 @@ FUNCTION_NAME(OBJECT_TYPE object, ctf_count* out_count) \
 	uint64_t size; \
 	if (object == NULL || out_count == NULL) \
 		return CTF_E_NULL; \
-	m_list_size(&object->LIST_NAME, &size); \
+	m_list_length(&object->LIST_NAME, &size); \
 	*out_count = size; \
 	return CTF_OK; \
 }

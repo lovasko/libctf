@@ -79,7 +79,7 @@ function_arguments_string(ctf_function function, char** string)
 	head = 0;
 	memset(result, '\0', 2048);
 
-	m_list_size(&function->arguments, &size);
+	m_list_length(&function->arguments, &size);
 	if (size == 0)
 	{
 		*string = strdup("void");
